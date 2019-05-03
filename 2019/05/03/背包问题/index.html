@@ -99,14 +99,14 @@
   <meta name="description" content="1234567891011121314151617181920#include &amp;lt;iostream&amp;gt;using namespace std;//01背包问题int main ()&amp;#123;    int v,n,a[31],dp[20001]=&amp;#123;0&amp;#125;;    cin&amp;gt;&amp;gt;v&amp;gt;&amp;gt;n;    for(int i=1; i&amp;lt;=n; i++)&amp;">
 <meta name="keywords" content="算法,背包问题">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java反射获取方法和属性">
+<meta property="og:title" content="背包问题">
 <meta property="og:url" content="http://huang-ray.com/2019/05/03/背包问题/index.html">
 <meta property="og:site_name" content="lei&#39;s blog site">
 <meta property="og:description" content="1234567891011121314151617181920#include &amp;lt;iostream&amp;gt;using namespace std;//01背包问题int main ()&amp;#123;    int v,n,a[31],dp[20001]=&amp;#123;0&amp;#125;;    cin&amp;gt;&amp;gt;v&amp;gt;&amp;gt;n;    for(int i=1; i&amp;lt;=n; i++)&amp;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-03T07:54:24.313Z">
+<meta property="og:updated_time" content="2019-05-03T07:56:59.006Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java反射获取方法和属性">
+<meta name="twitter:title" content="背包问题">
 <meta name="twitter:description" content="1234567891011121314151617181920#include &amp;lt;iostream&amp;gt;using namespace std;//01背包问题int main ()&amp;#123;    int v,n,a[31],dp[20001]=&amp;#123;0&amp;#125;;    cin&amp;gt;&amp;gt;v&amp;gt;&amp;gt;n;    for(int i=1; i&amp;lt;=n; i++)&amp;">
 
 
@@ -125,7 +125,7 @@
   };
 </script>
 
-  <title>Java反射获取方法和属性 | lei's blog site</title>
+  <title>背包问题 | lei's blog site</title>
   
 
 
@@ -341,7 +341,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java反射获取方法和属性
+          <h1 class="post-title" itemprop="name headline">背包问题
 
               
             
@@ -367,7 +367,7 @@
                 
               
 
-              <time title="创建时间：2019-05-03 00:00:00 / 修改时间：15:54:24" itemprop="dateCreated datePublished" datetime="2019-05-03T00:00:00+08:00">2019-05-03</time>
+              <time title="创建时间：2019-05-03 00:00:00 / 修改时间：15:56:59" itemprop="dateCreated datePublished" datetime="2019-05-03T00:00:00+08:00">2019-05-03</time>
             
 
             
@@ -385,6 +385,17 @@
           
 
           
+          
+            <span id="/2019/05/03/背包问题/" class="leancloud_visitors" data-flag-title="背包问题">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
           
 
           
@@ -563,12 +574,19 @@
                 <span class="links-of-author-item">
                   
                   
-                    
-                  
                   
                     
                   
-                  <a href="https://github.com/autumnLei" title="GitHub &rarr; https://github.com/autumnLei" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  <a href="https://github.com/autumnLei" title="GitHub &rarr; https://github.com/autumnLei" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="mailto:july.breeze.hl@gmail.com" title="E-Mail &rarr; mailto:july.breeze.hl@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
                 </span>
               
             </div>
@@ -604,7 +622,7 @@
       <div class="footer-inner">
         <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-mars"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">lei</span>
 
@@ -740,6 +758,66 @@
 
 
   
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .done(function() {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.time + 1);
+              })
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text('Counter not initialized! More info at console err msg.');
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + 'Y4fHio6MUSVvN3JtspgMLcko-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': 'Y4fHio6MUSVvN3JtspgMLcko-gzGzoHsz',
+                'X-LC-Key': 'fsf9AbkLS83tzAvqEMa48m7r',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
 
   
 
