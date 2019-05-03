@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="登录数据库: mysql -u用户名字 -p密码">
-<meta name="keywords" content="数据库,Linux">
+  <meta name="description" content="基于Android Studio 3.1.2  app/build.gradle 文件中添加依赖  版本号跟android-support-v7包一致&amp;lt;!- more –&amp;gt; 123implementation &amp;apos;com.android.support:recyclerview-v7:27.1.1&amp;apos;//Glide图片加载库implementation &amp;apos;co">
+<meta name="keywords" content="Android,recycleview,glide">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux 数据库基本命令行操作">
-<meta property="og:url" content="http://huang-ray.com/2019/04/30/Linux 数据库常用命令行操作/index.html">
+<meta property="og:title" content="recycleview&amp;glide Demo">
+<meta property="og:url" content="http://huang-ray.com/2019/05/04/recycleview-glide-Demo/index.html">
 <meta property="og:site_name" content="lei&#39;s blog site">
-<meta property="og:description" content="登录数据库: mysql -u用户名字 -p密码">
+<meta property="og:description" content="基于Android Studio 3.1.2  app/build.gradle 文件中添加依赖  版本号跟android-support-v7包一致&amp;lt;!- more –&amp;gt; 123implementation &amp;apos;com.android.support:recyclerview-v7:27.1.1&amp;apos;//Glide图片加载库implementation &amp;apos;co">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-03T15:02:56.856Z">
+<meta property="og:updated_time" content="2019-05-03T17:14:57.263Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux 数据库基本命令行操作">
-<meta name="twitter:description" content="登录数据库: mysql -u用户名字 -p密码">
+<meta name="twitter:title" content="recycleview&amp;glide Demo">
+<meta name="twitter:description" content="基于Android Studio 3.1.2  app/build.gradle 文件中添加依赖  版本号跟android-support-v7包一致&amp;lt;!- more –&amp;gt; 123implementation &amp;apos;com.android.support:recyclerview-v7:27.1.1&amp;apos;//Glide图片加载库implementation &amp;apos;co">
 
 
 
@@ -115,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="http://huang-ray.com/2019/04/30/Linux 数据库常用命令行操作/">
+  <link rel="canonical" href="http://huang-ray.com/2019/05/04/recycleview-glide-Demo/">
 
 
 
@@ -125,7 +125,7 @@
   };
 </script>
 
-  <title>Linux 数据库基本命令行操作 | lei's blog site</title>
+  <title>recycleview&glide Demo | lei's blog site</title>
   
 
 
@@ -324,7 +324,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huang-ray.com/2019/04/30/Linux 数据库常用命令行操作/">
+    <link itemprop="mainEntityOfPage" href="http://huang-ray.com/2019/05/04/recycleview-glide-Demo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lei">
@@ -341,7 +341,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Linux 数据库基本命令行操作
+          <h1 class="post-title" itemprop="name headline">recycleview&glide Demo
 
               
             
@@ -369,7 +369,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-05-03 23:02:56" itemprop="dateModified" datetime="2019-05-03T23:02:56+08:00">2019-05-03</time>
+                <time title="修改时间：2019-05-04 01:14:57" itemprop="dateModified" datetime="2019-05-04T01:14:57+08:00">2019-05-04</time>
               
             
           </span>
@@ -383,7 +383,7 @@
 
           
           
-            <span id="/2019/04/30/Linux 数据库常用命令行操作/" class="leancloud_visitors" data-flag-title="Linux 数据库基本命令行操作">
+            <span id="/2019/05/04/recycleview-glide-Demo/" class="leancloud_visitors" data-flag-title="recycleview&glide Demo">
               <span class="post-meta-divider">|</span>
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -410,7 +410,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">245</span>
+                <span title="本文字数">2.7k</span>
               
 
               
@@ -434,13 +434,20 @@
       
 
       
-        <p>登录数据库: mysql -u用户名字 -p密码<br><a id="more"></a><br>//不要漏了“；”<br>显示数据库: show databases; </p>
-<p>创建数据库: create database 数据库名字;</p>
-<p>选择数据库: use 数据库名字 ;</p>
-<p>直接删除数据库不提醒: drop database 数据库名字;</p>
-<p>显示表选中数据库的所有表名: show tables;</p>
-<p>显示选中数据库的某个表具体结构: describe 表名;</p>
-<p>导入sql文件: mysql&gt;source /var/www/html/xxx.sql;</p>
+        <p>基于Android Studio 3.1.2</p>
+<ol>
+<li><p>app/build.gradle 文件中添加依赖  版本号跟android-support-v7包一致&lt;!- more –&gt;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">implementation &apos;com.android.support:recyclerview-v7:27.1.1&apos;</span><br><span class="line">//Glide图片加载库</span><br><span class="line">implementation &apos;com.github.bumptech.glide:glide:4.2.0&apos;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在activity_main.xml中添加布局</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;</span><br><span class="line">    xmlns:tools=&quot;http://schemas.android.com/tools&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;</span><br><span class="line">    tools:context=&quot;.MainActivity&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;android.support.v7.widget.RecyclerView</span><br><span class="line">        android:id=&quot;@+id/recyclerview&quot;</span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;match_parent&quot;/&gt;</span><br><span class="line">    </span><br><span class="line">&lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在layout文件下新建item_main.xml作为每个item的布局 暂时只放一个imageview</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;LinearLayout</span><br><span class="line">    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;wrap_content&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;ImageView</span><br><span class="line">        android:id=&quot;@+id/imageview&quot;</span><br><span class="line">        android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">        android:layout_height=&quot;250dp&quot; /&gt;</span><br><span class="line">&lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新建adapter文件夹 建立recyclerview对应adapter文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">public class MainRecyclerViewAdapter extends RecyclerView.Adapter&lt;MainRecyclerViewAdapter.ViewHolder&gt;&#123;</span><br><span class="line"></span><br><span class="line">    private List&lt;String&gt; list;</span><br><span class="line">    private Context context;</span><br><span class="line"></span><br><span class="line">    //自定义ViewHolder,包含item的所有界面元素</span><br><span class="line">    public static class ViewHolder extends RecyclerView.ViewHolder &#123;</span><br><span class="line">        ImageView imageView;</span><br><span class="line">        public ViewHolder(View view) &#123;</span><br><span class="line">            super(view);</span><br><span class="line">            imageView = (ImageView) view.findViewById(R.id.imageview);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public MainRecyclerViewAdapter(Context context, List&lt;String&gt; list)&#123;</span><br><span class="line">        this.context = context;</span><br><span class="line">        this.list = list;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onBindViewHolder(@NonNull ViewHolder holder, int position) &#123;</span><br><span class="line">        String url = list.get(position);</span><br><span class="line">        if (url != null)&#123;</span><br><span class="line">            Glide.with(context).load(url).into(holder.imageView);</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public int getItemCount() &#123;</span><br><span class="line">        return list.size();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @NonNull</span><br><span class="line">    @Override</span><br><span class="line">    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) &#123;</span><br><span class="line">        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main, parent, false);</span><br><span class="line">        ViewHolder viewHolder = new ViewHolder(view);</span><br><span class="line">        return viewHolder;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
 
       
     </div>
@@ -464,9 +471,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/数据库/" rel="tag"># 数据库</a>
+            <a href="/tags/Android/" rel="tag"># Android</a>
           
-            <a href="/tags/Linux/" rel="tag"># Linux</a>
+            <a href="/tags/recycleview/" rel="tag"># recycleview</a>
+          
+            <a href="/tags/glide/" rel="tag"># glide</a>
           
         </div>
       
@@ -479,8 +488,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/30/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2019/05/03/背包问题/" rel="next" title="背包问题">
+                <i class="fa fa-chevron-left"></i> 背包问题
               </a>
             
           </div>
@@ -488,10 +497,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/05/02/Java反射获取方法和属性/" rel="prev" title="Java反射获取方法和属性">
-                Java反射获取方法和属性 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
