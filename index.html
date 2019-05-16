@@ -370,7 +370,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-05-16 18:05:22" itemprop="dateModified" datetime="2019-05-16T18:05:22+08:00">2019-05-16</time>
+                <time title="修改时间：2019-05-16 18:46:10" itemprop="dateModified" datetime="2019-05-16T18:46:10+08:00">2019-05-16</time>
               
             
           </span>
@@ -436,12 +436,40 @@
 
       
         
-          
-            <p>###左右下式布局 右方布局放大全屏动画<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">mShowAnimator = ValueAnimator.ofFloat(0f, 1f);</span><br><span class="line">mShowAnimator.setDuration(800);</span><br><span class="line">mShowAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void onAnimationUpdate(ValueAnimator animation) &#123;</span><br><span class="line">    	// animation.getAnimatedValue()返回动画进度，从0f到1f</span><br><span class="line">        float left = leftView.getWidth() * (float)animation.getAnimatedValue();</span><br><span class="line">        float bottom = bottomView.getHeight() * (float)animation.getAnimatedValue();</span><br><span class="line"></span><br><span class="line">        // 左侧布局左移出屏幕</span><br><span class="line">        leftView.setTranslationX(-left);</span><br><span class="line">        // 下方布局下移出屏幕</span><br><span class="line">        bottomView.setTranslationY(bottom);</span><br><span class="line"></span><br><span class="line">        // 右边布局横向放大 放大同时不断向左平移并修正基点</span><br><span class="line">        rightView.setTranslationX(-left);</span><br><span class="line">        rightView.setPivotX(0);</span><br><span class="line">        rightView.setPivotY(0);</span><br><span class="line">        rightView.setScaleX(1 + left / rightViewWidth);</span><br><span class="line">        rightView.setScaleY(1 + bottom / rightViewHeight);</span><br><span class="line"></span><br><span class="line">        // 布局中的imageview或者其它控件 - 右边布局放大占据全屏时 设置布局中photoView的大小</span><br><span class="line">        if(PictureListData.getInstance().mPictureList.size() == 1)&#123;</span><br><span class="line">            ViewGroup.LayoutParams params = mPhotoView.getLayoutParams();</span><br><span class="line">            params.height = rightViewHeight + (int)bottom;</span><br><span class="line">            params.width = rightViewWidth + (int)left;</span><br><span class="line">            mPhotoView.setLayoutParams(posterParams);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">mShowAnimator.start();</span><br></pre></td></tr></table></figure></p>
-<p>###变化前布局<br><img src="/2019/05/16/左右下布局/before.png" alt></p>
-<p>###变化后布局<br><img src="/2019/05/16/左右下布局/fater.png" alt></p>
+          <p>###左右下式布局 右方布局放大全屏动画<br><code>`</code><br>    mShowAnimator = ValueAnimator.ofFloat(0f, 1f);<br>    mShowAnimator.setDuration(800);<br>    mShowAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {<br>        @Override<br>        public void onAnimationUpdate(ValueAnimator animation) {<br>            // animation.getAnimatedValue()返回动画进度，从0f到1f<br>            float left = leftView.getWidth() <em> (float)animation.getAnimatedValue();<br>            float bottom = bottomView.getHeight() </em> (float)animation.getAnimatedValue();</p>
+<pre><code>        // 左侧布局左移出屏幕
+        leftView.setTranslationX(-left);
+        // 下方布局下移出屏幕
+        bottomView.setTranslationY(bottom);
 
+        // 右边布局横向放大 放大同时不断向左平移并修正基点
+        rightView.setTranslationX(-left);
+        rightView.setPivotX(0);
+        rightView.setPivotY(0);
+        rightView.setScaleX(1 + left / rightViewWidth);
+        rightView.setScaleY(1 + bottom / rightViewHeight);
+
+        // 布局中的imageview或者其它控件 - 右边布局放大占据全屏时 设置布局中photoView的大小
+        if(PictureListData.getInstance().mPictureList.size() == 1){
+            ViewGroup.LayoutParams params = mPhotoView.getLayoutParams();
+            params.height = rightViewHeight + (int)bottom;
+            params.width = rightViewWidth + (int)left;
+            mPhotoView.setLayoutParams(posterParams);
+        }
+
+    }
+});
+mShowAnimator.start(); 
+</code></pre><p><code>`</code></p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/05/16/左右下布局/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
