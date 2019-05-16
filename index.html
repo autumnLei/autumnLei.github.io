@@ -15,9 +15,8 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head>
-<meta name="generator" content="Hexo 3.8.0">
-<meta charset="UTF-8">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
@@ -28,6 +27,9 @@
 
 
 
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -122,7 +124,6 @@
 </script>
 
   <title>lei's blog site</title>
-  <meta name="google-site-verification" content="google91f03f203cc90e1f">
   
 
 
@@ -322,6 +323,179 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huang-ray.com/2019/05/16/左右下布局/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lei">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lei's blog site">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/16/左右下布局/" class="post-title-link" itemprop="url">左右下布局</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+
+            
+              
+
+              
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-16 18:05:22" itemprop="dateModified" datetime="2019-05-16T18:05:22+08:00">2019-05-16</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+            <span id="/2019/05/16/左右下布局/" class="leancloud_visitors" data-flag-title="左右下布局">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">1.3k</span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>###左右下式布局 右方布局放大全屏动画<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">mShowAnimator = ValueAnimator.ofFloat(0f, 1f);</span><br><span class="line">mShowAnimator.setDuration(800);</span><br><span class="line">mShowAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void onAnimationUpdate(ValueAnimator animation) &#123;</span><br><span class="line">    	// animation.getAnimatedValue()返回动画进度，从0f到1f</span><br><span class="line">        float left = leftView.getWidth() * (float)animation.getAnimatedValue();</span><br><span class="line">        float bottom = bottomView.getHeight() * (float)animation.getAnimatedValue();</span><br><span class="line"></span><br><span class="line">        // 左侧布局左移出屏幕</span><br><span class="line">        leftView.setTranslationX(-left);</span><br><span class="line">        // 下方布局下移出屏幕</span><br><span class="line">        bottomView.setTranslationY(bottom);</span><br><span class="line"></span><br><span class="line">        // 右边布局横向放大 放大同时不断向左平移并修正基点</span><br><span class="line">        rightView.setTranslationX(-left);</span><br><span class="line">        rightView.setPivotX(0);</span><br><span class="line">        rightView.setPivotY(0);</span><br><span class="line">        rightView.setScaleX(1 + left / rightViewWidth);</span><br><span class="line">        rightView.setScaleY(1 + bottom / rightViewHeight);</span><br><span class="line"></span><br><span class="line">        // 布局中的imageview或者其它控件 - 右边布局放大占据全屏时 设置布局中photoView的大小</span><br><span class="line">        if(PictureListData.getInstance().mPictureList.size() == 1)&#123;</span><br><span class="line">            ViewGroup.LayoutParams params = mPhotoView.getLayoutParams();</span><br><span class="line">            params.height = rightViewHeight + (int)bottom;</span><br><span class="line">            params.width = rightViewWidth + (int)left;</span><br><span class="line">            mPhotoView.setLayoutParams(posterParams);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">mShowAnimator.start();</span><br></pre></td></tr></table></figure></p>
+<p>###变化前布局<br><img src="/2019/05/16/左右下布局/before.png" alt></p>
+<p>###变化后布局<br><img src="/2019/05/16/左右下布局/fater.png" alt></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://huang-ray.com/2019/05/06/在onCreate-中调用finish-方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -369,7 +543,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-05-06 09:37:53" itemprop="dateModified" datetime="2019-05-06T09:37:53+08:00">2019-05-06</time>
+                <time title="修改时间：2019-05-16 17:37:15" itemprop="dateModified" datetime="2019-05-16T17:37:15+08:00">2019-05-16</time>
               
             
           </span>
@@ -410,7 +584,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">505</span>
+                <span title="本文字数">521</span>
               
 
               
@@ -438,7 +612,7 @@
           
             <h4 id="在onCreate-中调用finish-方法"><a href="#在onCreate-中调用finish-方法" class="headerlink" title="在onCreate()中调用finish()方法"></a>在onCreate()中调用finish()方法</h4><p>生命周期变化 onCreate()-&gt;onDestroy();<br>同时finish()方法后的代码段仍然会执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">    super.onCreate(savedInstanceState);</span><br><span class="line">    setContentView(R.layout.activity_main);</span><br><span class="line">        Log.d(TAG, &quot;onCreate: a&quot;);</span><br><span class="line">        finish();</span><br><span class="line">        Log.d(TAG, &quot;onCreate: b&quot;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
 <p>输出：<br>    onCreate: a<br>    onCreate: b</p>
-<h4 id="在onPause-onStop-onDestroy-中调用finish-方法"><a href="#在onPause-onStop-onDestroy-中调用finish-方法" class="headerlink" title="在onPause(), onStop(), onDestroy()中调用finish()方法"></a>在onPause(), onStop(), onDestroy()中调用finish()方法</h4><p>生命周期不变 onCreate()-&gt;onPause()-&gt;onStop-&gt;onDestroy();<br>注意 – finish()后的代码仍会执行</p>
+<h4 id="在onPause-onStop-onDestroy-中调用finish-方法"><a href="#在onPause-onStop-onDestroy-中调用finish-方法" class="headerlink" title="在onPause(), onStop(), onDestroy()中调用finish()方法"></a>在onPause(), onStop(), onDestroy()中调用finish()方法</h4><p>生命周期不变 onCreate()-&gt;onPause()-&gt;onStop-&gt;onDestroy();<br>注意 – 方法内finish()后的代码仍会执行 可用return语句打断</p>
 
           
         
@@ -1197,183 +1371,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huang-ray.com/2019/04/30/Linux 数据库常用命令行操作/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lei">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lei's blog site">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/30/Linux 数据库常用命令行操作/" class="post-title-link" itemprop="url">Linux 数据库基本命令行操作</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-
-            
-              
-
-              
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-05-03 23:02:56" itemprop="dateModified" datetime="2019-05-03T23:02:56+08:00">2019-05-03</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-            <span id="/2019/04/30/Linux 数据库常用命令行操作/" class="leancloud_visitors" data-flag-title="Linux 数据库基本命令行操作">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读次数：</span>
-              
-                <span class="leancloud-visitors-count"></span>
-            </span>
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">245</span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>登录数据库: mysql -u用户名字 -p密码<br></p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/04/30/Linux 数据库常用命令行操作/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://huang-ray.com/2019/04/30/android O 实现通知并兼容低版本/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1538,6 +1535,183 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huang-ray.com/2019/04/30/Linux 数据库常用命令行操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lei">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lei's blog site">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/30/Linux 数据库常用命令行操作/" class="post-title-link" itemprop="url">Linux 数据库基本命令行操作</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+
+            
+              
+
+              
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-03 23:02:56" itemprop="dateModified" datetime="2019-05-03T23:02:56+08:00">2019-05-03</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+            <span id="/2019/04/30/Linux 数据库常用命令行操作/" class="leancloud_visitors" data-flag-title="Linux 数据库基本命令行操作">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">245</span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>登录数据库: mysql -u用户名字 -p密码<br></p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/04/30/Linux 数据库常用命令行操作/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -1582,7 +1756,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1617,7 +1791,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1695,7 +1871,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">11k</span>
+    <span title="站点总字数">12k</span>
   
 
   
