@@ -107,7 +107,7 @@
 <meta property="og:site_name" content="lei&#39;s blog site">
 <meta property="og:description" content="2019-07-31 21:09:34.697 1151-1151/? A/DEBUG:                2019-07-31 21:09:34.697 1151-1151/? A/DEBUG: Build fingerprint: ‘HiDPT/Hi3751V811_DMO/Hi3751V811:8.0.0/OPR6.170623.013/iipjen07310959:user/r">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-31T13:21:17.080Z">
+<meta property="og:updated_time" content="2019-08-01T08:00:28.407Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jni定位">
 <meta name="twitter:description" content="2019-07-31 21:09:34.697 1151-1151/? A/DEBUG:                2019-07-31 21:09:34.697 1151-1151/? A/DEBUG: Build fingerprint: ‘HiDPT/Hi3751V811_DMO/Hi3751V811:8.0.0/OPR6.170623.013/iipjen07310959:user/r">
@@ -372,7 +372,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-07-31 21:21:17" itemprop="dateModified" datetime="2019-07-31T21:21:17+08:00">2019-07-31</time>
+                <time title="修改时间：2019-08-01 16:00:28" itemprop="dateModified" datetime="2019-08-01T16:00:28+08:00">2019-08-01</time>
               
             
           </span>
@@ -438,7 +438,8 @@
 
       
         <p>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG: <strong><em> </em></strong> <strong><em> </em></strong> <strong><em> </em></strong> <strong><em> </em></strong> <strong><em> </em></strong> <strong><em> </em></strong> <strong><em> </em></strong> <strong><em> </em></strong><br>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG: Build fingerprint: ‘HiDPT/Hi3751V811_DMO/Hi3751V811:8.0.0/OPR6.170623.013/iipjen07310959:user/release-keys’<br>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG: Revision: ‘0’<br>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG: ABI: ‘arm64’<br>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG: pid: 1104, tid: 1104, name: utmethod.pinyin  &gt;&gt;&gt; com.android.inputmethod.pinyin &lt;&lt;&lt;<br>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG: signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x4cbe05113242<br>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG:     x0   0000006ffe158100  x1   00004cbe05113242  x2   0000000000000002  x3   0000006fff0f9c88<br>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG:     x4   00000000000005aa  x5   0000007fc5597b54  x6   0000000000000000  x7   0000000000000073<br>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG:     x8   0000000000000002  x9   0000007fc5597438  x10  0000006fff0f9800  x11  0000000000000020<br>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG:     x12  0000000000000002  x13  0000000000000003  x14  0000000000008c01  x15  0000000000000003<br>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG:     x16  0000006ff3337850  x17  0000006ff33198c8  x18  0000000000000139  x19  0000000000000001<br>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG:     x20  0000006ffe158100  x21  0000000000000000  x22  0000000000000000  x23  0000000000000000<br>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG:     x24  000000000000000a  x25  0000000000000002  x26  00004cbe05113242  x27  0000007fc5596df8<br>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG:     x28  0000007fc5597438  x29  0000007fc5597ad0  x30  0000006ff3319940<br>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG:     sp   0000007fc5596da0  pc   0000006ff33154b0  pstate 0000000080000000<br>2019-07-31 21:09:34.698 1151-1151/? A/DEBUG: backtrace:<br>2019-07-31 21:09:34.698 1151-1151/? A/DEBUG:     #00 pc 00000000000104b0  /data/app/com.android.inputmethod.pinyin-T8RmRV3m7olzZhUmBZJinA==/lib/arm64/libjni_pinyinime.so (_ZN10ime_pinyin8DictTrie8get_lpisEPKttPNS_10LmaPsbItemEm+152)<br>2019-07-31 21:09:34.698 1151-1151/? A/DEBUG:     #01 pc 000000000001493c  /data/app/com.android.inputmethod.pinyin-T8RmRV3m7olzZhUmBZJinA==/lib/arm64/libjni_pinyinime.so (_ZN10ime_pinyin12MatrixSearch8get_lpisEPKtmPNS_10LmaPsbItemEmS2_b+116)</p>
-<h2 id="jni定位方法-cd-进入ndk找到r2line工具"><a href="#jni定位方法-cd-进入ndk找到r2line工具" class="headerlink" title="jni定位方法 cd 进入ndk找到r2line工具"></a>jni定位方法 cd 进入ndk找到r2line工具</h2><p>~/Library/Android/sdk/ndk/android-ndk-r14b/toolchains/aarch64-linux-android-4.9/prebuilt/darwin-x86_64/bin/aarch64-linux-android-addr2line -e libjni_pinyinime.so 00000000000104b0</p>
+<h2 id="jni定位方法"><a href="#jni定位方法" class="headerlink" title="jni定位方法"></a>jni定位方法</h2><p>cd 进入报错的so文件目录 然后输入</p>
+<p>~/Library/Android/sdk/ndk/android-ndk-r14b/toolchains/aarch64-linux-android-4.9/prebuilt/darwin-x86_64/bin/aarch64-linux-android-addr2line -e libjni_pinyinime.so 00000000000104b0</p>
 
       
     </div>
@@ -486,6 +487,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/31/jni打印log/" rel="prev" title="jni打印log">
+                jni打印log <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -556,7 +561,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -659,7 +664,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#jni定位方法-cd-进入ndk找到r2line工具"><span class="nav-number">1.</span> <span class="nav-text">jni定位方法 cd 进入ndk找到r2line工具</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#jni定位方法"><span class="nav-number">1.</span> <span class="nav-text">jni定位方法</span></a></li></ol></div>
             
 
           </div>

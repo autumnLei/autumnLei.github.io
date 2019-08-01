@@ -99,18 +99,18 @@
 
 
 
-  <meta name="description" content="在onCreate()中调用finish()方法生命周期变化 onCreate()-&amp;gt;onDestroy();同时finish()方法后的代码段仍然会执行12345678@Overrideprotected void onCreate(Bundle savedInstanceState) &amp;#123;    super.onCreate(savedInstanceState);    set">
-<meta name="keywords" content="Android">
+  <meta name="description" content="int len = 1;__android_log_print(ANDROID_LOG_ERROR, “PinyinIME”, “leb before: %d”, len);">
+<meta name="keywords" content="Android,jni">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在onCreate()中调用finish()方法">
-<meta property="og:url" content="http://huang-ray.com/2019/05/06/在onCreate-中调用finish-方法/index.html">
+<meta property="og:title" content="jni打印log">
+<meta property="og:url" content="http://huang-ray.com/2019/07/31/jni打印log/index.html">
 <meta property="og:site_name" content="lei&#39;s blog site">
-<meta property="og:description" content="在onCreate()中调用finish()方法生命周期变化 onCreate()-&amp;gt;onDestroy();同时finish()方法后的代码段仍然会执行12345678@Overrideprotected void onCreate(Bundle savedInstanceState) &amp;#123;    super.onCreate(savedInstanceState);    set">
+<meta property="og:description" content="int len = 1;__android_log_print(ANDROID_LOG_ERROR, “PinyinIME”, “leb before: %d”, len);">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-16T09:37:15.461Z">
+<meta property="og:updated_time" content="2019-07-31T13:30:45.166Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在onCreate()中调用finish()方法">
-<meta name="twitter:description" content="在onCreate()中调用finish()方法生命周期变化 onCreate()-&amp;gt;onDestroy();同时finish()方法后的代码段仍然会执行12345678@Overrideprotected void onCreate(Bundle savedInstanceState) &amp;#123;    super.onCreate(savedInstanceState);    set">
+<meta name="twitter:title" content="jni打印log">
+<meta name="twitter:description" content="int len = 1;__android_log_print(ANDROID_LOG_ERROR, “PinyinIME”, “leb before: %d”, len);">
 
 
 
@@ -118,7 +118,7 @@
 
   
   
-  <link rel="canonical" href="http://huang-ray.com/2019/05/06/在onCreate-中调用finish-方法/">
+  <link rel="canonical" href="http://huang-ray.com/2019/07/31/jni打印log/">
 
 
 
@@ -128,7 +128,7 @@
   };
 </script>
 
-  <title>在onCreate()中调用finish()方法 | lei's blog site</title>
+  <title>jni打印log | lei's blog site</title>
   
 
 
@@ -327,7 +327,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huang-ray.com/2019/05/06/在onCreate-中调用finish-方法/">
+    <link itemprop="mainEntityOfPage" href="http://huang-ray.com/2019/07/31/jni打印log/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lei">
@@ -344,7 +344,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">在onCreate()中调用finish()方法
+          <h2 class="post-title" itemprop="name headline">jni打印log
 
               
             
@@ -372,7 +372,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-05-16 17:37:15" itemprop="dateModified" datetime="2019-05-16T17:37:15+08:00">2019-05-16</time>
+                <time title="修改时间：2019-07-31 21:30:45" itemprop="dateModified" datetime="2019-07-31T21:30:45+08:00">2019-07-31</time>
               
             
           </span>
@@ -386,7 +386,7 @@
 
           
           
-            <span id="/2019/05/06/在onCreate-中调用finish-方法/" class="leancloud_visitors" data-flag-title="在onCreate()中调用finish()方法">
+            <span id="/2019/07/31/jni打印log/" class="leancloud_visitors" data-flag-title="jni打印log">
               <span class="post-meta-divider">|</span>
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -413,7 +413,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">521</span>
+                <span title="本文字数">88</span>
               
 
               
@@ -437,9 +437,7 @@
       
 
       
-        <h4 id="在onCreate-中调用finish-方法"><a href="#在onCreate-中调用finish-方法" class="headerlink" title="在onCreate()中调用finish()方法"></a>在onCreate()中调用finish()方法</h4><p>生命周期变化 onCreate()-&gt;onDestroy();<br>同时finish()方法后的代码段仍然会执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">    super.onCreate(savedInstanceState);</span><br><span class="line">    setContentView(R.layout.activity_main);</span><br><span class="line">        Log.d(TAG, &quot;onCreate: a&quot;);</span><br><span class="line">        finish();</span><br><span class="line">        Log.d(TAG, &quot;onCreate: b&quot;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<p>输出：<br>    onCreate: a<br>    onCreate: b</p>
-<h4 id="在onPause-onStop-onDestroy-中调用finish-方法"><a href="#在onPause-onStop-onDestroy-中调用finish-方法" class="headerlink" title="在onPause(), onStop(), onDestroy()中调用finish()方法"></a>在onPause(), onStop(), onDestroy()中调用finish()方法</h4><p>生命周期不变 onCreate()-&gt;onPause()-&gt;onStop-&gt;onDestroy();<br>注意 – 方法内finish()后的代码仍会执行 可用return语句打断</p>
+        <p>int len = 1;<br>__android_log_print(ANDROID_LOG_ERROR, “PinyinIME”, “leb before: %d”, len);</p>
 
       
     </div>
@@ -465,6 +463,8 @@
           
             <a href="/tags/Android/" rel="tag"># Android</a>
           
+            <a href="/tags/jni/" rel="tag"># jni</a>
+          
         </div>
       
 
@@ -476,8 +476,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/05/怎么得到静态layout宽高/" rel="next" title="怎么得到静态layout宽高">
-                <i class="fa fa-chevron-left"></i> 怎么得到静态layout宽高
+              <a href="/2019/07/31/jni定位/" rel="next" title="jni定位">
+                <i class="fa fa-chevron-left"></i> jni定位
               </a>
             
           </div>
@@ -485,10 +485,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/05/16/左右下布局/" rel="prev" title="Android动画 左右下布局">
-                Android动画 左右下布局 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -532,17 +528,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <div class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -651,23 +638,6 @@
         </div>
       </div>
 
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#在onCreate-中调用finish-方法"><span class="nav-number">1.</span> <span class="nav-text">在onCreate()中调用finish()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在onPause-onStop-onDestroy-中调用finish-方法"><span class="nav-number">2.</span> <span class="nav-text">在onPause(), onStop(), onDestroy()中调用finish()方法</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
       
 
       
