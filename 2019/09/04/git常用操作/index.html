@@ -99,18 +99,18 @@
 
 
 
-  <meta name="description" content="//01背包问题">
-<meta name="keywords" content="算法,背包问题">
+  <meta name="description" content="查看提交信息1234// 查看commit历史信息git log// 查看 commit了的文件 修改了还没commit的文件  没有add的文件git status 本地撤销commit123456789// 回退一个commit同时撤销修改的代码git reset --hard HEAD~// 回退两个commitgit reset --hard HEAD~~ - 如果这时候想跳到远程最新co">
+<meta name="keywords" content="git">
 <meta property="og:type" content="article">
-<meta property="og:title" content="背包问题">
-<meta property="og:url" content="http://huang-ray.com/2019/05/03/背包问题/index.html">
+<meta property="og:title" content="git常用操作">
+<meta property="og:url" content="http://huang-ray.com/2019/09/04/git常用操作/index.html">
 <meta property="og:site_name" content="lei&#39;s blog site">
-<meta property="og:description" content="//01背包问题">
+<meta property="og:description" content="查看提交信息1234// 查看commit历史信息git log// 查看 commit了的文件 修改了还没commit的文件  没有add的文件git status 本地撤销commit123456789// 回退一个commit同时撤销修改的代码git reset --hard HEAD~// 回退两个commitgit reset --hard HEAD~~ - 如果这时候想跳到远程最新co">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-03T15:10:22.400Z">
+<meta property="og:updated_time" content="2019-09-04T06:53:55.517Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="背包问题">
-<meta name="twitter:description" content="//01背包问题">
+<meta name="twitter:title" content="git常用操作">
+<meta name="twitter:description" content="查看提交信息1234// 查看commit历史信息git log// 查看 commit了的文件 修改了还没commit的文件  没有add的文件git status 本地撤销commit123456789// 回退一个commit同时撤销修改的代码git reset --hard HEAD~// 回退两个commitgit reset --hard HEAD~~ - 如果这时候想跳到远程最新co">
 
 
 
@@ -118,7 +118,7 @@
 
   
   
-  <link rel="canonical" href="http://huang-ray.com/2019/05/03/背包问题/">
+  <link rel="canonical" href="http://huang-ray.com/2019/09/04/git常用操作/">
 
 
 
@@ -128,7 +128,7 @@
   };
 </script>
 
-  <title>背包问题 | lei's blog site</title>
+  <title>git常用操作 | lei's blog site</title>
   
 
 
@@ -327,7 +327,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huang-ray.com/2019/05/03/背包问题/">
+    <link itemprop="mainEntityOfPage" href="http://huang-ray.com/2019/09/04/git常用操作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lei">
@@ -344,7 +344,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">背包问题
+          <h2 class="post-title" itemprop="name headline">git常用操作
 
               
             
@@ -372,7 +372,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-05-03 23:10:22" itemprop="dateModified" datetime="2019-05-03T23:10:22+08:00">2019-05-03</time>
+                <time title="修改时间：2019-09-04 14:53:55" itemprop="dateModified" datetime="2019-09-04T14:53:55+08:00">2019-09-04</time>
               
             
           </span>
@@ -386,7 +386,7 @@
 
           
           
-            <span id="/2019/05/03/背包问题/" class="leancloud_visitors" data-flag-title="背包问题">
+            <span id="/2019/09/04/git常用操作/" class="leancloud_visitors" data-flag-title="git常用操作">
               <span class="post-meta-divider">|</span>
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -413,7 +413,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">491</span>
+                <span title="本文字数">455</span>
               
 
               
@@ -437,7 +437,10 @@
       
 
       
-        <p>//01背包问题<a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int main ()</span><br><span class="line">&#123;</span><br><span class="line">    int v,n,a[31],dp[20001]=&#123;0&#125;;</span><br><span class="line">    cin&gt;&gt;v&gt;&gt;n;</span><br><span class="line">    for(int i=1; i&lt;=n; i++)&#123;</span><br><span class="line">        cin&gt;&gt;a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    for(int j=v; j&gt;=a[i]; j--)&#123; //从a[i]起就是完全背包问题</span><br><span class="line">        dp[j]=max(dp[j], dp[j-a[i]]+a[i]);</span><br><span class="line">    &#125;    </span><br><span class="line">    for(int j=0; j&lt;=v; j++)&#123;</span><br><span class="line">        cout&lt;&lt;dp[j]&lt;&lt;&apos; &apos;;</span><br><span class="line">    &#125;    </span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;v-dp[v]&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+        <h4 id="查看提交信息"><a href="#查看提交信息" class="headerlink" title="查看提交信息"></a>查看提交信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 查看commit历史信息</span><br><span class="line">git log</span><br><span class="line">// 查看 commit了的文件 修改了还没commit的文件  没有add的文件</span><br><span class="line">git status</span><br></pre></td></tr></table></figure>
+<h4 id="本地撤销commit"><a href="#本地撤销commit" class="headerlink" title="本地撤销commit"></a>本地撤销commit</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 回退一个commit同时撤销修改的代码</span><br><span class="line">git reset --hard HEAD~</span><br><span class="line">// 回退两个commit</span><br><span class="line">git reset --hard HEAD~~</span><br><span class="line"> - 如果这时候想跳到远程最新commit 直接 git pull</span><br><span class="line">// 回退一个commit 代码不变</span><br><span class="line">git reset --soft HEAD~</span><br><span class="line">// 新建commit抵消指定commit</span><br><span class="line">git revert commit号</span><br></pre></td></tr></table></figure>
+<h4 id="本地暂存代码"><a href="#本地暂存代码" class="headerlink" title="本地暂存代码"></a>本地暂存代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 保存当前进度</span><br><span class="line">git stash</span><br><span class="line">// 恢复最新进度到工作区</span><br><span class="line">git stash pop</span><br></pre></td></tr></table></figure>
+<h4 id="建立-删除-切换分支"><a href="#建立-删除-切换分支" class="headerlink" title="建立 删除 切换分支"></a>建立 删除 切换分支</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 新建分支</span><br><span class="line">git branch 分支名</span><br><span class="line">// 切换分支</span><br><span class="line">git checkout 分支名</span><br><span class="line">// 推送分支到远程</span><br><span class="line">git push origin 分支名</span><br><span class="line">// 删除远程分支</span><br><span class="line">git push origin --delete 分支名</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -461,9 +464,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/算法/" rel="tag"># 算法</a>
-          
-            <a href="/tags/背包问题/" rel="tag"># 背包问题</a>
+            <a href="/tags/git/" rel="tag"># git</a>
           
         </div>
       
@@ -476,8 +477,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/02/Java反射获取方法和属性/" rel="next" title="Java反射获取方法和属性">
-                <i class="fa fa-chevron-left"></i> Java反射获取方法和属性
+              <a href="/2019/09/02/一次性操作所有git目录/" rel="next" title="一次性操作所有git目录">
+                <i class="fa fa-chevron-left"></i> 一次性操作所有git目录
               </a>
             
           </div>
@@ -485,10 +486,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/05/04/recycleview-glide-Demo/" rel="prev" title="recycleview-glide-Demo">
-                recycleview-glide-Demo <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -532,8 +529,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -646,6 +652,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#查看提交信息"><span class="nav-number">1.</span> <span class="nav-text">查看提交信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本地撤销commit"><span class="nav-number">2.</span> <span class="nav-text">本地撤销commit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本地暂存代码"><span class="nav-number">3.</span> <span class="nav-text">本地暂存代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建立-删除-切换分支"><span class="nav-number">4.</span> <span class="nav-text">建立 删除 切换分支</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
