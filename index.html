@@ -1588,7 +1588,7 @@ SonarLint is an IDE extension that helps you detect and fix quality issues as yo
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-08-01 16:00:28" itemprop="dateModified" datetime="2019-08-01T16:00:28+08:00">2019-08-01</time>
+                <time title="修改时间：2019-11-18 20:42:29" itemprop="dateModified" datetime="2019-11-18T20:42:29+08:00">2019-11-18</time>
               
             
           </span>
@@ -1629,7 +1629,7 @@ SonarLint is an IDE extension that helps you detect and fix quality issues as yo
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2.5k</span>
+                <span title="本文字数">2.7k</span>
               
 
               
@@ -1656,9 +1656,11 @@ SonarLint is an IDE extension that helps you detect and fix quality issues as yo
         
           
             <p>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG: <strong><em> </em></strong> <strong><em> </em></strong> <strong><em> </em></strong> <strong><em> </em></strong> <strong><em> </em></strong> <strong><em> </em></strong> <strong><em> </em></strong> <strong><em> </em></strong><br>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG: Build fingerprint: ‘HiDPT/Hi3751V811_DMO/Hi3751V811:8.0.0/OPR6.170623.013/iipjen07310959:user/release-keys’<br>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG: Revision: ‘0’<br>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG: ABI: ‘arm64’<br>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG: pid: 1104, tid: 1104, name: utmethod.pinyin  &gt;&gt;&gt; com.android.inputmethod.pinyin &lt;&lt;&lt;<br>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG: signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x4cbe05113242<br>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG:     x0   0000006ffe158100  x1   00004cbe05113242  x2   0000000000000002  x3   0000006fff0f9c88<br>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG:     x4   00000000000005aa  x5   0000007fc5597b54  x6   0000000000000000  x7   0000000000000073<br>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG:     x8   0000000000000002  x9   0000007fc5597438  x10  0000006fff0f9800  x11  0000000000000020<br>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG:     x12  0000000000000002  x13  0000000000000003  x14  0000000000008c01  x15  0000000000000003<br>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG:     x16  0000006ff3337850  x17  0000006ff33198c8  x18  0000000000000139  x19  0000000000000001<br>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG:     x20  0000006ffe158100  x21  0000000000000000  x22  0000000000000000  x23  0000000000000000<br>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG:     x24  000000000000000a  x25  0000000000000002  x26  00004cbe05113242  x27  0000007fc5596df8<br>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG:     x28  0000007fc5597438  x29  0000007fc5597ad0  x30  0000006ff3319940<br>2019-07-31 21:09:34.697 1151-1151/? A/DEBUG:     sp   0000007fc5596da0  pc   0000006ff33154b0  pstate 0000000080000000<br>2019-07-31 21:09:34.698 1151-1151/? A/DEBUG: backtrace:<br>2019-07-31 21:09:34.698 1151-1151/? A/DEBUG:     #00 pc 00000000000104b0  /data/app/com.android.inputmethod.pinyin-T8RmRV3m7olzZhUmBZJinA==/lib/arm64/libjni_pinyinime.so (_ZN10ime_pinyin8DictTrie8get_lpisEPKttPNS_10LmaPsbItemEm+152)<br>2019-07-31 21:09:34.698 1151-1151/? A/DEBUG:     #01 pc 000000000001493c  /data/app/com.android.inputmethod.pinyin-T8RmRV3m7olzZhUmBZJinA==/lib/arm64/libjni_pinyinime.so (_ZN10ime_pinyin12MatrixSearch8get_lpisEPKtmPNS_10LmaPsbItemEmS2_b+116)</p>
-<h2 id="jni定位方法"><a href="#jni定位方法" class="headerlink" title="jni定位方法"></a>jni定位方法</h2><p>cd 进入报错的so文件目录 然后输入</p>
+<h2 id="jni定位方法"><a href="#jni定位方法" class="headerlink" title="jni定位方法"></a>jni定位方法</h2><p>cd 进入报错的so文件目录 然后输入  –  不是libs下的so文件 是lib同层下的obj下的so文件 – 工位上板卡是abi架构</p>
 <p>~/Library/Android/sdk/ndk/android-ndk-r14b/toolchains/aarch64-linux-android-4.9/prebuilt/darwin-x86_64/bin/aarch64-linux-android-addr2line -e libjni_pinyinime.so 00000000000104b0</p>
-
+<h2 id="没看到so文件"><a href="#没看到so文件" class="headerlink" title="没看到so文件"></a>没看到so文件</h2><pre><code>cd进对应cpp代码的目录 -- git根目录 
+输入 /Users/lei/Library/Android/sdk/ndk-bundle/ndk-build 生成so文件
+</code></pre>
           
         
       
@@ -1761,7 +1763,7 @@ SonarLint is an IDE extension that helps you detect and fix quality issues as yo
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-11-15 16:25:02" itemprop="dateModified" datetime="2019-11-15T16:25:02+08:00">2019-11-15</time>
+                <time title="修改时间：2019-11-18 20:42:32" itemprop="dateModified" datetime="2019-11-18T20:42:32+08:00">2019-11-18</time>
               
             
           </span>
@@ -1870,16 +1872,13 @@ adb remount
 adb shell
 cd /system/app/
 rm -rf PinyinIME/
-</code></pre><h4 id="21-重启adb"><a href="#21-重启adb" class="headerlink" title="21 重启adb"></a>21 重启adb</h4><pre><code>adb -A | grep adb
-kill 进程号
-或者
-adb kill-server 再 adb start-server
+</code></pre><h4 id="21-重启adb"><a href="#21-重启adb" class="headerlink" title="21 重启adb"></a>21 重启adb</h4><pre><code>adb kill-server 再任意命令启动adb
 或者
 mac下直接打开活动监视器 搜索adb强制关闭
 </code></pre><h4 id="22-对某一模拟器执行命令："><a href="#22-对某一模拟器执行命令：" class="headerlink" title="22 对某一模拟器执行命令："></a>22 对某一模拟器执行命令：</h4><pre><code>adb [-d|-e|-s ]
--d 指定当前唯一通过 USB 连接的 Android 设备为命令目标
--e 指定当前唯一运行的模拟器为命令目标
-abd -s 模拟器编号 命令
+-d 指定当前唯一连接的硬件设备为命令目标 -- 唯一连接的 USB 设备
+-e 指定当前唯一运行的模拟器设备为命令目标 -- 唯一运行的模拟器
+abd -s 要指定的模拟器编号 命令
 </code></pre><h4 id="23-查看当前系统内存限制"><a href="#23-查看当前系统内存限制" class="headerlink" title="23 查看当前系统内存限制"></a>23 查看当前系统内存限制</h4><pre><code>java虚拟机的最大内存限制
 adb shell getprop dalvik.vm.heapgrowthlimit
 单个程序限制最大内存
