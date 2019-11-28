@@ -370,7 +370,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-11-19 10:23:40" itemprop="dateModified" datetime="2019-11-19T10:23:40+08:00">2019-11-19</time>
+                <time title="修改时间：2019-11-19 10:27:22" itemprop="dateModified" datetime="2019-11-19T10:27:22+08:00">2019-11-19</time>
               
             
           </span>
@@ -411,7 +411,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2k</span>
+                <span title="本文字数">2.1k</span>
               
 
               
@@ -437,7 +437,7 @@
       
         
           
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh </span><br><span class="line">if [ $# == 0 ]; then</span><br><span class="line">	echo &quot;seewo    -&gt; Settings&quot;</span><br><span class="line">	echo &quot;lock     -&gt; ScreenLock&quot;</span><br><span class="line">	echo &quot;wifi     -&gt; Wifi&quot;</span><br><span class="line">	echo &quot;ps       -&gt; adb -t shell ps | grep $2&quot;</span><br><span class="line">	echo &quot;lock     -&gt; adb -t shell am broadcast -a com.seewo.state.keypad.lock&quot;</span><br><span class="line">	echo &quot;focus    -&gt; adb -t shell dumpsys window | grep mCurrentFocus&quot;</span><br><span class="line">	echo &quot;log 文件名    -&gt; 拉取anr和logs日志&quot;</span><br><span class="line">	echo &quot;cap 文件名    -&gt; 截图并保存到MAC用户目录下&quot;</span><br><span class="line">	echo &quot;day      -&gt; com.seewo.widgetdayleft 倒计日&quot;</span><br><span class="line">	echo &quot;note      -&gt; com.seewo.easinote note&quot;</span><br><span class="line">	echo &quot;lei      -&gt; com.seewo.easinote.lei note&quot;</span><br><span class="line">	echo &quot;air      -&gt; com.seewo.airclass&quot;</span><br><span class="line">	echo &quot;mark      -&gt; easimark&quot;</span><br><span class="line">	exit</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">case $1 in </span><br><span class="line">         set) </span><br><span class="line">         	adb -t shell am start -n com.android.settings/.Settings</span><br><span class="line">         ;;</span><br><span class="line"> 		 ps)</span><br><span class="line">			adb -t shell ps | grep $2</span><br><span class="line">		 ;;</span><br><span class="line">         log)</span><br><span class="line">            DATE=$(date +%Y.%m.%d_%H.%m.%S)</span><br><span class="line">            echo $DATE</span><br><span class="line">            if [ ! -d &quot;~/bug_log/$2$DATE/&quot; ];then</span><br><span class="line">            mkdir -p ~/bug_log/$2$DATE/</span><br><span class="line">            fi</span><br><span class="line">            adb pull /data/system/dropbox/ ~/bug_log/$2$DATE/</span><br><span class="line">            adb pull /data/anr ~/bug_log/$2$DATE/</span><br><span class="line">            adb pull /data/logs ~/bug_log/$2$DATE/</span><br><span class="line">         ;;</span><br><span class="line">         wifi)</span><br><span class="line">         adb -t shell am start com.android.settings/com.android.settings.wifi.WifiSettings</span><br><span class="line">         ;;</span><br><span class="line">         eth)</span><br><span class="line">         adb -t shell am start com.android.settings/com.android.settings.ethernet.EthernetSettings</span><br><span class="line">         ;;</span><br><span class="line">         note)</span><br><span class="line">         adb -t shell am start com.seewo.easinote/com.seewo.easinote.PlainWhiteboardActivity</span><br><span class="line">         ;;</span><br><span class="line">         lei)</span><br><span class="line">         adb -t shell am start com.seewo.easinote.lei/com.seewo.easinote.PlainWhiteboardActivity</span><br><span class="line">         ;;</span><br><span class="line">         air)</span><br><span class="line">         adb -t shell am start com.seewo.airclass/com.seewo.airclass.activity.ServerActivity</span><br><span class="line">         ;;</span><br><span class="line">         mark)</span><br><span class="line">         adb -t shell am startservice -W com.seewo.easimark/.MarkService</span><br><span class="line">         ;;</span><br><span class="line">         *)</span><br><span class="line">         echo &quot;No command&quot;</span><br><span class="line">         ;;</span><br><span class="line"> esac</span><br></pre></td></tr></table></figure>
+            <p>   建议在sdk下adb文件同层目录下新建文件叫 adbs 把下面代码copy进去<br>   使用时输入 adbs wifi 调起wifi应用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh </span><br><span class="line">if [ $# == 0 ]; then</span><br><span class="line">	echo &quot;seewo    -&gt; Settings&quot;</span><br><span class="line">	echo &quot;lock     -&gt; ScreenLock&quot;</span><br><span class="line">	echo &quot;wifi     -&gt; Wifi&quot;</span><br><span class="line">	echo &quot;ps       -&gt; adb -t shell ps | grep $2&quot;</span><br><span class="line">	echo &quot;lock     -&gt; adb -t shell am broadcast -a com.seewo.state.keypad.lock&quot;</span><br><span class="line">	echo &quot;focus    -&gt; adb -t shell dumpsys window | grep mCurrentFocus&quot;</span><br><span class="line">	echo &quot;log 文件名    -&gt; 拉取anr和logs日志&quot;</span><br><span class="line">	echo &quot;cap 文件名    -&gt; 截图并保存到MAC用户目录下&quot;</span><br><span class="line">	echo &quot;day      -&gt; com.seewo.widgetdayleft 倒计日&quot;</span><br><span class="line">	echo &quot;note      -&gt; com.seewo.easinote note&quot;</span><br><span class="line">	echo &quot;lei      -&gt; com.seewo.easinote.lei note&quot;</span><br><span class="line">	echo &quot;air      -&gt; com.seewo.airclass&quot;</span><br><span class="line">	echo &quot;mark      -&gt; easimark&quot;</span><br><span class="line">	exit</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">case $1 in </span><br><span class="line">         set) </span><br><span class="line">         	adb -t shell am start -n com.android.settings/.Settings</span><br><span class="line">         ;;</span><br><span class="line"> 		 ps)</span><br><span class="line">			adb -t shell ps | grep $2</span><br><span class="line">		 ;;</span><br><span class="line">         log)</span><br><span class="line">            DATE=$(date +%Y.%m.%d_%H.%m.%S)</span><br><span class="line">            echo $DATE</span><br><span class="line">            if [ ! -d &quot;~/bug_log/$2$DATE/&quot; ];then</span><br><span class="line">            mkdir -p ~/bug_log/$2$DATE/</span><br><span class="line">            fi</span><br><span class="line">            adb pull /data/system/dropbox/ ~/bug_log/$2$DATE/</span><br><span class="line">            adb pull /data/anr ~/bug_log/$2$DATE/</span><br><span class="line">            adb pull /data/logs ~/bug_log/$2$DATE/</span><br><span class="line">         ;;</span><br><span class="line">         wifi)</span><br><span class="line">         adb -t shell am start com.android.settings/com.android.settings.wifi.WifiSettings</span><br><span class="line">         ;;</span><br><span class="line">         eth)</span><br><span class="line">         adb -t shell am start com.android.settings/com.android.settings.ethernet.EthernetSettings</span><br><span class="line">         ;;</span><br><span class="line">         note)</span><br><span class="line">         adb -t shell am start com.seewo.easinote/com.seewo.easinote.PlainWhiteboardActivity</span><br><span class="line">         ;;</span><br><span class="line">         lei)</span><br><span class="line">         adb -t shell am start com.seewo.easinote.lei/com.seewo.easinote.PlainWhiteboardActivity</span><br><span class="line">         ;;</span><br><span class="line">         air)</span><br><span class="line">         adb -t shell am start com.seewo.airclass/com.seewo.airclass.activity.ServerActivity</span><br><span class="line">         ;;</span><br><span class="line">         mark)</span><br><span class="line">         adb -t shell am startservice -W com.seewo.easimark/.MarkService</span><br><span class="line">         ;;</span><br><span class="line">         *)</span><br><span class="line">         echo &quot;No command&quot;</span><br><span class="line">         ;;</span><br><span class="line"> esac</span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -541,7 +541,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-11-16 10:45:06" itemprop="dateModified" datetime="2019-11-16T10:45:06+08:00">2019-11-16</time>
+                <time title="修改时间：2019-11-25 18:14:56" itemprop="dateModified" datetime="2019-11-25T18:14:56+08:00">2019-11-25</time>
               
             
           </span>
@@ -582,7 +582,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1.3k</span>
+                <span title="本文字数">1.4k</span>
               
 
               
@@ -618,9 +618,11 @@ Status display, auto fetch, inline blame annotation, commit dialog completion, b
 Status display, auto fetch, inline blame annotation, commit dialog completion, behind notifications and more...
 </code></pre><h3 id="JavaDoc"><a href="#JavaDoc" class="headerlink" title="JavaDoc"></a>JavaDoc</h3><pre><code>Plugin that generates java docs on java class elements, like field, method, etc.
 </code></pre><h3 id="Markdown-Navigator"><a href="#Markdown-Navigator" class="headerlink" title="Markdown Navigator"></a>Markdown Navigator</h3><pre><code>Markdown language support for IntelliJ platform
-</code></pre><p>A Markdown plugin with GFM and a matching preview style.<br>Get Markdown Navigator enhanced edition to unlock all productivity features.</p>
-<h3 id="SonarLint"><a href="#SonarLint" class="headerlink" title="SonarLint"></a>SonarLint</h3><pre><code>不规范代码检查插件
+A Markdown plugin with GFM and a matching preview style.
+Get Markdown Navigator enhanced edition to unlock all productivity features.
+</code></pre><h3 id="SonarLint"><a href="#SonarLint" class="headerlink" title="SonarLint"></a>SonarLint</h3><pre><code>不规范代码检查插件
 SonarLint is an IDE extension that helps you detect and fix quality issues as you write code. Like a spell checker, SonarLint squiggles flaws so they can be fixed before committing code. You can get it directly from the IntelliJ IDEA Plugin Repository, and it will then detect new bugs and quality issues as you code (Java, Kotlin, Ruby, JavaScript, PHP and Python).
+</code></pre><h3 id="Translation"><a href="#Translation" class="headerlink" title="Translation"></a>Translation</h3><pre><code>右键翻译英文 或者中译英并替换
 </code></pre>
           
         
@@ -1070,7 +1072,7 @@ SonarLint is an IDE extension that helps you detect and fix quality issues as yo
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-11-15 13:12:30" itemprop="dateModified" datetime="2019-11-15T13:12:30+08:00">2019-11-15</time>
+                <time title="修改时间：2019-11-26 20:57:51" itemprop="dateModified" datetime="2019-11-26T20:57:51+08:00">2019-11-26</time>
               
             
           </span>
@@ -1111,7 +1113,7 @@ SonarLint is an IDE extension that helps you detect and fix quality issues as yo
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">597</span>
+                <span title="本文字数">756</span>
               
 
               
@@ -1137,7 +1139,7 @@ SonarLint is an IDE extension that helps you detect and fix quality issues as yo
       
         
           
-            <h4 id="查看提交信息"><a href="#查看提交信息" class="headerlink" title="查看提交信息"></a>查看提交信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 查看commit历史信息</span><br><span class="line">git log</span><br><span class="line">// 查看 commit了的文件 修改了还没commit的文件  没有add的文件</span><br><span class="line">git status</span><br></pre></td></tr></table></figure>
+            <h4 id="commit提交"><a href="#commit提交" class="headerlink" title="commit提交"></a>commit提交</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 查看commit历史信息</span><br><span class="line">git log</span><br><span class="line">// 查看 commit了的文件 修改了还没commit的文件  没有add的文件</span><br><span class="line">git status</span><br><span class="line">// 打tag 先提交commit </span><br><span class="line">git tag -a 1.0.0 -m &quot;备注 可不加&quot;</span><br><span class="line">git push  </span><br><span class="line">git push --tags  也可在push后指定分支   </span><br><span class="line">&lt;font color=red&gt;一般一个tag触发一次编译 补东西时也提下tag&lt;/font&gt;</span><br></pre></td></tr></table></figure>
 <h4 id="本地撤销commit"><a href="#本地撤销commit" class="headerlink" title="本地撤销commit"></a>本地撤销commit</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 回退一个commit同时撤销修改的代码</span><br><span class="line">git reset --hard HEAD~</span><br><span class="line">// 回退两个commit</span><br><span class="line">git reset --hard HEAD~~</span><br><span class="line"> - 如果这时候想跳到远程最新commit 直接 git pull</span><br><span class="line">// 回退一个commit 代码不变</span><br><span class="line">git reset --soft HEAD~</span><br><span class="line">// 新建commit抵消指定commit</span><br><span class="line">git revert commit号</span><br><span class="line">// push后 reset后stash再强制推送本地版本 会清空所有其他人后面的提交</span><br><span class="line">git push origin 分支 --force</span><br></pre></td></tr></table></figure>
 <h4 id="本地暂存代码"><a href="#本地暂存代码" class="headerlink" title="本地暂存代码"></a>本地暂存代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 保存当前进度</span><br><span class="line">git stash</span><br><span class="line">// 恢复最新进度到工作区</span><br><span class="line">git stash pop</span><br></pre></td></tr></table></figure>
 <h4 id="建立-删除-切换分支"><a href="#建立-删除-切换分支" class="headerlink" title="建立 删除 切换分支"></a>建立 删除 切换分支</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 新建分支</span><br><span class="line">git branch 分支名</span><br><span class="line">// 切换分支</span><br><span class="line">git checkout 分支名</span><br><span class="line">// 推送分支到远程</span><br><span class="line">git push origin 分支名</span><br><span class="line">// 删除远程分支</span><br><span class="line">git push origin --delete 分支名</span><br><span class="line">// 删除本地分支：</span><br><span class="line">git branch -d 分支名（remotes/origin/分支名）</span><br><span class="line">// 强制删本地：</span><br><span class="line">git branch -D 分支名</span><br></pre></td></tr></table></figure>
@@ -1934,7 +1936,7 @@ SonarLint is an IDE extension that helps you detect and fix quality issues as yo
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-11-18 20:42:32" itemprop="dateModified" datetime="2019-11-18T20:42:32+08:00">2019-11-18</time>
+                <time title="修改时间：2019-11-28 09:30:43" itemprop="dateModified" datetime="2019-11-28T09:30:43+08:00">2019-11-28</time>
               
             
           </span>
@@ -2002,8 +2004,7 @@ SonarLint is an IDE extension that helps you detect and fix quality issues as yo
         
           
             <h1 id="adb命令小记"><a href="#adb命令小记" class="headerlink" title="adb命令小记"></a>adb命令小记</h1><h4 id="1、如何打开adb调试？如何打开开发者模式？如何进入工厂菜单？进入工厂菜单的方式有什么途径？"><a href="#1、如何打开adb调试？如何打开开发者模式？如何进入工厂菜单？进入工厂菜单的方式有什么途径？" class="headerlink" title="1、如何打开adb调试？如何打开开发者模式？如何进入工厂菜单？进入工厂菜单的方式有什么途径？"></a>1、如何打开adb调试？如何打开开发者模式？如何进入工厂菜单？进入工厂菜单的方式有什么途径？</h4><pre><code>遥控器 debugmenu 进入Android set 全部打开
-</code></pre><h4 id="2、如何配置adb环境变量？"><a href="#2、如何配置adb环境变量？" class="headerlink" title="2、如何配置adb环境变量？"></a>2、如何配置adb环境变量？</h4><pre><code>google
-</code></pre><h4 id="3、使用什么adb命令连接整机进行调试"><a href="#3、使用什么adb命令连接整机进行调试" class="headerlink" title="3、使用什么adb命令连接整机进行调试"></a>3、使用什么adb命令连接整机进行调试</h4><pre><code>adb connect ip:5555
+</code></pre><h4 id="3、使用什么adb命令连接整机进行调试"><a href="#3、使用什么adb命令连接整机进行调试" class="headerlink" title="3、使用什么adb命令连接整机进行调试"></a>3、使用什么adb命令连接整机进行调试</h4><pre><code>adb connect ip:5555 旋转屏的是1379
 </code></pre><h4 id="4、使用什么adb命令截图"><a href="#4、使用什么adb命令截图" class="headerlink" title="4、使用什么adb命令截图"></a>4、使用什么adb命令截图</h4><pre><code>adb shell screencap -p /sdcard/sdkf.jpg
 </code></pre><h4 id="5、使用什么adb命令将整机系统的一个文件拉取到电脑"><a href="#5、使用什么adb命令将整机系统的一个文件拉取到电脑" class="headerlink" title="5、使用什么adb命令将整机系统的一个文件拉取到电脑"></a>5、使用什么adb命令将整机系统的一个文件拉取到电脑</h4><pre><code>adb pull /sdcard/sdkf.jpg /Users/lei/downloads
 </code></pre><h4 id="6、使用什么adb命令将电脑的一个文件推送到整机系统"><a href="#6、使用什么adb命令将电脑的一个文件推送到整机系统" class="headerlink" title="6、使用什么adb命令将电脑的一个文件推送到整机系统"></a>6、使用什么adb命令将电脑的一个文件推送到整机系统</h4><pre><code>adb push /Users/lei/Downloads/s1.png /sdcard
@@ -2037,7 +2038,6 @@ adb pull /data/anr /Users/lei/Downloads
 </code></pre><h4 id="18、如何查看某个应用的进程号？如何杀死某个应用？"><a href="#18、如何查看某个应用的进程号？如何杀死某个应用？" class="headerlink" title="18、如何查看某个应用的进程号？如何杀死某个应用？"></a>18、如何查看某个应用的进程号？如何杀死某个应用？</h4><pre><code>adb root
 adb shell ps 进程列表
 adb shell kill [pid]
-</code></pre><h4 id="19、AS配置Markdown插件"><a href="#19、AS配置Markdown插件" class="headerlink" title="19、AS配置Markdown插件"></a>19、AS配置Markdown插件</h4><pre><code>markdown navigator
 </code></pre><h4 id="20-卸载系统应用"><a href="#20-卸载系统应用" class="headerlink" title="20 卸载系统应用"></a>20 卸载系统应用</h4><pre><code>adb root
 adb remount
 adb shell
@@ -2054,6 +2054,7 @@ abd -s 要指定的模拟器编号 命令
 adb shell getprop dalvik.vm.heapgrowthlimit
 单个程序限制最大内存
 adb shell getprop dalvik.vm.heapsize
+</code></pre><h4 id="23-列出adb连接设备所有应用"><a href="#23-列出adb连接设备所有应用" class="headerlink" title="23 列出adb连接设备所有应用"></a>23 列出adb连接设备所有应用</h4><pre><code>adb shell pm list packages
 </code></pre>
           
         
