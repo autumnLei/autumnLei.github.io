@@ -323,6 +323,333 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huang-ray.com/2019/11/29/Android-WindowMangerService-Window流程分析一/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lei">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lei's blog site">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/11/29/Android-WindowMangerService-Window流程分析一/" class="post-title-link" itemprop="url">Android WindowMangerService Window流程分析一</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+
+            
+              
+
+              
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-11-29 14:26:48" itemprop="dateModified" datetime="2019-11-29T14:26:48+08:00">2019-11-29</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+            <span id="/2019/11/29/Android-WindowMangerService-Window流程分析一/" class="leancloud_visitors" data-flag-title="Android WindowMangerService Window流程分析一">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">9.6k</span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>先从安卓系统启动开始 – 源码参考android sdk29</p>
+<p>SystemServer启动流程</p>
+<p>Android本质上是基于linux操作系统，理论上大值启动过程与linux差不多，不同的是Android采用的是嵌入式设备，没有PC上的BIOS等设备，取而代之的是叫做Bootloader的系统启动加载器，用于初始化硬件设备，为加载内核做好准备。</p>
+<p>1️⃣ 按下电源开机通电 –&gt; 2⃣️加载引导程序Bootloader到内存 –&gt; 3⃣️Bootloader拉起linux内核 –&gt; 4⃣️启动系统进程 –&gt; 5⃣️第一个用户空间进程 init进程</p>
+<p>Bootloader:  引导程序并不隶属于 Android 系统，它的作用是初始化硬件设备，加载内核文件等，为系统内核启动搭建好所需的环境。Bootloader 引导程序是 Android 系统开机运行的第一个程序，它是针对特定的主板与芯片的，因此，对于不同的设备制造商，它们的引导程序都是不同的。当前比较受欢迎的引导程序有 uboot(现有整机使用)，redboot 等。</p>
+<p>Linux内核:  Linux 内核开始启动，初始化各种软硬件环境，加载驱动程序，挂载根文件系统等，最重要的是，内核启动完成后，它会在系统文件中寻找 ”init” 文件，然后启动 init 进程。到此，Android 新世界正式开启。</p>
+<p>init进程:  Linux用户空间的第一个进程，进程号固定为 1，PID始终为1。init 进程有两个责任，一是挂载目录，比如/sys、/dev、/proc，二是运行 init.rc 脚本（init 进程在解析 init.rc 脚本时，会创建 Zygote 进程）<br><img src="/2019/11/29/Android-WindowMangerService-Window流程分析一/1.png" alt></p>
+<p>Zygote进程:  init 进程在解析 init.rc 脚本时，会创建 Zygote 进程，只有该进程才会建立起真正的 Android 运行空间，它是 Android 系统最重要的进程之一。后续 Android 中的应用进程都是由 Zygote 进程 Fork 出来的，因此，Zygote 是 Android 系统所有应用的父进程（即 Java 进程的鼻祖）</p>
+<p>“所有的Java应用程序进程及系统服务SystemServer进程都由Zygote进程通过fork孵化而来”</p>
+<h3 id="init-zygote64-32-rc"><a href="#init-zygote64-32-rc" class="headerlink" title="init.zygote64_32.rc"></a>init.zygote64_32.rc</h3><p>service zygote /system/bin/app_process64 -Xzygote /system/bin –zygote –start-system-server –socket-name=zygote<br>    class main<br>    priority -20<br>    user root<br>    group root readproc<br>    socket zygote stream 660 root system<br>…</p>
+<p>Zygote由ini进程通过解析init.rc调用app_process64可执行文件，生成对应的zygote进程，具体位置<br>frameworks/base/cmds/app_process/app_main.cpp<br><img src="/2019/11/29/Android-WindowMangerService-Window流程分析一/2.png" alt><br>？zygote既然由app_process启动，进程为什么不叫app_process，却叫zygote？<br>app_main.cpp#main<br>//niceName不空，比如zygote进程。<br>if (!niceName.isEmpty()) {<br>     //此处把app_process进程名，改为zygote，见 注② 这就是上述说得改名操作<br>     runtime.setArgv0(niceName.string(), true /<em> setProcName </em>/);<br>}</p>
+<p>另外一点是app_process可以直接启动jar包，如monkey的启动脚本，vysor的录屏等都是采用了此方式</p>
+<h3 id="system-bin-monkey"><a href="#system-bin-monkey" class="headerlink" title="/system/bin/monkey"></a>/system/bin/monkey</h3><p>base=/system<br>export CLASSPATH=$base/framework/monkey.jar<br>exec app_process $base/bin com.android.commands.monkey.Monkey “$@”</p>
+<p>zygote创建了Android的java世界，因此zygote必须完成JVM虚拟机的创建，然后孵化出java世界的第一个进程SystemServer</p>
+<p>zygote分类<br>native:  JVM虚拟机 注册JNI函数                    // 开始跑java代码<br>java层:  ZygoteInit#main() fork出systemServer 预加载需要的类和资源<br>             ZygoteInit#main() -&gt; zygoteServer.runSelectLoop(..) 等待socket连接 fork出apk程序进程</p>
+<p>SystemServer进程:   SystemServer 的主要的作用是启动各种系统服务，比如 ActivityManagerService，PackageManagerService，WindowManagerService 以及硬件相关的 Service 等服务，我们平时熟知的各种系统服务其实都是在 SystemServer 进程中启动的<br><img src="/2019/11/29/Android-WindowMangerService-Window流程分析一/3.png" alt></p>
+<p>Android 平台的主要组件<br><img src="/2019/11/29/Android-WindowMangerService-Window流程分析一/4.png" alt><br>Android 软件堆栈</p>
+<p>WindowManagerService启动</p>
+<p>创建过程: SystemServer#startOtherServices()，通过调用WindowManagerService#main()返回自己的静态实例 </p>
+<p>private void startOtherServices() {<br>     ……<br>     WindowManagerService wm = null;<br>     ……</p>
+<pre><code>wm = WindowManagerService.main(context, inputManager,
+               mFactoryTestMode != FactoryTest.FACTORY_TEST_LOW_LEVEL...);
+
+ServiceManager.addService(Context.WINDOW_SERVICE, wm); //注册服务
+
+......
+
+mActivityManagerService.setWindowManager(wm); //和ActivityManagerService进行关联
+
+
+......
+
+try {
+    wm.displayReady();  //初始化显示信息，尺寸，位置等
+} catch (Throwable e) {
+   reportWtf(&quot;making display ready&quot;, e);
+
+}
+
+......
+
+try {
+    wm.systemReady(); //通知WMS系统的初始化工作已完成
+} catch (Throwable e) {
+    reportWtf(&quot;making Window Manager Service ready&quot;, e);
+
+}
+
+......
+</code></pre><p>}</p>
+<p>S端存储: 通过ServiceManager BinderInternal#public static final native IBinder getContextObject(); 拿到binder  -&gt; 把实例存到Native层的ServiceManager</p>
+<p>C端获取: ContextImpl SystemServiceRegistry#static代码中通过ServiceManager获取所有service存到hashmap缓存</p>
+<p>WMS重要成员<br>// appWindowToken 应用窗口token 如果是系统窗口则同windowToken 没有应用窗口就是null<br>// windowToken 窗口token 根据token判断哪些窗口要一起管理</p>
+<pre><code>- AppWindowToken extend WindowToken
+</code></pre><p>// 代表一个活动的client会话<br>// 对应每个进程的单例对象WindowMangaerGlobal</p>
+<pre><code>- Session
+</code></pre><p>// 与显示的窗口对应 持有WindowToken,Session,IWindow等对象</p>
+<pre><code>- WindowState
+</code></pre><p><img src="/2019/11/29/Android-WindowMangerService-Window流程分析一/5.jpg" alt><br>// 提供所有UI行为的管理 如window层级控制<br>WindowManagerPolicy mPolicy;</p>
+<p>// 管理动画<br>WindowAnimator mAnimator;</p>
+<p>// 设备窗口层次结构的根结点 继承WindowContainer&lt;DisplayContent-对应一个抽象意义上的显示屏 持有windowState&gt;.<br>RootWindowContainer mRoot;</p>
+<p>Window基本原理</p>
+<p>基本概念 -  所有视图的基石，在Android中Window表示一个窗口，我们日常使用的activity就会绑定一个window实例，用来管理activity中的相关视图<br>                    抽象类 唯一实现是PhoneWindow </p>
+<p>类别 -  应用Window 对应一个Activity<br>           子Window 依附在父Window中<br>           系统Window 需要声明权限  <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"><br>             6.0以上的 动态获取        </uses-permission></p>
+<p><img src="/2019/11/29/Android-WindowMangerService-Window流程分析一/6.png" alt></p>
+<p>Activity中持有WindowManager与Window的引用，Window通过直接new PhoneWindow得到，WindowManager通过Window提供的接口取得<br>PhoneWindow中有一系列的成员变量，一般是各种回调，是通过Activity直接设置过来的，都是Activity相同实例。然后Activity通过Window的方法实现初始化Window中的成员变量WindowManager<br>WindowManager通过上述方法，在创建Window成员变量WindowManager的同时，把Window设置给WindowManager实现双向关联</p>
+<p> <img src="/2019/11/29/Android-WindowMangerService-Window流程分析一/7.png" alt></p>
+<p>创建过程 - Activity  在ActivityThread#performLaunchActivity  Activity#attach(..)   new PhoneWindow()<br>                   在phoneWindow中创建decorView 如果mPendingRemoveWindow不为空 复用decorView token<br>                   在ActivityThread#handleResumeActivity(…) 将mDecor和属性add到wm -&gt; Activity#makeVisible()设置视图可见</p>
+<pre><code>Dialog Dialog#dialog()  new PhoneWindow()  需要传入activity的context拿到token
+也是通过 PhoneWindow#setContentView()  设置视图
+在show方法中将mDecor和属性加到wm 
+
+PopUpWindow#showAsDropDown(View chchor)  通过传入的view拿到token
+
+Toast 系统window  层级 WindowManager.LayoutParams.TYPE_TOAST  +5
+</code></pre><p>组成 - 顶层view DecorView extends FrameLayout<br>             PhoneWindow#setContentView()  设置视图到 ViewGroup mContentParent</p>
+<p>添加过程 -  调用wm的addView(View v, LayoutParams p)  -&gt; WindowManagerGlobal#addView(v, p, mParentWindow)<br>                      -&gt; ViewRootImpl#setView(…) -&gt; Session#addToDisplay(…) -&gt;  WindowManagerService#addWindow(…)                                WindowManagerGlobal 每个进程都只有一个 实现window的三大操作<br>                      ViewRootImp 每个window都有个 复制View的绘制<br>                      Session 实现WindowSession  和windowManagerService通信</p>
+<p>window 层级</p>
+<p>应用窗口</p>
+<pre><code>应用程序窗口。
+public static final int FIRST_APPLICATION_WINDOW = 1;
+
+所有程序窗口的“基地”窗口，其他应用程序窗口都显示在它上面。     
+public static final int TYPE_BASE_APPLICATION   =1;       
+...
+应用程序窗口结束。
+public static final int LAST_APPLICATION_WINDOW = 99;
+</code></pre><p>子窗口层级<br>      …<br>      面板窗口，显示于宿主窗口上层。<br>      public static final int TYPE_APPLICATION_PANEL  = FIRST_SUB_WINDOW;<br>      …</p>
+<pre><code>应用程序窗口的子面板。显示于所有面板窗口的上层。（GUI的一般规律，越“子”越靠上）
+public static final int TYPE_APPLICATION_SUB_PANEL = FIRST_SUB_WINDOW +2;
+ ...
+
+媒体信息。显示在媒体层和程序窗口之间，需要实现透明（半透明）效果。（例如显示字幕）
+public static final int TYPE_APPLICATION_MEDIA_OVERLAY  = FIRST_SUB_WINDOW +4;
+
+子窗口结束。（ End of types of sub-windows ）
+public static final int LAST_SUB_WINDOW        = 1999;
+</code></pre><p>系统窗口层级</p>
+<pre><code> 系统窗口。非应用程序创建。
+public static final int FIRST_SYSTEM_WINDOW    = 2000;
+ ...
+
+ 系统提示。它总是出现在应用程序窗口之上。
+ public static final int TYPE_SYSTEM_ALERT      =  FIRST_SYSTEM_WINDOW +3;
+
+ 锁屏窗口。
+ public static final int TYPE_KEYGUARD          = FIRST_SYSTEM_WINDOW +4;
+ ...
+
+ 系统对话框。（例如音量调节框）。
+ public static final int TYPE_SYSTEM_DIALOG     =  FIRST_SYSTEM_WINDOW +8;
+
+ 锁屏时显示的对话框。
+ public static final int TYPE_KEYGUARD_DIALOG   =  FIRST_SYSTEM_WINDOW +9;
+
+ 系统内部错误提示，显示于所有内容之上。
+ public static final int TYPE_SYSTEM_ERROR      =  FIRST_SYSTEM_WINDOW +10;
+ ...
+
+ 系统窗口结束。     public static final int LAST_SYSTEM_WINDOW     = 2999;
+</code></pre><p>window flag</p>
+<p>// 该窗口后面的所有内容都会变暗。<br>public static final int FLAG_DIM_BEHIND = 0x00000002;</p>
+<p>// 该窗口将永远不会获得关键的输入焦点，不拦截键或其他按钮事件<br>// 开启这个默认会开启FLAG_NOT_TOUCH_MODAL<br>public static final int FLAG_NOT_FOCUSABLE = 0x00000008;</p>
+<p>// 不拦截window之外的点击事件<br>public static final int FLAG_NOT_TOUCH_MODAL = 0x00000020;</p>
+<p>新系统特性 特殊权限<br>安卓8 26 O 开始 系统弹窗用这个 WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY<br>             但是26之前不支持这个属性<br> 安卓6 23 M 以后权限需要动态获取 <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"></uses-permission></p>
+<p>// +8 层级往上不能直接用<br>WindowManager.LayoutParams.TYPE_SYSTEM_DIALOG<br>会报异常 permission denied for window type 2008</p>
+<ul>
+<li>例外 WindowManager.LayoutParams.TYPE_SYSTEM_ERROR +10 这个可以用</li>
+</ul>
+<p>特殊方式获取和判断</p>
+<p>private static final int REQUEST_CODE = 1;<br>private void requestAlertWindowPermission() {<br>    Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);<br>    intent.setData(Uri.parse(“package:” + getPackageName()));<br>    startActivityForResult(intent, REQUEST_CODE);<br>} </p>
+<p>@Override<br>protected void onActivityResult(int requestCode, int resultCode, Intent data) {<br>   super.onActivityResult(requestCode, resultCode, data);<br>   if (requestCode == REQUEST_CODE) {<br>     if (Settings.canDrawOverlays(this)) {<br>       Log.i(TAG, “onActivityResult granted”);<br>     } else {<br>       Log.i(TAG, “onActivityResult: not granted”);<br>     }<br>   }<br>}</p>
+<p>常用操作1 弹出某个自定义view </p>
+<p>/*</p>
+<ul>
+<li>弹出系统弹窗 不需要activity的context<br>*/<br>public void popSystemWindow() {<br>  WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);<br>  WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();<br>  layoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;<br>  layoutParams.height = 100;<br>  layoutParams.width = 100;<br>  layoutParams.x = Gravity.CENTER;<br>  layoutParams.y = Gravity.CENTER;<br>  final Button button = new Button(this);<br>  button.setBackground(getResources().getDrawable(R.drawable.launcher));<br>  windowManager.addView(button, layoutParams);<br>}</li>
+</ul>
+<p>常用操作2 给弹出的view添加蒙层效果</p>
+<p>/*</p>
+<ul>
+<li>给view加类似dialog的蒙层</li>
+<li>蒙层的type层级要低于view的层级<br>*/<br>private void addMask(IBinder token) {<br>  WindowManager.LayoutParams wl = new WindowManager.LayoutParams();<br>  wl.width = WindowManager.LayoutParams.MATCH_PARENT;<br>  wl.height = WindowManager.LayoutParams.MATCH_PARENT;<br>  wl.format = PixelFormat.TRANSLUCENT; // 不设置这个弹出框的透明遮罩显示为黑色<br>  wl.type = WindowManager.LayoutParams.TYPE_APPLICATION_PANEL;<br>  wl.token = token; // 获取当前Activity中的View中的token,来依附Activity<br>  maskView = new View(mContext);<br>  maskView.setBackgroundColor(Color.parseColor(“#4D000000”));<br>  maskView.setFitsSystemWindows(false);<br>  maskView.setOnKeyListener((v, keyCode, event) -&gt; {<pre><code>if (keyCode == KeyEvent.KEYCODE_BACK) {
+    removeMask();
+}
+return false;
+</code></pre>  });<br>  maskView.setOnClickListener(v -&gt; {<pre><code>removeMask();
+</code></pre>  });<br>  windowManager.addView(maskView, wl);<br>}</li>
+</ul>
+<p>/*</p>
+<ul>
+<li>移除蒙层<br>*/<br>private void removeMask() {<br>  if (null != maskView) {<pre><code>windowManager.removeViewImmediate(maskView);
+maskView = null;
+</code></pre>  }<br>}</li>
+</ul>
+<p>也可以直接拿到activity的window设置flag WindowManager.LayoutParams.FLAG_DIM_BEHIND<br>但对activity过于复杂的应用不适用 例如note</p>
+<p>常用操作3 调整视图层级</p>
+<p>如提高dialog层级到系统层级 dialog.getWindow().setType(LayoutParams.TYPE_SYSTEM_ALERT);<br>但是要注意<br>要声明权限<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"><br>6.0以上的 动态获取<br>8.0换成TYPE_APPLICATION_OVERLAY</uses-permission></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://huang-ray.com/2019/11/19/adb-快捷命令脚步/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1874,228 +2201,6 @@ SonarLint is an IDE extension that helps you detect and fix quality issues as yo
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huang-ray.com/2019/07/25/adb命令小记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lei">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lei's blog site">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/07/25/adb命令小记/" class="post-title-link" itemprop="url">adb命令小记</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-
-            
-              
-
-              
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-11-28 09:47:17" itemprop="dateModified" datetime="2019-11-28T09:47:17+08:00">2019-11-28</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-            <span id="/2019/07/25/adb命令小记/" class="leancloud_visitors" data-flag-title="adb命令小记">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读次数：</span>
-              
-                <span class="leancloud-visitors-count"></span>
-            </span>
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">1.7k</span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="adb命令小记"><a href="#adb命令小记" class="headerlink" title="adb命令小记"></a>adb命令小记</h1><h4 id="1、打开adb调试？如何打开开发者模式？如何进入工厂菜单？进入工厂菜单的方式有什么途径？"><a href="#1、打开adb调试？如何打开开发者模式？如何进入工厂菜单？进入工厂菜单的方式有什么途径？" class="headerlink" title="1、打开adb调试？如何打开开发者模式？如何进入工厂菜单？进入工厂菜单的方式有什么途径？"></a>1、打开adb调试？如何打开开发者模式？如何进入工厂菜单？进入工厂菜单的方式有什么途径？</h4><pre><code>遥控器 debugmenu 进入Android set 全部打开
-</code></pre><h4 id="3、连接整机进行调试"><a href="#3、连接整机进行调试" class="headerlink" title="3、连接整机进行调试"></a>3、连接整机进行调试</h4><pre><code>adb connect ip:5555 旋转屏的是1379
-</code></pre><h4 id="4、截图"><a href="#4、截图" class="headerlink" title="4、截图"></a>4、截图</h4><pre><code>adb shell screencap -p /sdcard/sdkf.jpg
-</code></pre><h4 id="5、将整机系统的一个文件拉取到电脑"><a href="#5、将整机系统的一个文件拉取到电脑" class="headerlink" title="5、将整机系统的一个文件拉取到电脑"></a>5、将整机系统的一个文件拉取到电脑</h4><pre><code>adb pull /sdcard/sdkf.jpg /Users/lei/downloads
-</code></pre><h4 id="6、将电脑的一个文件推送到整机系统"><a href="#6、将电脑的一个文件推送到整机系统" class="headerlink" title="6、将电脑的一个文件推送到整机系统"></a>6、将电脑的一个文件推送到整机系统</h4><pre><code>adb push /Users/lei/Downloads/s1.png /sdcard
-</code></pre><h4 id="7、查看当前界面是哪个应用"><a href="#7、查看当前界面是哪个应用" class="headerlink" title="7、查看当前界面是哪个应用"></a>7、查看当前界面是哪个应用</h4><pre><code>adb shell dumpsys window | grep mCurrentFocus
-</code></pre><h4 id="8、打开某个Activity"><a href="#8、打开某个Activity" class="headerlink" title="8、打开某个Activity"></a>8、打开某个Activity</h4><pre><code>Activity Manager(am)工具  shell 发送远程内核命令
-adb shell am start -n com.example.myapplication/.main.MainActivity 
-</code></pre><h4 id="9、发送某个广播"><a href="#9、发送某个广播" class="headerlink" title="9、发送某个广播"></a>9、发送某个广播</h4><pre><code>同8 startservice
-</code></pre><h4 id="10、打开某个服务"><a href="#10、打开某个服务" class="headerlink" title="10、打开某个服务"></a>10、打开某个服务</h4><pre><code>[--user user_id | all | current]：指定要发送到的用户；如果未指定，则发送到所有用户
-同8 broadcast
-</code></pre><h4 id="11、获取某个应用的版本信息"><a href="#11、获取某个应用的版本信息" class="headerlink" title="11、获取某个应用的版本信息"></a>11、获取某个应用的版本信息</h4><pre><code>adb shell dumpsys package com.example.myapplication | grep version
-#### 12、使用什么adb命令安装应用
-install [options] path    将软件包（通过 path 指定）安装到系统。
-选项：
--l：安装具有转发锁定功能的软件包。
--r：重新安装现有应用，保留其数据。
--t：允许安装测试 APK。
--i installer_package_name：指定安装程序软件包名称。
--s：在共享的大容量存储（如 sdcard）上安装软件包。
--f：在内部系统内存上安装软件包。
--d：允许版本代码降级。
--g：授予应用清单中列出的所有权限。
-adb install -r apk路径
-</code></pre><h4 id="13、卸载应用"><a href="#13、卸载应用" class="headerlink" title="13、卸载应用"></a>13、卸载应用</h4><pre><code>-k：移除软件包后保留数据和缓存目录。
-adb uninstall com.example.myapplication
-</code></pre><h4 id="14、获取某个系统属性值"><a href="#14、获取某个系统属性值" class="headerlink" title="14、获取某个系统属性值"></a>14、获取某个系统属性值</h4><pre><code>adb shell getprop [key]
-adb shell getprop 不加全显示
-</code></pre><h4 id="15、设置某个系统属性值"><a href="#15、设置某个系统属性值" class="headerlink" title="15、设置某个系统属性值"></a>15、设置某个系统属性值</h4><p>adb shell setprop [key] [value]</p>
-<h4 id="16、获得系统的ANR文件和log文件"><a href="#16、获得系统的ANR文件和log文件" class="headerlink" title="16、获得系统的ANR文件和log文件"></a>16、获得系统的ANR文件和log文件</h4><pre><code>adb root
-adb pull /data/anr /Users/lei/Downloads
-</code></pre><h4 id="17、查看系统CPU占用率"><a href="#17、查看系统CPU占用率" class="headerlink" title="17、查看系统CPU占用率"></a>17、查看系统CPU占用率</h4><pre><code>adb shell top    
-</code></pre><h4 id="18、查看某个应用的进程号？如何杀死某个应用？"><a href="#18、查看某个应用的进程号？如何杀死某个应用？" class="headerlink" title="18、查看某个应用的进程号？如何杀死某个应用？"></a>18、查看某个应用的进程号？如何杀死某个应用？</h4><pre><code>adb root
-adb shell ps 进程列表
-adb shell kill [pid]
-</code></pre><h4 id="20-卸载系统应用"><a href="#20-卸载系统应用" class="headerlink" title="20 卸载系统应用"></a>20 卸载系统应用</h4><pre><code>adb root
-adb remount
-adb shell
-cd /system/app/
-rm -rf PinyinIME/
-</code></pre><h4 id="21-重启adb"><a href="#21-重启adb" class="headerlink" title="21 重启adb"></a>21 重启adb</h4><pre><code>adb kill-server 再任意命令启动adb
-或者
-mac下直接打开活动监视器 搜索adb强制关闭
-</code></pre><h4 id="22-对某一模拟器执行命令："><a href="#22-对某一模拟器执行命令：" class="headerlink" title="22 对某一模拟器执行命令："></a>22 对某一模拟器执行命令：</h4><pre><code>adb [-d|-e|-s ]
--d 指定当前唯一连接的硬件设备为命令目标 -- 唯一连接的 USB 设备
--e 指定当前唯一运行的模拟器设备为命令目标 -- 唯一运行的模拟器
-abd -s 要指定的模拟器编号 命令
-</code></pre><h4 id="23-查看当前系统内存限制"><a href="#23-查看当前系统内存限制" class="headerlink" title="23 查看当前系统内存限制"></a>23 查看当前系统内存限制</h4><pre><code>java虚拟机的最大内存限制
-adb shell getprop dalvik.vm.heapgrowthlimit
-单个程序限制最大内存
-adb shell getprop dalvik.vm.heapsize
-</code></pre><h4 id="23-列出adb连接设备所有应用"><a href="#23-列出adb连接设备所有应用" class="headerlink" title="23 列出adb连接设备所有应用"></a>23 列出adb连接设备所有应用</h4><pre><code>adb shell pm list packages
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2144,7 +2249,7 @@ adb shell getprop dalvik.vm.heapsize
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2201,7 +2306,13 @@ adb shell getprop dalvik.vm.heapsize
                     
                       
                     
-                    <span class="site-state-item-count">19</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -2279,7 +2390,7 @@ adb shell getprop dalvik.vm.heapsize
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">21k</span>
+    <span title="站点总字数">31k</span>
   
 
   
