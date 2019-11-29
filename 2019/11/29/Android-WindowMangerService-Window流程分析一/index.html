@@ -99,25 +99,20 @@
 
 
 
-  <meta name="description" content="先从安卓系统启动开始 – 源码参考android sdk29 SystemServer启动流程 Android本质上是基于linux操作系统，理论上大值启动过程与linux差不多，不同的是Android采用的是嵌入式设备，没有PC上的BIOS等设备，取而代之的是叫做Bootloader的系统启动加载器，用于初始化硬件设备，为加载内核做好准备。 1️⃣ 按下电源开机通电 –&amp;gt; 2⃣️加载引导程">
-<meta name="keywords" content="android,window,源码分析">
+  <meta name="description" content="先从安卓系统启动开始 – 源码参考android sdk29 ###SystemServer启动流程 Android本质上是基于linux操作系统，理论上大值启动过程与linux差不多，不同的是Android采用的是嵌入式设备，没有PC上的BIOS等设备，取而代之的是叫做Bootloader的系统启动加载器，用于初始化硬件设备，为加载内核做好准备。 1️⃣ 按下电源开机通电 –&amp;gt; 2⃣️加载">
+<meta name="keywords" content="Android,window,源码分析">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android WindowMangerService Window流程分析一">
 <meta property="og:url" content="http://huang-ray.com/2019/11/29/Android-WindowMangerService-Window流程分析一/index.html">
 <meta property="og:site_name" content="lei&#39;s blog site">
-<meta property="og:description" content="先从安卓系统启动开始 – 源码参考android sdk29 SystemServer启动流程 Android本质上是基于linux操作系统，理论上大值启动过程与linux差不多，不同的是Android采用的是嵌入式设备，没有PC上的BIOS等设备，取而代之的是叫做Bootloader的系统启动加载器，用于初始化硬件设备，为加载内核做好准备。 1️⃣ 按下电源开机通电 –&amp;gt; 2⃣️加载引导程">
+<meta property="og:description" content="先从安卓系统启动开始 – 源码参考android sdk29 ###SystemServer启动流程 Android本质上是基于linux操作系统，理论上大值启动过程与linux差不多，不同的是Android采用的是嵌入式设备，没有PC上的BIOS等设备，取而代之的是叫做Bootloader的系统启动加载器，用于初始化硬件设备，为加载内核做好准备。 1️⃣ 按下电源开机通电 –&amp;gt; 2⃣️加载">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://huang-ray.com/2019/11/29/Android-WindowMangerService-Window流程分析一/1.png">
 <meta property="og:image" content="http://huang-ray.com/2019/11/29/Android-WindowMangerService-Window流程分析一/2.png">
-<meta property="og:image" content="http://huang-ray.com/2019/11/29/Android-WindowMangerService-Window流程分析一/3.png">
-<meta property="og:image" content="http://huang-ray.com/2019/11/29/Android-WindowMangerService-Window流程分析一/4.png">
-<meta property="og:image" content="http://huang-ray.com/2019/11/29/Android-WindowMangerService-Window流程分析一/5.jpg">
-<meta property="og:image" content="http://huang-ray.com/2019/11/29/Android-WindowMangerService-Window流程分析一/6.png">
-<meta property="og:image" content="http://huang-ray.com/2019/11/29/Android-WindowMangerService-Window流程分析一/7.png">
-<meta property="og:updated_time" content="2019-11-29T06:26:48.988Z">
+<meta property="og:updated_time" content="2019-11-29T06:43:22.364Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android WindowMangerService Window流程分析一">
-<meta name="twitter:description" content="先从安卓系统启动开始 – 源码参考android sdk29 SystemServer启动流程 Android本质上是基于linux操作系统，理论上大值启动过程与linux差不多，不同的是Android采用的是嵌入式设备，没有PC上的BIOS等设备，取而代之的是叫做Bootloader的系统启动加载器，用于初始化硬件设备，为加载内核做好准备。 1️⃣ 按下电源开机通电 –&amp;gt; 2⃣️加载引导程">
+<meta name="twitter:description" content="先从安卓系统启动开始 – 源码参考android sdk29 ###SystemServer启动流程 Android本质上是基于linux操作系统，理论上大值启动过程与linux差不多，不同的是Android采用的是嵌入式设备，没有PC上的BIOS等设备，取而代之的是叫做Bootloader的系统启动加载器，用于初始化硬件设备，为加载内核做好准备。 1️⃣ 按下电源开机通电 –&amp;gt; 2⃣️加载">
 <meta name="twitter:image" content="http://huang-ray.com/2019/11/29/Android-WindowMangerService-Window流程分析一/1.png">
 
 
@@ -380,7 +375,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-11-29 14:26:48" itemprop="dateModified" datetime="2019-11-29T14:26:48+08:00">2019-11-29</time>
+                <time title="修改时间：2019-11-29 14:43:22" itemprop="dateModified" datetime="2019-11-29T14:43:22+08:00">2019-11-29</time>
               
             
           </span>
@@ -421,7 +416,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">9.6k</span>
+                <span title="本文字数">10k</span>
               
 
               
@@ -446,24 +441,17 @@
 
       
         <p>先从安卓系统启动开始 – 源码参考android sdk29</p>
-<p>SystemServer启动流程</p>
+<p>###SystemServer启动流程</p>
 <p>Android本质上是基于linux操作系统，理论上大值启动过程与linux差不多，不同的是Android采用的是嵌入式设备，没有PC上的BIOS等设备，取而代之的是叫做Bootloader的系统启动加载器，用于初始化硬件设备，为加载内核做好准备。</p>
 <p>1️⃣ 按下电源开机通电 –&gt; 2⃣️加载引导程序Bootloader到内存 –&gt; 3⃣️Bootloader拉起linux内核 –&gt; 4⃣️启动系统进程 –&gt; 5⃣️第一个用户空间进程 init进程</p>
 <p>Bootloader:  引导程序并不隶属于 Android 系统，它的作用是初始化硬件设备，加载内核文件等，为系统内核启动搭建好所需的环境。Bootloader 引导程序是 Android 系统开机运行的第一个程序，它是针对特定的主板与芯片的，因此，对于不同的设备制造商，它们的引导程序都是不同的。当前比较受欢迎的引导程序有 uboot(现有整机使用)，redboot 等。</p>
-<p>Linux内核:  Linux 内核开始启动，初始化各种软硬件环境，加载驱动程序，挂载根文件系统等，最重要的是，内核启动完成后，它会在系统文件中寻找 ”init” 文件，然后启动 init 进程。到此，Android 新世界正式开启。</p>
-<p>init进程:  Linux用户空间的第一个进程，进程号固定为 1，PID始终为1。init 进程有两个责任，一是挂载目录，比如/sys、/dev、/proc，二是运行 init.rc 脚本（init 进程在解析 init.rc 脚本时，会创建 Zygote 进程）<br><img src="/2019/11/29/Android-WindowMangerService-Window流程分析一/1.png" alt></p>
-<p>Zygote进程:  init 进程在解析 init.rc 脚本时，会创建 Zygote 进程，只有该进程才会建立起真正的 Android 运行空间，它是 Android 系统最重要的进程之一。后续 Android 中的应用进程都是由 Zygote 进程 Fork 出来的，因此，Zygote 是 Android 系统所有应用的父进程（即 Java 进程的鼻祖）</p>
+<p>####Linux内核:  Linux 内核开始启动，初始化各种软硬件环境，加载驱动程序，挂载根文件系统等，最重要的是，内核启动完成后，它会在系统文件中寻找 ”init” 文件，然后启动 init 进程。到此，Android 新世界正式开启。</p>
+<p>####init进程:  Linux用户空间的第一个进程，进程号固定为 1，PID始终为1。init 进程有两个责任，一是挂载目录，比如/sys、/dev、/proc，二是运行 init.rc 脚本（init 进程在解析 init.rc 脚本时，会创建 Zygote 进程）<br><img src="/2019/11/29/Android-WindowMangerService-Window流程分析一/1.png" alt></p>
+<p>####Zygote进程:  init 进程在解析 init.rc 脚本时，会创建 Zygote 进程，只有该进程才会建立起真正的 Android 运行空间，它是 Android 系统最重要的进程之一。后续 Android 中的应用进程都是由 Zygote 进程 Fork 出来的，因此，Zygote 是 Android 系统所有应用的父进程（即 Java 进程的鼻祖）</p>
 <p>“所有的Java应用程序进程及系统服务SystemServer进程都由Zygote进程通过fork孵化而来”</p>
-<h3 id="init-zygote64-32-rc"><a href="#init-zygote64-32-rc" class="headerlink" title="init.zygote64_32.rc"></a>init.zygote64_32.rc</h3><p>service zygote /system/bin/app_process64 -Xzygote /system/bin –zygote –start-system-server –socket-name=zygote<br>    class main<br>    priority -20<br>    user root<br>    group root readproc<br>    socket zygote stream 660 root system<br>…</p>
-<p>Zygote由ini进程通过解析init.rc调用app_process64可执行文件，生成对应的zygote进程，具体位置<br>frameworks/base/cmds/app_process/app_main.cpp<br><img src="/2019/11/29/Android-WindowMangerService-Window流程分析一/2.png" alt><br>？zygote既然由app_process启动，进程为什么不叫app_process，却叫zygote？<br>app_main.cpp#main<br>//niceName不空，比如zygote进程。<br>if (!niceName.isEmpty()) {<br>     //此处把app_process进程名，改为zygote，见 注② 这就是上述说得改名操作<br>     runtime.setArgv0(niceName.string(), true /<em> setProcName </em>/);<br>}</p>
-<p>另外一点是app_process可以直接启动jar包，如monkey的启动脚本，vysor的录屏等都是采用了此方式</p>
-<h3 id="system-bin-monkey"><a href="#system-bin-monkey" class="headerlink" title="/system/bin/monkey"></a>/system/bin/monkey</h3><p>base=/system<br>export CLASSPATH=$base/framework/monkey.jar<br>exec app_process $base/bin com.android.commands.monkey.Monkey “$@”</p>
-<p>zygote创建了Android的java世界，因此zygote必须完成JVM虚拟机的创建，然后孵化出java世界的第一个进程SystemServer</p>
-<p>zygote分类<br>native:  JVM虚拟机 注册JNI函数                    // 开始跑java代码<br>java层:  ZygoteInit#main() fork出systemServer 预加载需要的类和资源<br>             ZygoteInit#main() -&gt; zygoteServer.runSelectLoop(..) 等待socket连接 fork出apk程序进程</p>
-<p>SystemServer进程:   SystemServer 的主要的作用是启动各种系统服务，比如 ActivityManagerService，PackageManagerService，WindowManagerService 以及硬件相关的 Service 等服务，我们平时熟知的各种系统服务其实都是在 SystemServer 进程中启动的<br><img src="/2019/11/29/Android-WindowMangerService-Window流程分析一/3.png" alt></p>
-<p>Android 平台的主要组件<br><img src="/2019/11/29/Android-WindowMangerService-Window流程分析一/4.png" alt><br>Android 软件堆栈</p>
-<p>WindowManagerService启动</p>
-<p>创建过程: SystemServer#startOtherServices()，通过调用WindowManagerService#main()返回自己的静态实例 </p>
+<h3 id="init-zygote64-32-rc"><a href="#init-zygote64-32-rc" class="headerlink" title="init.zygote64_32.rc"></a>init.zygote64_32.rc</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">service zygote /system/bin/app_process64 -Xzygote /system/bin --zygote --start-system-server --socket-name=zygote</span><br><span class="line">    class main</span><br><span class="line">    priority -20</span><br><span class="line">    user root</span><br><span class="line">    group root readproc</span><br><span class="line">    socket zygote stream 660 root system</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>Zygote由ini进程通过解析init.rc调用app_process64可执行文件，生成对应的zygote进程，具体位置<br>frameworks/base/cmds/app_process/app_main.cpp<br><img src="/2019/11/29/Android-WindowMangerService-Window流程分析一/2.png" alt><br>？zygote既然由app_process启动，进程为什么不叫app_process，却叫zygote？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">app_main.cpp#main    </span><br><span class="line">//niceName不空，比如zygote进程。</span><br><span class="line">if (!niceName.isEmpty()) &#123;</span><br><span class="line">     //此处把app_process进程名，改为zygote，见 注② 这就是上述说得改名操作</span><br><span class="line">     runtime.setArgv0(niceName.string(), true /* setProcName */);</span><br><span class="line">&#125;</span><br><span class="line">```  </span><br><span class="line">另外一点是app_process可以直接启动jar包，如monkey的启动脚本，vysor的录屏等都是采用了此方式</span><br><span class="line"></span><br><span class="line">/system/bin/monkey</span><br></pre></td></tr></table></figure></p>
+<p>base=/system<br>export CLASSPATH=$base/framework/monkey.jar<br>exec app_process $base/bin com.android.commands.monkey.Monkey “$@”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">zygote创建了Android的java世界，因此zygote必须完成JVM虚拟机的创建，然后孵化出java世界的第一个进程SystemServer</span><br><span class="line"></span><br><span class="line">####zygote分类</span><br><span class="line">native:  JVM虚拟机 注册JNI函数                    // 开始跑java代码</span><br><span class="line">java层:  ZygoteInit#main() fork出systemServer 预加载需要的类和资源</span><br><span class="line">             ZygoteInit#main() -&gt; zygoteServer.runSelectLoop(..) 等待socket连接 fork出apk程序进程</span><br><span class="line">                   </span><br><span class="line">####SystemServer进程:   SystemServer 的主要的作用是启动各种系统服务，比如 ActivityManagerService，PackageManagerService，WindowManagerService 以及硬件相关的 Service 等服务，我们平时熟知的各种系统服务其实都是在 SystemServer 进程中启动的</span><br><span class="line">![](3.png)</span><br><span class="line"></span><br><span class="line">Android 平台的主要组件</span><br><span class="line">![](4.png)</span><br><span class="line"></span><br><span class="line">###WindowManagerService启动</span><br><span class="line"></span><br><span class="line">####创建过程: SystemServer#startOtherServices()，通过调用WindowManagerService#main()返回自己的静态实例</span><br></pre></td></tr></table></figure></p>
 <p>private void startOtherServices() {<br>     ……<br>     WindowManagerService wm = null;<br>     ……</p>
 <pre><code>wm = WindowManagerService.main(context, inputManager,
                mFactoryTestMode != FactoryTest.FACTORY_TEST_LOW_LEVEL...);
@@ -494,95 +482,14 @@ try {
 }
 
 ......
-</code></pre><p>}</p>
-<p>S端存储: 通过ServiceManager BinderInternal#public static final native IBinder getContextObject(); 拿到binder  -&gt; 把实例存到Native层的ServiceManager</p>
-<p>C端获取: ContextImpl SystemServiceRegistry#static代码中通过ServiceManager获取所有service存到hashmap缓存</p>
-<p>WMS重要成员<br>// appWindowToken 应用窗口token 如果是系统窗口则同windowToken 没有应用窗口就是null<br>// windowToken 窗口token 根据token判断哪些窗口要一起管理</p>
-<pre><code>- AppWindowToken extend WindowToken
-</code></pre><p>// 代表一个活动的client会话<br>// 对应每个进程的单例对象WindowMangaerGlobal</p>
-<pre><code>- Session
-</code></pre><p>// 与显示的窗口对应 持有WindowToken,Session,IWindow等对象</p>
-<pre><code>- WindowState
-</code></pre><p><img src="/2019/11/29/Android-WindowMangerService-Window流程分析一/5.jpg" alt><br>// 提供所有UI行为的管理 如window层级控制<br>WindowManagerPolicy mPolicy;</p>
-<p>// 管理动画<br>WindowAnimator mAnimator;</p>
-<p>// 设备窗口层次结构的根结点 继承WindowContainer&lt;DisplayContent-对应一个抽象意义上的显示屏 持有windowState&gt;.<br>RootWindowContainer mRoot;</p>
-<p>Window基本原理</p>
-<p>基本概念 -  所有视图的基石，在Android中Window表示一个窗口，我们日常使用的activity就会绑定一个window实例，用来管理activity中的相关视图<br>                    抽象类 唯一实现是PhoneWindow </p>
-<p>类别 -  应用Window 对应一个Activity<br>           子Window 依附在父Window中<br>           系统Window 需要声明权限  <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"><br>             6.0以上的 动态获取        </uses-permission></p>
-<p><img src="/2019/11/29/Android-WindowMangerService-Window流程分析一/6.png" alt></p>
-<p>Activity中持有WindowManager与Window的引用，Window通过直接new PhoneWindow得到，WindowManager通过Window提供的接口取得<br>PhoneWindow中有一系列的成员变量，一般是各种回调，是通过Activity直接设置过来的，都是Activity相同实例。然后Activity通过Window的方法实现初始化Window中的成员变量WindowManager<br>WindowManager通过上述方法，在创建Window成员变量WindowManager的同时，把Window设置给WindowManager实现双向关联</p>
-<p> <img src="/2019/11/29/Android-WindowMangerService-Window流程分析一/7.png" alt></p>
-<p>创建过程 - Activity  在ActivityThread#performLaunchActivity  Activity#attach(..)   new PhoneWindow()<br>                   在phoneWindow中创建decorView 如果mPendingRemoveWindow不为空 复用decorView token<br>                   在ActivityThread#handleResumeActivity(…) 将mDecor和属性add到wm -&gt; Activity#makeVisible()设置视图可见</p>
-<pre><code>Dialog Dialog#dialog()  new PhoneWindow()  需要传入activity的context拿到token
-也是通过 PhoneWindow#setContentView()  设置视图
-在show方法中将mDecor和属性加到wm 
-
-PopUpWindow#showAsDropDown(View chchor)  通过传入的view拿到token
-
-Toast 系统window  层级 WindowManager.LayoutParams.TYPE_TOAST  +5
-</code></pre><p>组成 - 顶层view DecorView extends FrameLayout<br>             PhoneWindow#setContentView()  设置视图到 ViewGroup mContentParent</p>
-<p>添加过程 -  调用wm的addView(View v, LayoutParams p)  -&gt; WindowManagerGlobal#addView(v, p, mParentWindow)<br>                      -&gt; ViewRootImpl#setView(…) -&gt; Session#addToDisplay(…) -&gt;  WindowManagerService#addWindow(…)                                WindowManagerGlobal 每个进程都只有一个 实现window的三大操作<br>                      ViewRootImp 每个window都有个 复制View的绘制<br>                      Session 实现WindowSession  和windowManagerService通信</p>
-<p>window 层级</p>
-<p>应用窗口</p>
-<pre><code>应用程序窗口。
-public static final int FIRST_APPLICATION_WINDOW = 1;
-
-所有程序窗口的“基地”窗口，其他应用程序窗口都显示在它上面。     
-public static final int TYPE_BASE_APPLICATION   =1;       
-...
-应用程序窗口结束。
-public static final int LAST_APPLICATION_WINDOW = 99;
-</code></pre><p>子窗口层级<br>      …<br>      面板窗口，显示于宿主窗口上层。<br>      public static final int TYPE_APPLICATION_PANEL  = FIRST_SUB_WINDOW;<br>      …</p>
-<pre><code>应用程序窗口的子面板。显示于所有面板窗口的上层。（GUI的一般规律，越“子”越靠上）
-public static final int TYPE_APPLICATION_SUB_PANEL = FIRST_SUB_WINDOW +2;
- ...
-
-媒体信息。显示在媒体层和程序窗口之间，需要实现透明（半透明）效果。（例如显示字幕）
-public static final int TYPE_APPLICATION_MEDIA_OVERLAY  = FIRST_SUB_WINDOW +4;
-
-子窗口结束。（ End of types of sub-windows ）
-public static final int LAST_SUB_WINDOW        = 1999;
-</code></pre><p>系统窗口层级</p>
-<pre><code> 系统窗口。非应用程序创建。
-public static final int FIRST_SYSTEM_WINDOW    = 2000;
- ...
-
- 系统提示。它总是出现在应用程序窗口之上。
- public static final int TYPE_SYSTEM_ALERT      =  FIRST_SYSTEM_WINDOW +3;
-
- 锁屏窗口。
- public static final int TYPE_KEYGUARD          = FIRST_SYSTEM_WINDOW +4;
- ...
-
- 系统对话框。（例如音量调节框）。
- public static final int TYPE_SYSTEM_DIALOG     =  FIRST_SYSTEM_WINDOW +8;
-
- 锁屏时显示的对话框。
- public static final int TYPE_KEYGUARD_DIALOG   =  FIRST_SYSTEM_WINDOW +9;
-
- 系统内部错误提示，显示于所有内容之上。
- public static final int TYPE_SYSTEM_ERROR      =  FIRST_SYSTEM_WINDOW +10;
- ...
-
- 系统窗口结束。     public static final int LAST_SYSTEM_WINDOW     = 2999;
-</code></pre><p>window flag</p>
-<p>// 该窗口后面的所有内容都会变暗。<br>public static final int FLAG_DIM_BEHIND = 0x00000002;</p>
-<p>// 该窗口将永远不会获得关键的输入焦点，不拦截键或其他按钮事件<br>// 开启这个默认会开启FLAG_NOT_TOUCH_MODAL<br>public static final int FLAG_NOT_FOCUSABLE = 0x00000008;</p>
-<p>// 不拦截window之外的点击事件<br>public static final int FLAG_NOT_TOUCH_MODAL = 0x00000020;</p>
-<p>新系统特性 特殊权限<br>安卓8 26 O 开始 系统弹窗用这个 WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY<br>             但是26之前不支持这个属性<br> 安卓6 23 M 以后权限需要动态获取 <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"></uses-permission></p>
-<p>// +8 层级往上不能直接用<br>WindowManager.LayoutParams.TYPE_SYSTEM_DIALOG<br>会报异常 permission denied for window type 2008</p>
-<ul>
-<li>例外 WindowManager.LayoutParams.TYPE_SYSTEM_ERROR +10 这个可以用</li>
-</ul>
-<p>特殊方式获取和判断</p>
+</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">####S端存储: 通过ServiceManager BinderInternal#public static final native IBinder getContextObject(); 拿到binder  -&gt; 把实例存到Native层的ServiceManager</span><br><span class="line"></span><br><span class="line">####C端获取: ContextImpl SystemServiceRegistry#static代码中通过ServiceManager获取所有service存到hashmap缓存</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">####WMS重要成员</span><br><span class="line">// appWindowToken 应用窗口token 如果是系统窗口则同windowToken 没有应用窗口就是null</span><br><span class="line">// windowToken 窗口token 根据token判断哪些窗口要一起管理</span><br><span class="line">    - AppWindowToken extend WindowToken</span><br><span class="line"></span><br><span class="line">// 代表一个活动的client会话</span><br><span class="line">// 对应每个进程的单例对象WindowMangaerGlobal</span><br><span class="line">    - Session</span><br><span class="line"></span><br><span class="line">// 与显示的窗口对应 持有WindowToken,Session,IWindow等对象</span><br><span class="line">    - WindowState</span><br><span class="line">![](5.jpg)</span><br><span class="line">// 提供所有UI行为的管理 如window层级控制</span><br><span class="line">WindowManagerPolicy mPolicy;</span><br><span class="line"></span><br><span class="line">// 管理动画</span><br><span class="line">WindowAnimator mAnimator;</span><br><span class="line"></span><br><span class="line">// 设备窗口层次结构的根结点 继承WindowContainer&lt;DisplayContent-对应一个抽象意义上的显示屏 持有windowState&gt;.</span><br><span class="line">RootWindowContainer mRoot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">###Window基本原理</span><br><span class="line"></span><br><span class="line">####基本概念 -  所有视图的基石，在Android中Window表示一个窗口，我们日常使用的activity就会绑定一个window实例，用来管理activity中的相关视图</span><br><span class="line">                    抽象类 唯一实现是PhoneWindow </span><br><span class="line">                 </span><br><span class="line">####类别 -  应用Window 对应一个Activity</span><br><span class="line">           子Window 依附在父Window中</span><br><span class="line">           系统Window 需要声明权限  &lt;uses-permission android:name=&quot;android.permission.SYSTEM_ALERT_WINDOW&quot;/&gt;</span><br><span class="line">             6.0以上的 动态获取        </span><br><span class="line"></span><br><span class="line">![](6.png)</span><br><span class="line"></span><br><span class="line">Activity中持有WindowManager与Window的引用，Window通过直接new PhoneWindow得到，WindowManager通过Window提供的接口取得</span><br><span class="line">PhoneWindow中有一系列的成员变量，一般是各种回调，是通过Activity直接设置过来的，都是Activity相同实例。然后Activity通过Window的方法实现初始化Window中的成员变量WindowManager</span><br><span class="line">WindowManager通过上述方法，在创建Window成员变量WindowManager的同时，把Window设置给WindowManager实现双向关联</span><br><span class="line"></span><br><span class="line"> ![](7.png)</span><br><span class="line"></span><br><span class="line">####创建过程 - Activity  在ActivityThread#performLaunchActivity  Activity#attach(..)   new PhoneWindow()</span><br><span class="line">                   在phoneWindow中创建decorView 如果mPendingRemoveWindow不为空 复用decorView token</span><br><span class="line">                   在ActivityThread#handleResumeActivity(...) 将mDecor和属性add到wm -&gt; Activity#makeVisible()设置视图可见</span><br><span class="line">                   </span><br><span class="line">                   Dialog Dialog#dialog()  new PhoneWindow()  需要传入activity的context拿到token</span><br><span class="line">                   也是通过 PhoneWindow#setContentView()  设置视图</span><br><span class="line">                   在show方法中将mDecor和属性加到wm </span><br><span class="line">                   </span><br><span class="line">                   PopUpWindow#showAsDropDown(View chchor)  通过传入的view拿到token</span><br><span class="line"></span><br><span class="line">                   Toast 系统window  层级 WindowManager.LayoutParams.TYPE_TOAST  +5</span><br><span class="line"></span><br><span class="line">#### 组成 - 顶层view DecorView extends FrameLayout </span><br><span class="line">             PhoneWindow#setContentView()  设置视图到 ViewGroup mContentParent</span><br><span class="line"></span><br><span class="line">           </span><br><span class="line">#### 添加过程 -  调用wm的addView(View v, LayoutParams p)  -&gt; WindowManagerGlobal#addView(v, p, mParentWindow) </span><br><span class="line">                      -&gt; ViewRootImpl#setView(...) -&gt; Session#addToDisplay(...) -&gt;  WindowManagerService#addWindow(...)                                WindowManagerGlobal 每个进程都只有一个 实现window的三大操作</span><br><span class="line">                      ViewRootImp 每个window都有个 复制View的绘制</span><br><span class="line">                      Session 实现WindowSession  和windowManagerService通信</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### window 层级</span><br><span class="line"></span><br><span class="line">##### 应用窗口</span><br><span class="line"></span><br><span class="line">      应用程序窗口。</span><br><span class="line">      public static final int FIRST_APPLICATION_WINDOW = 1;</span><br><span class="line"> </span><br><span class="line">      所有程序窗口的“基地”窗口，其他应用程序窗口都显示在它上面。     </span><br><span class="line">      public static final int TYPE_BASE_APPLICATION   =1;       </span><br><span class="line">      ...</span><br><span class="line">      应用程序窗口结束。</span><br><span class="line">      public static final int LAST_APPLICATION_WINDOW = 99;</span><br><span class="line"></span><br><span class="line">##### 子窗口层级</span><br><span class="line">      ...</span><br><span class="line">      面板窗口，显示于宿主窗口上层。</span><br><span class="line">      public static final int TYPE_APPLICATION_PANEL  = FIRST_SUB_WINDOW;</span><br><span class="line">      ...</span><br><span class="line"></span><br><span class="line">      应用程序窗口的子面板。显示于所有面板窗口的上层。（GUI的一般规律，越“子”越靠上）</span><br><span class="line">      public static final int TYPE_APPLICATION_SUB_PANEL = FIRST_SUB_WINDOW +2;</span><br><span class="line">       ...</span><br><span class="line"></span><br><span class="line">      媒体信息。显示在媒体层和程序窗口之间，需要实现透明（半透明）效果。（例如显示字幕）</span><br><span class="line">      public static final int TYPE_APPLICATION_MEDIA_OVERLAY  = FIRST_SUB_WINDOW +4;</span><br><span class="line"></span><br><span class="line">      子窗口结束。（ End of types of sub-windows ）</span><br><span class="line">      public static final int LAST_SUB_WINDOW        = 1999;</span><br><span class="line"></span><br><span class="line">##### 系统窗口层级</span><br><span class="line"></span><br><span class="line">      系统窗口。非应用程序创建。</span><br><span class="line">     public static final int FIRST_SYSTEM_WINDOW    = 2000;</span><br><span class="line">      ...</span><br><span class="line"></span><br><span class="line">      系统提示。它总是出现在应用程序窗口之上。</span><br><span class="line">      public static final int TYPE_SYSTEM_ALERT      =  FIRST_SYSTEM_WINDOW +3;</span><br><span class="line"></span><br><span class="line">      锁屏窗口。</span><br><span class="line">      public static final int TYPE_KEYGUARD          = FIRST_SYSTEM_WINDOW +4;</span><br><span class="line">      ...</span><br><span class="line"></span><br><span class="line">      系统对话框。（例如音量调节框）。</span><br><span class="line">      public static final int TYPE_SYSTEM_DIALOG     =  FIRST_SYSTEM_WINDOW +8;</span><br><span class="line"></span><br><span class="line">      锁屏时显示的对话框。</span><br><span class="line">      public static final int TYPE_KEYGUARD_DIALOG   =  FIRST_SYSTEM_WINDOW +9;</span><br><span class="line"></span><br><span class="line">      系统内部错误提示，显示于所有内容之上。</span><br><span class="line">      public static final int TYPE_SYSTEM_ERROR      =  FIRST_SYSTEM_WINDOW +10;</span><br><span class="line">      ...</span><br><span class="line"></span><br><span class="line">      系统窗口结束。     public static final int LAST_SYSTEM_WINDOW     = 2999;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### window flag</span><br><span class="line"></span><br><span class="line">// 该窗口后面的所有内容都会变暗。</span><br><span class="line">public static final int FLAG_DIM_BEHIND = 0x00000002;</span><br><span class="line"></span><br><span class="line">// 该窗口将永远不会获得关键的输入焦点，不拦截键或其他按钮事件</span><br><span class="line">// 开启这个默认会开启FLAG_NOT_TOUCH_MODAL</span><br><span class="line">public static final int FLAG_NOT_FOCUSABLE = 0x00000008;</span><br><span class="line"></span><br><span class="line">// 不拦截window之外的点击事件</span><br><span class="line">public static final int FLAG_NOT_TOUCH_MODAL = 0x00000020;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### 新系统特性 特殊权限</span><br><span class="line">安卓8 26 O 开始 系统弹窗用这个 WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY</span><br><span class="line">             但是26之前不支持这个属性</span><br><span class="line"> 安卓6 23 M 以后权限需要动态获取 &lt;uses-permission android:name=&quot;android.permission.SYSTEM_ALERT_WINDOW&quot;/&gt;</span><br><span class="line"></span><br><span class="line">// +8 层级往上不能直接用</span><br><span class="line">WindowManager.LayoutParams.TYPE_SYSTEM_DIALOG</span><br><span class="line">会报异常 permission denied for window type 2008</span><br><span class="line">- 例外 WindowManager.LayoutParams.TYPE_SYSTEM_ERROR +10 这个可以用</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### 特殊方式获取和判断</span><br></pre></td></tr></table></figure></p>
 <p>private static final int REQUEST_CODE = 1;<br>private void requestAlertWindowPermission() {<br>    Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);<br>    intent.setData(Uri.parse(“package:” + getPackageName()));<br>    startActivityForResult(intent, REQUEST_CODE);<br>} </p>
-<p>@Override<br>protected void onActivityResult(int requestCode, int resultCode, Intent data) {<br>   super.onActivityResult(requestCode, resultCode, data);<br>   if (requestCode == REQUEST_CODE) {<br>     if (Settings.canDrawOverlays(this)) {<br>       Log.i(TAG, “onActivityResult granted”);<br>     } else {<br>       Log.i(TAG, “onActivityResult: not granted”);<br>     }<br>   }<br>}</p>
-<p>常用操作1 弹出某个自定义view </p>
+<p>@Override<br>protected void onActivityResult(int requestCode, int resultCode, Intent data) {<br>   super.onActivityResult(requestCode, resultCode, data);<br>   if (requestCode == REQUEST_CODE) {<br>     if (Settings.canDrawOverlays(this)) {<br>       Log.i(TAG, “onActivityResult granted”);<br>     } else {<br>       Log.i(TAG, “onActivityResult: not granted”);<br>     }<br>   }<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 常用操作1 弹出某个自定义view</span><br></pre></td></tr></table></figure></p>
 <p>/*</p>
 <ul>
-<li>弹出系统弹窗 不需要activity的context<br>*/<br>public void popSystemWindow() {<br>  WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);<br>  WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();<br>  layoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;<br>  layoutParams.height = 100;<br>  layoutParams.width = 100;<br>  layoutParams.x = Gravity.CENTER;<br>  layoutParams.y = Gravity.CENTER;<br>  final Button button = new Button(this);<br>  button.setBackground(getResources().getDrawable(R.drawable.launcher));<br>  windowManager.addView(button, layoutParams);<br>}</li>
+<li>弹出系统弹窗 不需要activity的context<br>*/<br>public void popSystemWindow() {<br>  WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);<br>  WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();<br>  layoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;<br>  layoutParams.height = 100;<br>  layoutParams.width = 100;<br>  layoutParams.x = Gravity.CENTER;<br>  layoutParams.y = Gravity.CENTER;<br>  final Button button = new Button(this);<br>  button.setBackground(getResources().getDrawable(R.drawable.launcher));<br>  windowManager.addView(button, layoutParams);<br>}<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 常用操作2 给弹出的view添加蒙层效果</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<p>常用操作2 给弹出的view添加蒙层效果</p>
 <p>/*</p>
 <ul>
 <li>给view加类似dialog的蒙层</li>
@@ -597,11 +504,9 @@ return false;
 <ul>
 <li>移除蒙层<br>*/<br>private void removeMask() {<br>  if (null != maskView) {<pre><code>windowManager.removeViewImmediate(maskView);
 maskView = null;
-</code></pre>  }<br>}</li>
+</code></pre>  }<br>}<br><code>`</code><br>也可以直接拿到activity的window设置flag WindowManager.LayoutParams.FLAG_DIM_BEHIND<br>但对activity过于复杂的应用不适用 例如note</li>
 </ul>
-<p>也可以直接拿到activity的window设置flag WindowManager.LayoutParams.FLAG_DIM_BEHIND<br>但对activity过于复杂的应用不适用 例如note</p>
-<p>常用操作3 调整视图层级</p>
-<p>如提高dialog层级到系统层级 dialog.getWindow().setType(LayoutParams.TYPE_SYSTEM_ALERT);<br>但是要注意<br>要声明权限<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"><br>6.0以上的 动态获取<br>8.0换成TYPE_APPLICATION_OVERLAY</uses-permission></p>
+<h4 id="常用操作3-调整视图层级"><a href="#常用操作3-调整视图层级" class="headerlink" title="常用操作3 调整视图层级"></a>常用操作3 调整视图层级</h4><p>如提高dialog层级到系统层级 dialog.getWindow().setType(LayoutParams.TYPE_SYSTEM_ALERT);<br>但是要注意<br>要声明权限<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"><br>6.0以上的 动态获取<br>8.0换成TYPE_APPLICATION_OVERLAY</uses-permission></p>
 
       
     </div>
@@ -625,7 +530,7 @@ maskView = null;
       
         <div class="post-tags">
           
-            <a href="/tags/android/" rel="tag"># android</a>
+            <a href="/tags/Android/" rel="tag"># Android</a>
           
             <a href="/tags/window/" rel="tag"># window</a>
           
@@ -784,7 +689,7 @@ maskView = null;
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-count">21</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -844,7 +749,7 @@ maskView = null;
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#init-zygote64-32-rc"><span class="nav-number">1.</span> <span class="nav-text">init.zygote64_32.rc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#system-bin-monkey"><span class="nav-number">2.</span> <span class="nav-text">/system/bin/monkey</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#init-zygote64-32-rc"><span class="nav-number">1.</span> <span class="nav-text">init.zygote64_32.rc</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常用操作3-调整视图层级"><span class="nav-number">1.1.</span> <span class="nav-text">常用操作3 调整视图层级</span></a></li></ol></li></ol></div>
             
 
           </div>
