@@ -21,7 +21,6 @@ protected void onCreate(Bundle savedInstanceState) {
 输出：
 	onCreate: a
 	onCreate: b
-
 #### 在onPause(), onStop(), onDestroy()中调用finish()方法
 生命周期不变 onCreate()->onPause()->onStop->onDestroy();
-注意 -- finish()后的代码仍会执行
+注意 -- 方法内finish()后的代码仍会执行 可用return语句打断

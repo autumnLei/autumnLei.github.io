@@ -2,7 +2,7 @@
 title: Java反射获取方法和属性
 date: 2019-05-02 00:53:04
 tags:
-- Java
+- java
 ---
 获取方法
 getMethod（String name, Class<?>... parameterTypes) 返回类中的某个公共方法-包括父类中的公共方法

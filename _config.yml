@@ -82,7 +82,7 @@ deploy:
   repository: https://github.com/autumnLei/autumnlei.github.io.git
   branch: master
 
-#字数统计
+# 字数统计
 symbols_count_time:
   symbols: true  #启用符号
   time: false    #启用阅读时间

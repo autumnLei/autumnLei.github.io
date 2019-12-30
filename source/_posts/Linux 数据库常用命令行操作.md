@@ -1,8 +1,8 @@
 ---
 title: Linux 数据库基本命令行操作
 tags:
+- linux
 - 数据库
-- Linux
 ---
 登录数据库: mysql -u用户名字 -p密码
 <!-- more -->
