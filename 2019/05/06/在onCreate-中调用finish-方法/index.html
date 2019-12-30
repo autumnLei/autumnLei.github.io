@@ -107,7 +107,7 @@
 <meta property="og:site_name" content="lei&#39;s blog site">
 <meta property="og:description" content="在onCreate()中调用finish()方法生命周期变化 onCreate()-&amp;gt;onDestroy();同时finish()方法后的代码段仍然会执行12345678@Overrideprotected void onCreate(Bundle savedInstanceState) &amp;#123;    super.onCreate(savedInstanceState);    set">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-16T09:37:15.461Z">
+<meta property="og:updated_time" content="2019-12-30T09:18:42.793Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在onCreate()中调用finish()方法">
 <meta name="twitter:description" content="在onCreate()中调用finish()方法生命周期变化 onCreate()-&amp;gt;onDestroy();同时finish()方法后的代码段仍然会执行12345678@Overrideprotected void onCreate(Bundle savedInstanceState) &amp;#123;    super.onCreate(savedInstanceState);    set">
@@ -372,7 +372,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-05-16 17:37:15" itemprop="dateModified" datetime="2019-05-16T17:37:15+08:00">2019-05-16</time>
+                <time title="修改时间：2019-12-30 17:18:42" itemprop="dateModified" datetime="2019-12-30T17:18:42+08:00">2019-12-30</time>
               
             
           </span>
@@ -413,7 +413,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">521</span>
+                <span title="本文字数">505</span>
               
 
               
@@ -439,7 +439,7 @@
       
         <h4 id="在onCreate-中调用finish-方法"><a href="#在onCreate-中调用finish-方法" class="headerlink" title="在onCreate()中调用finish()方法"></a>在onCreate()中调用finish()方法</h4><p>生命周期变化 onCreate()-&gt;onDestroy();<br>同时finish()方法后的代码段仍然会执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">    super.onCreate(savedInstanceState);</span><br><span class="line">    setContentView(R.layout.activity_main);</span><br><span class="line">        Log.d(TAG, &quot;onCreate: a&quot;);</span><br><span class="line">        finish();</span><br><span class="line">        Log.d(TAG, &quot;onCreate: b&quot;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
 <p>输出：<br>    onCreate: a<br>    onCreate: b</p>
-<h4 id="在onPause-onStop-onDestroy-中调用finish-方法"><a href="#在onPause-onStop-onDestroy-中调用finish-方法" class="headerlink" title="在onPause(), onStop(), onDestroy()中调用finish()方法"></a>在onPause(), onStop(), onDestroy()中调用finish()方法</h4><p>生命周期不变 onCreate()-&gt;onPause()-&gt;onStop-&gt;onDestroy();<br>注意 – 方法内finish()后的代码仍会执行 可用return语句打断</p>
+<h4 id="在onPause-onStop-onDestroy-中调用finish-方法"><a href="#在onPause-onStop-onDestroy-中调用finish-方法" class="headerlink" title="在onPause(), onStop(), onDestroy()中调用finish()方法"></a>在onPause(), onStop(), onDestroy()中调用finish()方法</h4><p>生命周期不变 onCreate()-&gt;onPause()-&gt;onStop-&gt;onDestroy();<br>注意 – finish()后的代码仍会执行</p>
 
       
     </div>
@@ -486,8 +486,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/05/16/左右下布局/" rel="prev" title="Android动画 左右下布局">
-                Android动画 左右下布局 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/12/30/Linux 数据库常用命令行操作/" rel="prev" title="Linux 数据库基本命令行操作">
+                Linux 数据库基本命令行操作 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -559,7 +559,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -628,7 +628,7 @@
                     
                       
                     
-                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -723,7 +723,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">32k</span>
+    <span title="站点总字数">11k</span>
   
 
   
