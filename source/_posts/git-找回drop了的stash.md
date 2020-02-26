@@ -1,10 +1,16 @@
 ---
-title: git 找回drop了的stash
+title: git找回代码
 date: 2019-10-31 15:59:41
 tags:
 - git
 ---
 
+## 找回git checkout丢失的代码
+git reflog
+git reset –hard HEAD@{1} 1或者其他最近的数字
+
+
+## git找回drop了的stash
 数据类型	含义
 blobs	每个blob代表一个（版本的）文件，blob只包含文件的数据，而忽略文件的其他元数据，如名字、路径、格式等。
 trees	每个tree代表了一个目录的信息，包含了此目录下的blobs，子目录（对应于子trees），文件名、路径等元数据。因此，对于有子目录的目录，git相当于存储了嵌套的trees。

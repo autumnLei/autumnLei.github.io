@@ -82,4 +82,6 @@ adb shell setprop [key] [value]
 	adb shell pm list packages
 #### 24 强制退出某个应用
 	adb shell am force-stop com.seewo.easinote
+#### 25 输出日志到本地
+	adb logcat > /Users/lei/Downloads/logcat.txt
 

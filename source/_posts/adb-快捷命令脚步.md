@@ -7,6 +7,8 @@ tags:
 ---
    建议在sdk下adb文件同层目录下新建文件叫 adbs 把下面代码copy进去 
    使用时输入 adbs wifi 调起wifi应用
+   不知道activity名字的情况下 可以尝试用这个打开应用
+   adb shell monkey -p app.package.name -c android.intent.category.LAUNCHER 1
 ```
 #!/bin/sh 
 if [ $# == 0 ]; then
