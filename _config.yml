@@ -73,7 +73,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: next
+theme: polarbear
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
@@ -88,3 +88,12 @@ symbols_count_time:
   time: false    #启用阅读时间
   total_symbols: true    #启用符号，总站文章
   total_time: false      #启用时间，总站文章
+
+
+
+
+archive_generator:
+    per_page: 0
+    yearly: false
+    monthly: false
+    daily: false  
