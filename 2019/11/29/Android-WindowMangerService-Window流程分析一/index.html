@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <title>Android WindowMangerService Window流程分析一 | lei&#39;s blog site</title>
+  <meta name="keywords" content=" Android , window , 源码分析 ">
+  <meta name="description" content="Android WindowMangerService Window流程分析一 | lei&#39;s blog site">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta property="og:type" content="website">
+<meta property="og:title" content="about">
+<meta property="og:url" content="http://huang-ray.com/about/index.html">
+<meta property="og:site_name" content="lei&#39;s blog site">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-05-05T18:35:36.941Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="about">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0"></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/iconfont.js?v=1.1.0"></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value>
+  <input class="theme_blog_path" value>
+  <input id="theme_shortcut" value="true">
+</div>
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>lei</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/yelog" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="facebook" href="https://www.facebook.com/faker.tops" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-facebook"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+        <a title="instagram" href="https://www.facebook.com/faker.tops" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-instagram"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="reddit" href="https://www.reddit.com/user/yelog/" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-reddit"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="weibo" href="http://weibo.com/u/2307534817" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-weibo"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="jianshu" href="https://www.jianshu.com/u/ff56736de7cf" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-jianshu"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="zhihu" href="https://www.zhihu.com/people/jaytp/activities" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-zhihu"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+        <a title="oschina" href="https://my.oschina.net/yelog" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-oschina"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+        <a title="email" href="mailto:jaytp@qq.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=872336115&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="kugou" href="https://www.kugou.com/" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-kugou"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="neteasemusic" href="https://music.163.com/#/user/home?id=88151013" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-neteasemusic"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active" data-rel="全部文章">全部文章<small>(22)</small></div></li>
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="22">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">全部文章</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" />
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>adb</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Android</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>android studio</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>chmod</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>git</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>glide</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>hexo</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>java</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>jni</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>linux</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>log</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>recycleview</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>window</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>动画</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>插件</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>数据库</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>文件</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>权限</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>源码分析</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>算法</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>线程</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>背包问题</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>脚本</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class="全部文章 "
+           href="/2020/05/06/android O 实现通知并兼容低版本/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android O 实现通知并兼容低版本">Android O 实现通知并兼容低版本</span>
+            <span class="post-date" title="2020-05-06 02:35:36">2020/05/06</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2020/05/06/Linux 数据库常用命令行操作/"
+           data-tag="linux,数据库"
+           data-author="" >
+            <span class="post-title" title="Linux 数据库基本命令行操作">Linux 数据库基本命令行操作</span>
+            <span class="post-date" title="2020-05-06 02:35:36">2020/05/06</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2019/12/30/linux文件权限操作/"
+           data-tag="linux,chmod,权限"
+           data-author="" >
+            <span class="post-title" title="linux文件权限操作">linux文件权限操作</span>
+            <span class="post-date" title="2019-12-30 16:31:59">2019/12/30</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2019/11/29/hexo-怎么本地修改预览/"
+           data-tag="hexo"
+           data-author="" >
+            <span class="post-title" title="hexo 怎么本地修改预览">hexo 怎么本地修改预览</span>
+            <span class="post-date" title="2019-11-29 18:12:21">2019/11/29</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2019/11/29/Android-WindowMangerService-Window流程分析一/"
+           data-tag="Android,window,源码分析"
+           data-author="" >
+            <span class="post-title" title="Android WindowMangerService Window流程分析一">Android WindowMangerService Window流程分析一</span>
+            <span class="post-date" title="2019-11-29 14:13:26">2019/11/29</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2019/11/19/adb-快捷命令脚步/"
+           data-tag="adb,脚本"
+           data-author="" >
+            <span class="post-title" title="adb 快捷命令脚本">adb 快捷命令脚本</span>
+            <span class="post-date" title="2019-11-19 10:21:00">2019/11/19</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2019/11/16/android-studio-自用插件备份/"
+           data-tag="android studio,插件"
+           data-author="" >
+            <span class="post-title" title="android studio 自用插件备份">android studio 自用插件备份</span>
+            <span class="post-date" title="2019-11-16 10:31:52">2019/11/16</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2019/10/31/git-找回drop了的stash/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="git找回代码">git找回代码</span>
+            <span class="post-date" title="2019-10-31 15:59:41">2019/10/31</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2019/09/27/文件处理主意点/"
+           data-tag="java,文件"
+           data-author="" >
+            <span class="post-title" title="文件处理注意点">文件处理注意点</span>
+            <span class="post-date" title="2019-09-27 09:32:52">2019/09/27</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2019/09/04/git常用操作/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="git常用操作">git常用操作</span>
+            <span class="post-date" title="2019-09-04 11:07:36">2019/09/04</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2019/09/02/一次性操作所有git目录/"
+           data-tag="Android,git"
+           data-author="" >
+            <span class="post-title" title="一次性操作所有git目录">一次性操作所有git目录</span>
+            <span class="post-date" title="2019-09-02 14:56:31">2019/09/02</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2019/08/26/log-打印一个值的堆栈信息/"
+           data-tag="Android,log"
+           data-author="" >
+            <span class="post-title" title="log 打印一个值的堆栈信息">log 打印一个值的堆栈信息</span>
+            <span class="post-date" title="2019-08-26 20:29:46">2019/08/26</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2019/07/31/jni打印log/"
+           data-tag="Android,jni"
+           data-author="" >
+            <span class="post-title" title="jni打印log">jni打印log</span>
+            <span class="post-date" title="2019-07-31 21:30:08">2019/07/31</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2019/07/31/jni定位/"
+           data-tag="Android,jni"
+           data-author="" >
+            <span class="post-title" title="jni定位">jni定位</span>
+            <span class="post-date" title="2019-07-31 21:19:33">2019/07/31</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2019/07/25/adb命令小记/"
+           data-tag="Android,adb"
+           data-author="" >
+            <span class="post-title" title="adb命令小记">adb命令小记</span>
+            <span class="post-date" title="2019-07-25 15:15:01">2019/07/25</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2019/05/17/Android在子线程发送Toast/"
+           data-tag="Android,线程"
+           data-author="" >
+            <span class="post-title" title="Android在子线程发送Toast">Android在子线程发送Toast</span>
+            <span class="post-date" title="2019-05-17 19:56:46">2019/05/17</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2019/05/16/左右下布局/"
+           data-tag="Android,动画"
+           data-author="" >
+            <span class="post-title" title="Android动画 左右下布局">Android动画 左右下布局</span>
+            <span class="post-date" title="2019-05-16 17:40:46">2019/05/16</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2019/05/06/在onCreate-中调用finish-方法/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="在onCreate()中调用finish()方法">在onCreate()中调用finish()方法</span>
+            <span class="post-date" title="2019-05-06 09:16:11">2019/05/06</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2019/05/05/怎么得到静态layout宽高/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="怎么得到静态layout宽高">怎么得到静态layout宽高</span>
+            <span class="post-date" title="2019-05-05 15:13:29">2019/05/05</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2019/05/04/recycleview-glide-Demo/"
+           data-tag="Android,recycleview,glide"
+           data-author="" >
+            <span class="post-title" title="recycleview-glide-Demo">recycleview-glide-Demo</span>
+            <span class="post-date" title="2019-05-04 01:08:57">2019/05/04</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2019/05/03/背包问题/"
+           data-tag="算法,背包问题"
+           data-author="" >
+            <span class="post-title" title="背包问题">背包问题</span>
+            <span class="post-date" title="2019-05-03 00:00:00">2019/05/03</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2019/05/02/Java反射获取方法和属性/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java反射获取方法和属性">Java反射获取方法和属性</span>
+            <span class="post-date" title="2019-05-02 00:53:04">2019/05/02</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-Android-WindowMangerService-Window流程分析一" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">Android WindowMangerService Window流程分析一</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color3">Android</a>
+            
+            <a class="color2">window</a>
+            
+            <a class="color5">源码分析</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            发布时间 : <time class="date" title='最后更新: 2020-05-06 02:35:36'>2019-11-29 14:13</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#SystemServer启动流程"><span class="toc-text">SystemServer启动流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#zygote分类"><span class="toc-text">zygote分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SystemServer进程"><span class="toc-text">SystemServer进程:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WindowManagerService启动"><span class="toc-text">WindowManagerService启动</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#S端存储"><span class="toc-text">S端存储:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#C端获取"><span class="toc-text">C端获取:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WMS重要成员"><span class="toc-text">WMS重要成员</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Window基本原理"><span class="toc-text">Window基本原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本概念"><span class="toc-text">基本概念 -</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#类别"><span class="toc-text">类别 -</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建过程"><span class="toc-text">创建过程 -</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#组成"><span class="toc-text">组成 -</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#添加过程"><span class="toc-text">添加过程 -</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#window-层级"><span class="toc-text">window 层级</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#应用窗口"><span class="toc-text">应用窗口</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#子窗口层级"><span class="toc-text">子窗口层级</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#系统窗口层级"><span class="toc-text">系统窗口层级</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#window-flag"><span class="toc-text">window flag</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#新系统特性-特殊权限"><span class="toc-text">新系统特性 特殊权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#特殊方式获取和判断"><span class="toc-text">特殊方式获取和判断</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#常用操作1-弹出某个自定义view"><span class="toc-text">常用操作1 弹出某个自定义view</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#常用操作2-给弹出的view添加蒙层效果"><span class="toc-text">常用操作2 给弹出的view添加蒙层效果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#常用操作3-调整视图层级"><span class="toc-text">常用操作3 调整视图层级</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>先从安卓系统启动开始 – 源码参考android sdk29</p>
+<h3 id="SystemServer启动流程"><a href="#SystemServer启动流程" class="headerlink" title="SystemServer启动流程"></a>SystemServer启动流程</h3><p>Android本质上是基于linux操作系统，理论上大值启动过程与linux差不多，不同的是Android采用的是嵌入式设备，没有PC上的BIOS等设备，取而代之的是叫做Bootloader的系统启动加载器，用于初始化硬件设备，为加载内核做好准备。</p>
+<p>1️⃣ 按下电源开机通电 –&gt; 2⃣️ 加载引导程序Bootloader到内存 –&gt; 3⃣️ Bootloader拉起linux内核 –&gt; 4⃣️ 启动系统进程 –&gt; 5⃣️ 第一个用户空间进程 init进程</p>
+<p><font bgcolor="yellow"><b>Bootloader:</b></font>  引导程序并不隶属于 Android 系统，它的作用是初始化硬件设备，加载内核文件等，为系统内核启动搭建好所需的环境。Bootloader 引导程序是 Android 系统开机运行的第一个程序，它是针对特定的主板与芯片的，因此，对于不同的设备制造商，它们的引导程序都是不同的。当前比较受欢迎的引导程序有 uboot(现有整机使用)，redboot 等。</p>
+<p><font bgcolor="yellow"><b>Linux内核:</b></font>  Linux 内核开始启动，初始化各种软硬件环境，加载驱动程序，挂载根文件系统等，最重要的是，内核启动完成后，它会在系统文件中寻找 ”init” 文件，然后启动 init 进程。到此，Android 新世界正式开启。</p>
+<p><font bgcolor="yellow"><b>init进程:</b></font>  Linux用户空间的第一个进程，进程号固定为 1，PID始终为1。init 进程有两个责任，一是挂载目录，比如/sys、/dev、/proc，二是运行 init.rc 脚本（init 进程在解析 init.rc 脚本时，会创建 Zygote 进程）<br><img src="/2019/11/29/Android-WindowMangerService-Window流程分析一/1.png" alt></p>
+<p><font bgcolor="yellow"><b>Zygote进程:</b></font>  init 进程在解析 init.rc 脚本时，会创建 Zygote 进程，只有该进程才会建立起真正的 Android 运行空间，它是 Android 系统最重要的进程之一。后续 Android 中的应用进程都是由 Zygote 进程 Fork 出来的，因此，Zygote 是 Android 系统所有应用的父进程（即 Java 进程的鼻祖）</p>
+<p>“所有的Java应用程序进程及系统服务SystemServer进程都由Zygote进程通过fork孵化而来”</p>
+<p>init.zygote64_32.rc<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">service zygote /system/bin/app_process64 -Xzygote /system/bin --zygote --start-system-server --socket-name=zygote</span><br><span class="line">    class main</span><br><span class="line">    priority -20</span><br><span class="line">    user root</span><br><span class="line">    group root readproc</span><br><span class="line">    socket zygote stream 660 root system</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>Zygote由ini进程通过解析init.rc调用app_process64可执行文件，生成对应的zygote进程，具体位置<br>frameworks/base/cmds/app_process/app_main.cpp<br><img src="/2019/11/29/Android-WindowMangerService-Window流程分析一/2.png" alt><br><strong>？</strong>zygote既然由app_process启动，进程为什么不叫app_process，却叫zygote？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">app_main.cpp#main    </span><br><span class="line">//niceName不空，比如zygote进程。</span><br><span class="line">if (!niceName.isEmpty()) &#123;</span><br><span class="line">     //此处把app_process进程名，改为zygote，见 注② 这就是上述说得改名操作</span><br><span class="line">     runtime.setArgv0(niceName.string(), true /* setProcName */);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>另外一点是app_process可以直接启动jar包，如monkey的启动脚本，vysor的录屏等都是采用了此方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/system/bin/monkey</span><br><span class="line">base=/system</span><br><span class="line">export CLASSPATH=$base/framework/monkey.jar</span><br><span class="line">exec app_process $base/bin com.android.commands.monkey.Monkey &quot;$@&quot;</span><br></pre></td></tr></table></figure></p>
+<p><em>zygote创建了Android的java世界，因此zygote必须完成JVM虚拟机的创建，然后孵化出java世界的第一个进程SystemServer</em></p>
+<h4 id="zygote分类"><a href="#zygote分类" class="headerlink" title="zygote分类"></a>zygote分类</h4><p>native:  JVM虚拟机 注册JNI函数                    // 开始跑java代码<br>java层:  ZygoteInit#main() fork出systemServer 预加载需要的类和资源<br>             ZygoteInit#main() -&gt; zygoteServer.runSelectLoop(..) 等待socket连接 fork出apk程序进程</p>
+<h4 id="SystemServer进程"><a href="#SystemServer进程" class="headerlink" title="SystemServer进程:"></a>SystemServer进程:</h4><p>SystemServer 的主要的作用是启动各种系统服务，比如 ActivityManagerService，PackageManagerService，WindowManagerService 以及硬件相关的 Service 等服务，我们平时熟知的各种系统服务其实都是在 SystemServer 进程中启动的<br><img src="/2019/11/29/Android-WindowMangerService-Window流程分析一/3.png" alt></p>
+<p>Android 平台的主要组件<br><img src="/2019/11/29/Android-WindowMangerService-Window流程分析一/4.png" alt></p>
+<h3 id="WindowManagerService启动"><a href="#WindowManagerService启动" class="headerlink" title="WindowManagerService启动"></a>WindowManagerService启动</h3><p><font bgcolor="orange"><b>创建过程:</b></font> SystemServer#startOtherServices()，通过调用WindowManagerService#main()返回自己的静态实例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">private void startOtherServices() &#123;</span><br><span class="line">     ......</span><br><span class="line">     WindowManagerService wm = null;</span><br><span class="line">     ......</span><br><span class="line"></span><br><span class="line">     wm = WindowManagerService.main(context, inputManager,</span><br><span class="line">                    mFactoryTestMode != FactoryTest.FACTORY_TEST_LOW_LEVEL...);</span><br><span class="line"></span><br><span class="line">     ServiceManager.addService(Context.WINDOW_SERVICE, wm); //注册服务</span><br><span class="line"></span><br><span class="line">     ......</span><br><span class="line"></span><br><span class="line">     mActivityManagerService.setWindowManager(wm); //和ActivityManagerService进行关联</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">     ......</span><br><span class="line"></span><br><span class="line">     try &#123;</span><br><span class="line">         wm.displayReady();  //初始化显示信息，尺寸，位置等</span><br><span class="line">     &#125; catch (Throwable e) &#123;</span><br><span class="line">        reportWtf(&quot;making display ready&quot;, e);</span><br><span class="line"></span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     ......</span><br><span class="line"></span><br><span class="line">     try &#123;</span><br><span class="line">         wm.systemReady(); //通知WMS系统的初始化工作已完成</span><br><span class="line">     &#125; catch (Throwable e) &#123;</span><br><span class="line">         reportWtf(&quot;making Window Manager Service ready&quot;, e);</span><br><span class="line"></span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     ......</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="S端存储"><a href="#S端存储" class="headerlink" title="S端存储:"></a>S端存储:</h4><p>通过ServiceManager BinderInternal#public static final native IBinder getContextObject(); 拿到binder  -&gt; 把实例存到Native层的ServiceManager</p>
+<h4 id="C端获取"><a href="#C端获取" class="headerlink" title="C端获取:"></a>C端获取:</h4><p>ContextImpl SystemServiceRegistry#static代码中通过ServiceManager获取所有service存到hashmap缓存</p>
+<h4 id="WMS重要成员"><a href="#WMS重要成员" class="headerlink" title="WMS重要成员"></a>WMS重要成员</h4><p>// appWindowToken 应用窗口token 如果是系统窗口则同windowToken 没有应用窗口就是null<br>// windowToken 窗口token 根据token判断哪些窗口要一起管理</p>
+<pre><code>- AppWindowToken extend WindowToken
+</code></pre><p>// 代表一个活动的client会话<br>// 对应每个进程的单例对象WindowMangaerGlobal</p>
+<pre><code>- Session
+</code></pre><p>// 与显示的窗口对应 持有WindowToken,Session,IWindow等对象</p>
+<pre><code>- WindowState
+</code></pre><p><img src="/2019/11/29/Android-WindowMangerService-Window流程分析一/5.jpg" alt><br>// 提供所有UI行为的管理 如window层级控制<br>WindowManagerPolicy mPolicy;</p>
+<p>// 管理动画<br>WindowAnimator mAnimator;</p>
+<p>// 设备窗口层次结构的根结点 继承WindowContainer&lt;DisplayContent-对应一个抽象意义上的显示屏 持有windowState&gt;.<br>RootWindowContainer mRoot;</p>
+<h3 id="Window基本原理"><a href="#Window基本原理" class="headerlink" title="Window基本原理"></a>Window基本原理</h3><h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念 -"></a>基本概念 -</h4><p>所有视图的基石，在Android中Window表示一个窗口，我们日常使用的activity就会绑定一个window实例，用来管理activity中的相关视图<br>                    抽象类 唯一实现是PhoneWindow </p>
+<h4 id="类别"><a href="#类别" class="headerlink" title="类别 -"></a>类别 -</h4><p>应用Window 对应一个Activity<br>           子Window 依附在父Window中<br>           系统Window 需要声明权限  <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"><br>             6.0以上的 动态获取        </uses-permission></p>
+<p><img src="/2019/11/29/Android-WindowMangerService-Window流程分析一/6.png" alt></p>
+<p>Activity中持有WindowManager与Window的引用，Window通过直接new PhoneWindow得到，WindowManager通过Window提供的接口取得<br>PhoneWindow中有一系列的成员变量，一般是各种回调，是通过Activity直接设置过来的，都是Activity相同实例。然后Activity通过Window的方法实现初始化Window中的成员变量WindowManager<br>WindowManager通过上述方法，在创建Window成员变量WindowManager的同时，把Window设置给WindowManager实现双向关联</p>
+<p><img src="/2019/11/29/Android-WindowMangerService-Window流程分析一/7.png" alt></p>
+<h4 id="创建过程"><a href="#创建过程" class="headerlink" title="创建过程 -"></a>创建过程 -</h4><p>Activity  在ActivityThread#performLaunchActivity  Activity#attach(..)   new PhoneWindow()<br>                   在phoneWindow中创建decorView 如果mPendingRemoveWindow不为空 复用decorView token<br>                   在ActivityThread#handleResumeActivity(…) 将mDecor和属性add到wm -&gt; Activity#makeVisible()设置视图可见</p>
+<p>Dialog Dialog#dialog()  new PhoneWindow()  需要传入activity的context拿到token<br>                   也是通过 PhoneWindow#setContentView()  设置视图<br>                   在show方法中将mDecor和属性加到wm </p>
+<p>PopUpWindow#showAsDropDown(View chchor)  通过传入的view拿到token</p>
+<p>Toast 系统window  层级 WindowManager.LayoutParams.TYPE_TOAST  +5</p>
+<h4 id="组成"><a href="#组成" class="headerlink" title="组成 -"></a>组成 -</h4><p>顶层view DecorView extends FrameLayout<br>             PhoneWindow#setContentView()  设置视图到 ViewGroup mContentParent</p>
+<h4 id="添加过程"><a href="#添加过程" class="headerlink" title="添加过程 -"></a>添加过程 -</h4><p>调用wm的addView(View v, LayoutParams p)  -&gt; WindowManagerGlobal#addView(v, p, mParentWindow)<br>                      -&gt; ViewRootImpl#setView(…) -&gt; Session#addToDisplay(…) -&gt;  WindowManagerService#addWindow(…)                                WindowManagerGlobal 每个进程都只有一个 实现window的三大操作<br>                      ViewRootImp 每个window都有个 复制View的绘制<br>                      Session 实现WindowSession  和windowManagerService通信</p>
+<h4 id="window-层级"><a href="#window-层级" class="headerlink" title="window 层级"></a>window 层级</h4><h5 id="应用窗口"><a href="#应用窗口" class="headerlink" title="应用窗口"></a>应用窗口</h5><pre><code>应用程序窗口。
+public static final int FIRST_APPLICATION_WINDOW = 1;
+
+所有程序窗口的“基地”窗口，其他应用程序窗口都显示在它上面。     
+public static final int TYPE_BASE_APPLICATION   =1;       
+...
+应用程序窗口结束。
+public static final int LAST_APPLICATION_WINDOW = 99;
+</code></pre><h5 id="子窗口层级"><a href="#子窗口层级" class="headerlink" title="子窗口层级"></a>子窗口层级</h5><pre><code>...
+面板窗口，显示于宿主窗口上层。
+public static final int TYPE_APPLICATION_PANEL  = FIRST_SUB_WINDOW;
+...
+
+应用程序窗口的子面板。显示于所有面板窗口的上层。（GUI的一般规律，越“子”越靠上）
+public static final int TYPE_APPLICATION_SUB_PANEL = FIRST_SUB_WINDOW +2;
+ ...
+
+媒体信息。显示在媒体层和程序窗口之间，需要实现透明（半透明）效果。（例如显示字幕）
+public static final int TYPE_APPLICATION_MEDIA_OVERLAY  = FIRST_SUB_WINDOW +4;
+
+子窗口结束。（ End of types of sub-windows ）
+public static final int LAST_SUB_WINDOW        = 1999;
+</code></pre><h5 id="系统窗口层级"><a href="#系统窗口层级" class="headerlink" title="系统窗口层级"></a>系统窗口层级</h5><pre><code> 系统窗口。非应用程序创建。
+public static final int FIRST_SYSTEM_WINDOW    = 2000;
+ ...
+
+ 系统提示。它总是出现在应用程序窗口之上。
+ public static final int TYPE_SYSTEM_ALERT      =  FIRST_SYSTEM_WINDOW +3;
+
+ 锁屏窗口。
+ public static final int TYPE_KEYGUARD          = FIRST_SYSTEM_WINDOW +4;
+ ...
+
+ 系统对话框。（例如音量调节框）。
+ public static final int TYPE_SYSTEM_DIALOG     =  FIRST_SYSTEM_WINDOW +8;
+
+ 锁屏时显示的对话框。
+ public static final int TYPE_KEYGUARD_DIALOG   =  FIRST_SYSTEM_WINDOW +9;
+
+ 系统内部错误提示，显示于所有内容之上。
+ public static final int TYPE_SYSTEM_ERROR      =  FIRST_SYSTEM_WINDOW +10;
+ ...
+
+ 系统窗口结束。     public static final int LAST_SYSTEM_WINDOW     = 2999;
+</code></pre><h4 id="window-flag"><a href="#window-flag" class="headerlink" title="window flag"></a>window flag</h4><p>// 该窗口后面的所有内容都会变暗。<br>public static final int FLAG_DIM_BEHIND = 0x00000002;</p>
+<p>// 该窗口将永远不会获得关键的输入焦点，不拦截键或其他按钮事件<br>// 开启这个默认会开启FLAG_NOT_TOUCH_MODAL<br>public static final int FLAG_NOT_FOCUSABLE = 0x00000008;</p>
+<p>// 不拦截window之外的点击事件<br>public static final int FLAG_NOT_TOUCH_MODAL = 0x00000020;</p>
+<h4 id="新系统特性-特殊权限"><a href="#新系统特性-特殊权限" class="headerlink" title="新系统特性 特殊权限"></a>新系统特性 特殊权限</h4><p>安卓8 26 O 开始 系统弹窗用这个 WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY<br>             但是26之前不支持这个属性<br> 安卓6 23 M 以后权限需要动态获取 <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"></uses-permission></p>
+<p>// +8 层级往上不能直接用<br>WindowManager.LayoutParams.TYPE_SYSTEM_DIALOG<br>会报异常 permission denied for window type 2008</p>
+<ul>
+<li>例外 WindowManager.LayoutParams.TYPE_SYSTEM_ERROR +10 这个可以用</li>
+</ul>
+<h4 id="特殊方式获取和判断"><a href="#特殊方式获取和判断" class="headerlink" title="特殊方式获取和判断"></a>特殊方式获取和判断</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">private static final int REQUEST_CODE = 1; </span><br><span class="line">private void requestAlertWindowPermission() &#123;     </span><br><span class="line">    Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);</span><br><span class="line">    intent.setData(Uri.parse(&quot;package:&quot; + getPackageName()));</span><br><span class="line">    startActivityForResult(intent, REQUEST_CODE); </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">@Override </span><br><span class="line">protected void onActivityResult(int requestCode, int resultCode, Intent data) &#123;</span><br><span class="line">   super.onActivityResult(requestCode, resultCode, data);</span><br><span class="line">   if (requestCode == REQUEST_CODE) &#123;</span><br><span class="line">     if (Settings.canDrawOverlays(this)) &#123;</span><br><span class="line">       Log.i(TAG, &quot;onActivityResult granted&quot;);</span><br><span class="line">     &#125; else &#123;</span><br><span class="line">       Log.i(TAG, &quot;onActivityResult: not granted&quot;);</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="常用操作1-弹出某个自定义view"><a href="#常用操作1-弹出某个自定义view" class="headerlink" title="常用操作1 弹出某个自定义view"></a>常用操作1 弹出某个自定义view</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">* 弹出系统弹窗 不需要activity的context</span><br><span class="line">*/</span><br><span class="line">public void popSystemWindow() &#123;</span><br><span class="line">    WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);</span><br><span class="line">    WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();</span><br><span class="line">    layoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;</span><br><span class="line">    layoutParams.height = 100;</span><br><span class="line">    layoutParams.width = 100;</span><br><span class="line">    layoutParams.x = Gravity.CENTER;</span><br><span class="line">    layoutParams.y = Gravity.CENTER;</span><br><span class="line">    final Button button = new Button(this);</span><br><span class="line">    button.setBackground(getResources().getDrawable(R.drawable.launcher));</span><br><span class="line">    windowManager.addView(button, layoutParams);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="常用操作2-给弹出的view添加蒙层效果"><a href="#常用操作2-给弹出的view添加蒙层效果" class="headerlink" title="常用操作2 给弹出的view添加蒙层效果"></a>常用操作2 给弹出的view添加蒙层效果</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">* 给view加类似dialog的蒙层</span><br><span class="line">* 蒙层的type层级要低于view的层级</span><br><span class="line">*/</span><br><span class="line">private void addMask(IBinder token) &#123;</span><br><span class="line">    WindowManager.LayoutParams wl = new WindowManager.LayoutParams();</span><br><span class="line">    wl.width = WindowManager.LayoutParams.MATCH_PARENT;</span><br><span class="line">    wl.height = WindowManager.LayoutParams.MATCH_PARENT;</span><br><span class="line">    wl.format = PixelFormat.TRANSLUCENT; // 不设置这个弹出框的透明遮罩显示为黑色</span><br><span class="line">    wl.type = WindowManager.LayoutParams.TYPE_APPLICATION_PANEL;</span><br><span class="line">    wl.token = token; // 获取当前Activity中的View中的token,来依附Activity</span><br><span class="line">    maskView = new View(mContext);</span><br><span class="line">    maskView.setBackgroundColor(Color.parseColor(&quot;#4D000000&quot;));</span><br><span class="line">    maskView.setFitsSystemWindows(false);</span><br><span class="line">    maskView.setOnKeyListener((v, keyCode, event) -&gt; &#123;</span><br><span class="line">        if (keyCode == KeyEvent.KEYCODE_BACK) &#123;</span><br><span class="line">            removeMask();</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;);</span><br><span class="line">    maskView.setOnClickListener(v -&gt; &#123;</span><br><span class="line">        removeMask();</span><br><span class="line">    &#125;);</span><br><span class="line">    windowManager.addView(maskView, wl);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">* 移除蒙层</span><br><span class="line">*/</span><br><span class="line">private void removeMask() &#123;</span><br><span class="line">    if (null != maskView) &#123;</span><br><span class="line">        windowManager.removeViewImmediate(maskView);</span><br><span class="line">        maskView = null;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也可以直接拿到activity的window设置flag WindowManager.LayoutParams.FLAG_DIM_BEHIND<br>但对activity过于复杂的应用不适用 例如note</p>
+<h4 id="常用操作3-调整视图层级"><a href="#常用操作3-调整视图层级" class="headerlink" title="常用操作3 调整视图层级"></a>常用操作3 调整视图层级</h4><p>如提高dialog层级到系统层级 dialog.getWindow().setType(LayoutParams.TYPE_SYSTEM_ALERT);<br>但是要注意<br>要声明权限<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"><br>6.0以上的 动态获取<br>8.0换成TYPE_APPLICATION_OVERLAY</uses-permission></p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2016-2020 Yelog
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
