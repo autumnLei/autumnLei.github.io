@@ -130,7 +130,9 @@
             
               <p>在activity中实现按钮弹出通知</p>
 <ul>
-<li><p>首先activity的onCreate中首先绑定按钮</p></li></ul>
+<li>首先activity的onCreate中首先绑定按钮<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Button sendNotice =  (Button)findViewById(R.id.button_send_notice);</span><br><span class="line">sendNotice.setOnClickListener(this);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
         </div>
             
           
@@ -192,12 +194,33 @@
         <div class="post-excerpt post-content">
             
             
+              
+            
 
+            
+              <p><strong> 新建文件是没有可读写执行权限的灰色 </strong><br><strong> linux权限区分大小写 </strong></p>
+<ul>
+<li><p>u 表示该文件的拥有者，g 表示与该文件的拥有者属于同一个群体(group)者，o 表示其他以外的人，a 表示这三者皆是。<br>  把file.txt设置为所有人可读的两种写法</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod ugo+r file.txt</span><br><span class="line">chmod a+r file.txt</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>r 表示可读取，w 表示可写入，x 表示可执行，X 只有在文件是目录或对一些用户已经有执行权限的时候执行/搜索？<br>  新建test.sh想执行时</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x test.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>加号+ 表示增加权限、- 表示取消权限、= 表示唯一设定权限。<br>  想取消给test.sh的可执行权限时</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod -x test.sh</span><br></pre></td></tr></table></figure>
+<p>  想给file文件夹和里面所有东西可写操作时</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod -R +w file</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>数字型写法<br>  给file文件夹和里面所有文件所有权限</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod -R 777 file</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+        </div>
             
           
 
     
-  </div></article>
+  </article>
 
         
             
@@ -445,6 +468,21 @@
       </div>
     </div>
     
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"leileilei"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
 
 
     
