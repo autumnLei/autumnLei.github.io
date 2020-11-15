@@ -4,12 +4,12 @@ tags:
 - Android
 ---
 在activity中实现按钮弹出通知
-* 首先activity的onCreate中首先绑定按钮<!-- more -->
+* 首先activity的onCreate中首先绑定按钮
 ```
 Button sendNotice =  (Button)findViewById(R.id.button_send_notice);
 sendNotice.setOnClickListener(this);
 ```
-
+<!-- more -->
 * 再在onClick方法中
 ```
 @Override

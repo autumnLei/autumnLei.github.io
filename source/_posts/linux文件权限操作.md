@@ -38,5 +38,5 @@ tags:
 	```
 	chmod -R 777 file
 	```
-
+<!-- more -->
 

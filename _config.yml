@@ -91,7 +91,7 @@ symbols_count_time:
 
 
 
-
+# theme-polarbear config
 archive_generator:
     per_page: 0
     yearly: false
