@@ -43,7 +43,7 @@
 <meta property="og:site_name" content="lei&#39;s blog site">
 <meta property="og:description" content="adb命令小记1、打开adb调试？如何打开开发者模式？如何进入工厂菜单？进入工厂菜单的方式有什么途径？遥控器 debugmenu 进入Android set 全部打开 3、连接整机进行调试adb connect ip:5555 旋转屏的是1379 4、截图adb shell screencap -p /sdcard/sdkf.jpg 5、将整机系统的一个文件拉取到电脑adb pull /sdcar">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-06-09T01:49:08.675Z">
+<meta property="og:updated_time" content="2020-11-19T11:18:26.648Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="adb命令小记">
 <meta name="twitter:description" content="adb命令小记1、打开adb调试？如何打开开发者模式？如何进入工厂菜单？进入工厂菜单的方式有什么途径？遥控器 debugmenu 进入Android set 全部打开 3、连接整机进行调试adb connect ip:5555 旋转屏的是1379 4、截图adb shell screencap -p /sdcard/sdkf.jpg 5、将整机系统的一个文件拉取到电脑adb pull /sdcar">
@@ -192,6 +192,8 @@ adb shell getprop dalvik.vm.heapsize
 </code></pre><h4 id="23-列出adb连接设备所有应用"><a href="#23-列出adb连接设备所有应用" class="headerlink" title="23 列出adb连接设备所有应用"></a>23 列出adb连接设备所有应用</h4><pre><code>adb shell pm list packages
 </code></pre><h4 id="24-强制退出某个应用"><a href="#24-强制退出某个应用" class="headerlink" title="24 强制退出某个应用"></a>24 强制退出某个应用</h4><pre><code>adb shell am force-stop com.seewo.easinote
 </code></pre><h4 id="25-输出日志到本地"><a href="#25-输出日志到本地" class="headerlink" title="25 输出日志到本地"></a>25 输出日志到本地</h4><pre><code>adb logcat &gt; /Users/lei/Downloads/logcat.txt
+</code></pre><h4 id="26-带参启动应用"><a href="#26-带参启动应用" class="headerlink" title="26 带参启动应用"></a>26 带参启动应用</h4><pre><code>adb shell am start -n com.a.AApp/.UI.AActivity --ei ACTIONTYPE 66 --es URL &quot;string&quot; --es LOCATION &quot;string&quot;
+</code></pre><h4 id="27-显示文件大小"><a href="#27-显示文件大小" class="headerlink" title="27 显示文件大小"></a>27 显示文件大小</h4><pre><code>adb shell du -mh text.file
 </code></pre>
             </div>
           
