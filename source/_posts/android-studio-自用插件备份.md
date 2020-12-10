@@ -39,6 +39,9 @@ tags:
 ### Translation
 	右键翻译英文 或者中译英并替换
 
+### SourceTrail
+	代码可视化插件
+
 
 
 

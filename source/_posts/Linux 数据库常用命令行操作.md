@@ -1,5 +1,6 @@
 ---
 title: Linux 数据库基本命令行操作
+date: 2019-06-31 21:00:30
 tags:
 - linux
 - 数据库

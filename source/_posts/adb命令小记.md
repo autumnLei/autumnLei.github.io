@@ -84,4 +84,8 @@ adb shell setprop [key] [value]
 	adb shell am force-stop com.seewo.easinote
 #### 25 输出日志到本地
 	adb logcat > /Users/lei/Downloads/logcat.txt
+#### 26 带参启动应用
+	adb shell am start -n com.a.AApp/.UI.AActivity --ei ACTIONTYPE 66 --es URL "string" --es LOCATION "string"
+#### 27 显示文件大小
+	adb shell du -mh text.file
 

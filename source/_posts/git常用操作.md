@@ -9,6 +9,8 @@ tags:
 ```
 // 查看commit历史信息
 git log
+// 退出log
+q
 // 查看 commit了的文件 修改了还没commit的文件  没有add的文件
 git status
 // 打tag 先提交commit 
@@ -59,4 +61,11 @@ git branch -d 分支名（remotes/origin/分支名）
 // 强制删本地：
 git branch -D 分支名
 ```
+#### 查看分支差异
+```
+// 查看最近一个提交和第二个的修改文件不包括删除了的   --name-only只显示文件名  --diff-filter=ACMRTUXB过滤掉删除的
+git diff HEAD~ HEAD --name-only --diff-filter=ACMRTUXB  
+// 查看gitlabSourceBranch相对于gitlabTargetBranch的修改文件不包括删除了的
+git diff origin/$gitlabTargetBranch origin/$gitlabSourceBranch --name-only --diff-filter=ACMRTUXB
 
+```
