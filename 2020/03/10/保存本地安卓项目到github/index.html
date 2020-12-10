@@ -12,12 +12,12 @@
 
 
 
-  <meta name="description" content="Linux 数据库基本命令行操作">
+  <meta name="description" content="保存本地安卓项目到github">
 
 
 
 
-  <meta name="keywords" content="linux,数据库,">
+  <meta name="keywords" content="git,github,">
 
 
 
@@ -32,21 +32,21 @@
 
 
 
-<link rel="canonical" href="http://huang-ray.com/2020/12/11/Linux 数据库常用命令行操作/">
+<link rel="canonical" href="http://huang-ray.com/2020/03/10/保存本地安卓项目到github/">
 
 
-<meta name="description" content="登录数据库: mysql -u用户名字 -p密码">
-<meta name="keywords" content="linux,数据库">
+<meta name="description" content="在本地项目目根目录执行git init 修改项目中的.gitignore文件为123456789101112131415# IntelliJ IDEA.idea*.iml # Gradle.gradlebuild # Local configuration file (sdk path, etc)local.properties # Mac system files.DS_Store# 如项目中用">
+<meta name="keywords" content="git,github">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux 数据库基本命令行操作">
-<meta property="og:url" content="http://huang-ray.com/2020/12/11/Linux 数据库常用命令行操作/index.html">
+<meta property="og:title" content="保存本地安卓项目到github">
+<meta property="og:url" content="http://huang-ray.com/2020/03/10/保存本地安卓项目到github/index.html">
 <meta property="og:site_name" content="lei&#39;s blog site">
-<meta property="og:description" content="登录数据库: mysql -u用户名字 -p密码">
+<meta property="og:description" content="在本地项目目根目录执行git init 修改项目中的.gitignore文件为123456789101112131415# IntelliJ IDEA.idea*.iml # Gradle.gradlebuild # Local configuration file (sdk path, etc)local.properties # Mac system files.DS_Store# 如项目中用">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-12-10T17:25:30.984Z">
+<meta property="og:updated_time" content="2020-12-10T17:48:51.924Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux 数据库基本命令行操作">
-<meta name="twitter:description" content="登录数据库: mysql -u用户名字 -p密码">
+<meta name="twitter:title" content="保存本地安卓项目到github">
+<meta name="twitter:description" content="在本地项目目根目录执行git init 修改项目中的.gitignore文件为123456789101112131415# IntelliJ IDEA.idea*.iml # Gradle.gradlebuild # Local configuration file (sdk path, etc)local.properties # Mac system files.DS_Store# 如项目中用">
 
 
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
@@ -79,7 +79,7 @@
 </script>
 
 
-    <title> Linux 数据库基本命令行操作 - lei's blog site </title>
+    <title> 保存本地安卓项目到github - lei's blog site </title>
   </head>
 
   <body>
@@ -125,12 +125,12 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          Linux 数据库基本命令行操作
+          保存本地安卓项目到github
         
       </h1>
 
       <time class="post-time">
-          12月 11 2020
+          3月 10 2020
       </time>
     </header>
 
@@ -138,13 +138,10 @@
 
     
             <div class="post-content">
-            <p>登录数据库: mysql -u用户名字 -p密码<br><a id="more"></a><br>//不要漏了“；”<br>显示数据库: show databases; </p>
-<p>创建数据库: create database 数据库名字;</p>
-<p>选择数据库: use 数据库名字 ;</p>
-<p>直接删除数据库不提醒: drop database 数据库名字;</p>
-<p>显示表选中数据库的所有表名: show tables;</p>
-<p>显示选中数据库的某个表具体结构: describe 表名;</p>
-<p>导入sql文件: mysql&gt;source /var/www/html/xxx.sql;</p>
+            <h4 id="在本地项目目根目录执行"><a href="#在本地项目目根目录执行" class="headerlink" title="在本地项目目根目录执行"></a>在本地项目目根目录执行</h4><p>git init</p>
+<h4 id="修改项目中的-gitignore文件为"><a href="#修改项目中的-gitignore文件为" class="headerlink" title="修改项目中的.gitignore文件为"></a>修改项目中的.gitignore文件为</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># IntelliJ IDEA</span><br><span class="line">.idea</span><br><span class="line">*.iml</span><br><span class="line"> </span><br><span class="line"># Gradle</span><br><span class="line">.gradle</span><br><span class="line">build</span><br><span class="line"> </span><br><span class="line"># Local configuration file (sdk path, etc)</span><br><span class="line">local.properties</span><br><span class="line"> </span><br><span class="line"># Mac system files</span><br><span class="line">.DS_Store</span><br><span class="line"></span><br><span class="line"># 如项目中用到了NDK,就可以加上/obj</span><br></pre></td></tr></table></figure>
+<h4 id="在github创建同名项目-写上项目名点创建"><a href="#在github创建同名项目-写上项目名点创建" class="headerlink" title="在github创建同名项目 写上项目名点创建"></a>在github创建同名项目 写上项目名点创建</h4><h4 id="再在本地目录下执行"><a href="#再在本地目录下执行" class="headerlink" title="再在本地目录下执行"></a>再在本地目录下执行</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot;代码备份.&quot;</span><br><span class="line">git remote add origin git@github.com:autumnLei/DatabindingDemo.git</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p>push时不能覆盖远程已有提交 git push -uf origin master<br>origin别名已经存在 git remote rm origin</p>
 
             </div>
           
@@ -154,9 +151,9 @@
 		
 		<div class="post-tags">
 		  
-			<a href="/tags/linux/">linux</a>
+			<a href="/tags/git/">git</a>
 		  
-			<a href="/tags/数据库/">数据库</a>
+			<a href="/tags/github/">github</a>
 		  
 		</div>
 		
@@ -165,14 +162,14 @@
         
   <nav class="post-nav">
     
-      <a class="prev" href="/2020/12/11/android O 实现通知并兼容低版本/">
+      <a class="prev" href="/2020/11/15/jenkins脚本常用语句/">
         <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">Android O 实现通知并兼容低版本</span>
+        <span class="prev-text nav-default">jenkinsfile常用语句</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
     
     
-      <a class="next" href="/2020/12/11/Android自定义进度条实现/">
+      <a class="next" href="/2020/02/26/Android自定义进度条实现/">
         <span class="next-text nav-default">Android自定义进度条实现</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
@@ -227,9 +224,9 @@
 
 <script type="text/javascript">
   var disqus_shortname = 'www-huang-ray-com';
-  var disqus_identifier = '2020/12/11/Linux 数据库常用命令行操作/';
+  var disqus_identifier = '2020/03/10/保存本地安卓项目到github/';
 
-  var disqus_title = "Linux 数据库基本命令行操作";
+  var disqus_title = "保存本地安卓项目到github";
 
 
   var disqus = {

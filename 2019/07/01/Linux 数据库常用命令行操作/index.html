@@ -12,8 +12,12 @@
 
 
 
+  <meta name="description" content="Linux 数据库基本命令行操作">
 
 
+
+
+  <meta name="keywords" content="linux,数据库,">
 
 
 
@@ -28,16 +32,21 @@
 
 
 
-<link rel="canonical" href="http://huang-ray.com/tags/linux/">
+<link rel="canonical" href="http://huang-ray.com/2019/07/01/Linux 数据库常用命令行操作/">
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="lei&#39;s blog site">
-<meta property="og:url" content="http://huang-ray.com/tags/linux/index.html">
+<meta name="description" content="登录数据库: mysql -u用户名字 -p密码">
+<meta name="keywords" content="linux,数据库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 数据库基本命令行操作">
+<meta property="og:url" content="http://huang-ray.com/2019/07/01/Linux 数据库常用命令行操作/index.html">
 <meta property="og:site_name" content="lei&#39;s blog site">
+<meta property="og:description" content="登录数据库: mysql -u用户名字 -p密码">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-12-10T17:48:13.472Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="lei&#39;s blog site">
+<meta name="twitter:title" content="Linux 数据库基本命令行操作">
+<meta name="twitter:description" content="登录数据库: mysql -u用户名字 -p密码">
 
 
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
@@ -70,11 +79,7 @@
 </script>
 
 
-    <title>
-  
-    linux - lei's blog site
-  
-</title>
+    <title> Linux 数据库基本命令行操作 - lei's blog site </title>
   </head>
 
   <body>
@@ -114,58 +119,88 @@
       </header>
       <div id="content">
         
-  
-<div id="primary">
-  <section id="archive" class="archive">
-    
-      
-        <div class="archive-title tag">
-          <h2 class="archive-name">linux</h2>
-        </div>
-      
-    
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Linux 数据库基本命令行操作
+        
+      </h1>
+
+      <time class="post-time">
+          7月 01 2019
+      </time>
+    </header>
+
+
 
     
-      
+            <div class="post-content">
+            <p>登录数据库: mysql -u用户名字 -p密码<br><a id="more"></a><br>//不要漏了“；”<br>显示数据库: show databases; </p>
+<p>创建数据库: create database 数据库名字;</p>
+<p>选择数据库: use 数据库名字 ;</p>
+<p>直接删除数据库不提醒: drop database 数据库名字;</p>
+<p>显示表选中数据库的所有表名: show tables;</p>
+<p>显示选中数据库的某个表具体结构: describe 表名;</p>
+<p>导入sql文件: mysql&gt;source /var/www/html/xxx.sql;</p>
 
-      <div class="archive-post">
-        <span class="archive-post-time">
+            </div>
           
-            2019-12-30
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2019/12/30/linux文件权限操作/" class="archive-post-link">
-            linux文件权限操作
-          </a>
-        </span>
-      </div>
-    
-      
 
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            2019-07-01
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2019/07/01/Linux 数据库常用命令行操作/" class="archive-post-link">
-            Linux 数据库基本命令行操作
-          </a>
-        </span>
-      </div>
     
-  </section>
- </div>
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/linux/">linux</a>
+		  
+			<a href="/tags/数据库/">数据库</a>
+		  
+		</div>
+		
 
-  
-  <nav class="pagination">
+        
+        
+  <nav class="post-nav">
     
+      <a class="prev" href="/2019/07/25/adb命令小记/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">adb命令小记</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2019/05/17/Android在子线程发送Toast/">
+        <span class="next-text nav-default">Android在子线程发送Toast</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
     
   </nav>
 
+        
+  <div class="comments" id="comments">
+    
+    <div style="text-align:center;">
+        <button class="btn" id="load-disqus" onclick="disqus.load();">加载 Disqus 评论</button>
+    </div>
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
 
+
+      </footer>
+    
+  </article>
+
+    </div>
 
       </div>
 
@@ -192,9 +227,9 @@
 
 <script type="text/javascript">
   var disqus_shortname = 'www-huang-ray-com';
-  var disqus_identifier = 'tags/linux/index.html';
+  var disqus_identifier = '2019/07/01/Linux 数据库常用命令行操作/';
 
-  var disqus_title = "";
+  var disqus_title = "Linux 数据库基本命令行操作";
 
 
   var disqus = {
@@ -211,6 +246,12 @@
     }
   }
 
+  
+    var disqus_config = function () {
+        this.page.url = disqus_url;
+        this.page.identifier = disqus_identifier;
+        this.page.title = disqus_title;
+    };
   
 
 </script>
