@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="SonarQube搭建流程">
+
+
+
+
+  <meta name="keywords" content="Jenkins,SonarQube,">
+
+
+
+
+
+  <link rel="alternate" href="/default" title="lei's blog site">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1">
+
+
+
+<link rel="canonical" href="http://huang-ray.com/2020/12/10/SonarQube搭建流程/">
+
+
+<meta name="description" content="-linux版官网下载地址：https://www.sonarqube.org/success-download-community-edition/解压到指定目录 如 /usr/local/将 文件/文件夹 从本地拷至远程服务器1scp -r localfile.txt username@192.168.0.1:/usr/local/ 解压tar.gz1tar -zxvf filename.ta">
+<meta name="keywords" content="Jenkins,SonarQube">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SonarQube搭建流程">
+<meta property="og:url" content="http://huang-ray.com/2020/12/10/SonarQube搭建流程/index.html">
+<meta property="og:site_name" content="lei&#39;s blog site">
+<meta property="og:description" content="-linux版官网下载地址：https://www.sonarqube.org/success-download-community-edition/解压到指定目录 如 /usr/local/将 文件/文件夹 从本地拷至远程服务器1scp -r localfile.txt username@192.168.0.1:/usr/local/ 解压tar.gz1tar -zxvf filename.ta">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-12-10T16:38:40.048Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SonarQube搭建流程">
+<meta name="twitter:description" content="-linux版官网下载地址：https://www.sonarqube.org/success-download-community-edition/解压到指定目录 如 /usr/local/将 文件/文件夹 从本地拷至远程服务器1scp -r localfile.txt username@192.168.0.1:/usr/local/ 解压tar.gz1tar -zxvf filename.ta">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CBV5KZ7LRJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CBV5KZ7LRJ');
+</script>
+
+
+    <title> SonarQube搭建流程 - lei's blog site </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">lei's blog site</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          SonarQube搭建流程
+        
+      </h1>
+
+      <time class="post-time">
+          12月 10 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <h5 id="linux版"><a href="#linux版" class="headerlink" title="-linux版"></a>-linux版</h5><h4 id="官网下载地址：https-www-sonarqube-org-success-download-community-edition"><a href="#官网下载地址：https-www-sonarqube-org-success-download-community-edition" class="headerlink" title="官网下载地址：https://www.sonarqube.org/success-download-community-edition/"></a>官网下载地址：<a href="https://www.sonarqube.org/success-download-community-edition/" target="_blank" rel="noopener">https://www.sonarqube.org/success-download-community-edition/</a></h4><h4 id="解压到指定目录-如-usr-local"><a href="#解压到指定目录-如-usr-local" class="headerlink" title="解压到指定目录 如 /usr/local/"></a>解压到指定目录 如 /usr/local/</h4><p>将 文件/文件夹 从本地拷至远程服务器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp -r localfile.txt username@192.168.0.1:/usr/local/</span><br></pre></td></tr></table></figure></p>
+<p>解压tar.gz<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf filename.tar.gz</span><br></pre></td></tr></table></figure></p>
+<h4 id="安装java11-如已安装需要修改-etc-profile-然后source-etc-profile"><a href="#安装java11-如已安装需要修改-etc-profile-然后source-etc-profile" class="headerlink" title="安装java11 如已安装需要修改/etc/profile 然后source /etc/profile"></a>安装java11 如已安装需要修改/etc/profile 然后source /etc/profile</h4><p>如果修改后没有生效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /usr/bin/java</span><br><span class="line">rm -rf /usr/bin/javac</span><br><span class="line">ln -s $JAVA_HOME/bin/javac /usr/bin/javac</span><br><span class="line">ln -s $JAVA_HOME/bin/javac /usr/bin/java</span><br></pre></td></tr></table></figure></p>
+<p>这样执行以后，然后 java -version 、 javac -version </p>
+<h4 id="ssh连接服务器"><a href="#ssh连接服务器" class="headerlink" title="ssh连接服务器"></a>ssh连接服务器</h4><p>需要非root账号连接</p>
+<h5 id="创建新用户sonar"><a href="#创建新用户sonar" class="headerlink" title="创建新用户sonar"></a>创建新用户sonar</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adduser sonar</span><br></pre></td></tr></table></figure>
+<h5 id="为sonar创建密码"><a href="#为sonar创建密码" class="headerlink" title="为sonar创建密码"></a>为sonar创建密码</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd sonar</span><br></pre></td></tr></table></figure>
+<h5 id="修改sonarqube的目录和用户组为sonar"><a href="#修改sonarqube的目录和用户组为sonar" class="headerlink" title="修改sonarqube的目录和用户组为sonar"></a>修改sonarqube的目录和用户组为sonar</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R sonar:sonar /usr/local/sonarqube-8.5.1.38104</span><br></pre></td></tr></table></figure>
+<h4 id="启动SonarQube-sh-usr-local-sonarqube-8-5-1-38104-bin-linux-x86-64-sonar-sh-start"><a href="#启动SonarQube-sh-usr-local-sonarqube-8-5-1-38104-bin-linux-x86-64-sonar-sh-start" class="headerlink" title="启动SonarQube sh /usr/local/sonarqube-8.5.1.38104/bin/linux-x86-64/sonar.sh start"></a>启动SonarQube sh /usr/local/sonarqube-8.5.1.38104/bin/linux-x86-64/sonar.sh start</h4><p>sonar.sh status可以查看启动状态<br>日志在/usr/local/sonarqube-8.5.1.38104/logs/<br>默认地址<a href="http://localhost:9000" target="_blank" rel="noopener">http://localhost:9000</a><br>如果在服务器本地可以curl 但是访问不了服务器ip:9000 可能是端口没打开 使用root ssh账号登陆然后<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/sbin/iptables -I INPUT -p tcp --dport 9000 -j ACCEPT</span><br></pre></td></tr></table></figure></p>
+<h4 id="登陆SonarQube-账号-密码都是-admin"><a href="#登陆SonarQube-账号-密码都是-admin" class="headerlink" title="登陆SonarQube 账号 密码都是 admin"></a>登陆SonarQube 账号 密码都是 admin</h4><h4 id="安装汉化插件Administration-gt-Marketplace搜Chinese"><a href="#安装汉化插件Administration-gt-Marketplace搜Chinese" class="headerlink" title="安装汉化插件Administration-&gt;Marketplace搜Chinese"></a>安装汉化插件Administration-&gt;Marketplace搜Chinese</h4>
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/Jenkins/">Jenkins</a>
+		  
+			<a href="/tags/SonarQube/">SonarQube</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2020/11/16/Linux 数据库常用命令行操作/">
+        <span class="next-text nav-default">Linux 数据库基本命令行操作</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+    <div style="text-align:center;">
+        <button class="btn" id="load-disqus" onclick="disqus.load();">加载 Disqus 评论</button>
+    </div>
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2020
+    <span class="footer-author">lei.</span>
+    <span class="power-by">
+        Powered by Hexo and Polar Bear
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+<script type="text/javascript">
+  var disqus_shortname = 'www-huang-ray-com';
+  var disqus_identifier = '2020/12/10/SonarQube搭建流程/';
+
+  var disqus_title = "SonarQube搭建流程";
+
+
+  var disqus = {
+    load : function disqus(){
+        if(typeof DISQUS !== 'object') {
+          (function () {
+          var s = document.createElement('script'); s.async = true;
+          s.type = 'text/javascript';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+          }());
+          $('#load-disqus').remove(); ///加载后移除按钮
+        }
+    }
+  }
+
+  
+    var disqus_config = function () {
+        this.page.url = disqus_url;
+        this.page.identifier = disqus_identifier;
+        this.page.title = disqus_title;
+    };
+  
+
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>

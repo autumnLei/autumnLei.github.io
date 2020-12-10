@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="Android O 实现通知并兼容低版本">
+
+
+
+
+  <meta name="keywords" content="Android,">
+
+
+
+
+
+  <link rel="alternate" href="/default" title="lei's blog site">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1">
+
+
+
+<link rel="canonical" href="http://huang-ray.com/2020/11/16/android O 实现通知并兼容低版本/">
+
+
+<meta name="description" content="在activity中实现按钮弹出通知  首先activity的onCreate中首先绑定按钮12Button sendNotice =  (Button)findViewById(R.id.button_send_notice);sendNotice.setOnClickListener(this);">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android O 实现通知并兼容低版本">
+<meta property="og:url" content="http://huang-ray.com/2020/11/16/android O 实现通知并兼容低版本/index.html">
+<meta property="og:site_name" content="lei&#39;s blog site">
+<meta property="og:description" content="在activity中实现按钮弹出通知  首先activity的onCreate中首先绑定按钮12Button sendNotice =  (Button)findViewById(R.id.button_send_notice);sendNotice.setOnClickListener(this);">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-11-16T01:38:33.012Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android O 实现通知并兼容低版本">
+<meta name="twitter:description" content="在activity中实现按钮弹出通知  首先activity的onCreate中首先绑定按钮12Button sendNotice =  (Button)findViewById(R.id.button_send_notice);sendNotice.setOnClickListener(this);">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CBV5KZ7LRJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CBV5KZ7LRJ');
+</script>
+
+
+    <title> Android O 实现通知并兼容低版本 - lei's blog site </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">lei's blog site</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Android O 实现通知并兼容低版本
+        
+      </h1>
+
+      <time class="post-time">
+          11月 16 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>在activity中实现按钮弹出通知</p>
+<ul>
+<li>首先activity的onCreate中首先绑定按钮<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Button sendNotice =  (Button)findViewById(R.id.button_send_notice);</span><br><span class="line">sendNotice.setOnClickListener(this);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<a id="more"></a>
+<ul>
+<li><p>再在onClick方法中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public void onClick(View view) &#123;</span><br><span class="line">    //判断sdk 当app版本为O或者以上时创建通知渠道</span><br><span class="line">    if(Build.VERSION.SDK_INT &gt;= 26)</span><br><span class="line">        createChannel();</span><br><span class="line">    switch (view.getId())&#123;</span><br><span class="line">        case R.id.button_send_notice:</span><br><span class="line">            Intent intent = new Intent(this, NotificationActivity.class);</span><br><span class="line">            PendingIntent pi = PendingIntent.getActivity(this, 0, intent, 0);</span><br><span class="line">            Notification notification = new NotificationCompat.Builder(this, &quot;channel_01&quot;)</span><br><span class="line">                    .setContentTitle(&quot;This is content title&quot;)</span><br><span class="line">                    .setContentText(&quot;Tis is content&quot;)</span><br><span class="line">                    .setWhen(System.currentTimeMillis())</span><br><span class="line">                    .setSmallIcon(R.mipmap.ic_launcher)</span><br><span class="line">                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))</span><br><span class="line">                    .setContentIntent(pi)</span><br><span class="line">                    .build();</span><br><span class="line">            NotificationManager  manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);</span><br><span class="line">            manager.notify(1, notification);</span><br><span class="line">            break;</span><br><span class="line">        default:</span><br><span class="line">            break;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后创建通知渠道的函数封装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">@RequiresApi(api=26)</span><br><span class="line">public void createChannel()&#123;</span><br><span class="line"></span><br><span class="line">    NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);</span><br><span class="line">    //通知渠道组的id</span><br><span class="line">    String group = &quot;group_id&quot;;</span><br><span class="line">    // 用户可见的通知渠道组名称.</span><br><span class="line">    CharSequence group_name = getString(R.string.group_name);</span><br><span class="line">    //创建通知渠道组</span><br><span class="line">    manager.createNotificationChannelGroup(new NotificationChannelGroup(group, group_name));</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 创建通知渠道1</span><br><span class="line">     */</span><br><span class="line"></span><br><span class="line">    //渠道id</span><br><span class="line">    String id = &quot;channel_01&quot;;</span><br><span class="line">    //用户可以看到的通知渠道的名字</span><br><span class="line">    CharSequence name = getString(R.string.channel_name);</span><br><span class="line">    //用户可以看到的通知渠道的描述</span><br><span class="line">    String description = getString(R.string.channel_description);</span><br><span class="line">    int importance = NotificationManager.IMPORTANCE_HIGH;</span><br><span class="line">    NotificationChannel channel = new NotificationChannel(id, name, importance);</span><br><span class="line">    //配置通知渠道的属性</span><br><span class="line">    channel.setDescription(description);</span><br><span class="line">    //设置通知出现时的闪灯（如果android设备支持的话）</span><br><span class="line">    channel.enableLights(true);</span><br><span class="line">    channel.setLightColor(Color.GREEN);</span><br><span class="line">    //设置通知出现时的震动（如果androd设备支持的话）</span><br><span class="line">    channel.enableVibration(true);</span><br><span class="line">    channel.setVibrationPattern(new long[]&#123;100, 200, 300, 400, 500&#125;);</span><br><span class="line">    //绑定通知渠道组</span><br><span class="line">    channel.setGroup(group);</span><br><span class="line">    //在notificationmanager中创建该通知渠道</span><br><span class="line">    manager.createNotificationChannel(channel);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/Android/">Android</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2020/11/16/Linux 数据库常用命令行操作/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Linux 数据库基本命令行操作</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2020/11/15/jenkins脚本常用语句/">
+        <span class="next-text nav-default">jenkinsfile常用语句</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+    <div style="text-align:center;">
+        <button class="btn" id="load-disqus" onclick="disqus.load();">加载 Disqus 评论</button>
+    </div>
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2020
+    <span class="footer-author">lei.</span>
+    <span class="power-by">
+        Powered by Hexo and Polar Bear
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+<script type="text/javascript">
+  var disqus_shortname = 'www-huang-ray-com';
+  var disqus_identifier = '2020/11/16/android O 实现通知并兼容低版本/';
+
+  var disqus_title = "Android O 实现通知并兼容低版本";
+
+
+  var disqus = {
+    load : function disqus(){
+        if(typeof DISQUS !== 'object') {
+          (function () {
+          var s = document.createElement('script'); s.async = true;
+          s.type = 'text/javascript';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+          }());
+          $('#load-disqus').remove(); ///加载后移除按钮
+        }
+    }
+  }
+
+  
+    var disqus_config = function () {
+        this.page.url = disqus_url;
+        this.page.identifier = disqus_identifier;
+        this.page.title = disqus_title;
+    };
+  
+
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
