@@ -117,6 +117,67 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2019/05/17/Android在子线程发送Toast/">Android在子线程发送Toast</a>
+        
+      </h1>
+
+      <time class="post-time">
+          5月 17 2019
+      </time>
+    </header>
+
+
+
+    
+        <div class="post-excerpt post-content">
+            
+            
+
+            
+          
+
+    
+  </div></article>
+
+        
+            
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2019/05/16/左右下布局/">Android动画 左右下布局</a>
+        
+      </h1>
+
+      <time class="post-time">
+          5月 16 2019
+      </time>
+    </header>
+
+
+
+    
+        <div class="post-excerpt post-content">
+            
+            
+              
+            
+
+            
+              <p>###左右下式布局 右方布局放大全屏动画<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">mShowAnimator = ValueAnimator.ofFloat(0f, 1f);</span><br><span class="line">mShowAnimator.setDuration(800);</span><br><span class="line">mShowAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void onAnimationUpdate(ValueAnimator animation) &#123;</span><br><span class="line">    	// animation.getAnimatedValue()返回动画进度，从0f到1f</span><br><span class="line">        float left = leftView.getWidth() * (float)animation.getAnimatedValue();</span><br><span class="line">        float bottom = bottomView.getHeight() * (float)animation.getAnimatedValue();</span><br><span class="line"></span><br><span class="line">        // 左侧布局左移出屏幕</span><br><span class="line">        leftView.setTranslationX(-left);</span><br><span class="line">        // 下方布局下移出屏幕</span><br><span class="line">        bottomView.setTranslationY(bottom);</span><br><span class="line"></span><br><span class="line">        // 右边布局横向放大 放大同时不断向左平移并修正基点</span><br><span class="line">        rightView.setTranslationX(-left);</span><br><span class="line">        rightView.setPivotX(0);</span><br><span class="line">        rightView.setPivotY(0);</span><br><span class="line">        rightView.setScaleX(1 + left / rightViewWidth);</span><br><span class="line">        rightView.setScaleY(1 + bottom / rightViewHeight);</span><br><span class="line"></span><br><span class="line">        // 布局中的imageview或者其它控件 - 右边布局放大占据全屏时 设置布局中photoView的大小</span><br><span class="line">        if(PictureListData.getInstance().mPictureList.size() == 1)&#123;</span><br><span class="line">            ViewGroup.LayoutParams params = mPhotoView.getLayoutParams();</span><br><span class="line">            params.height = rightViewHeight + (int)bottom;</span><br><span class="line">            params.width = rightViewWidth + (int)left;</span><br><span class="line">            mPhotoView.setLayoutParams(posterParams);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">mShowAnimator.start();</span><br></pre></td></tr></table></figure></p>
+        </div>
+            
+          
+
+    
+  </article>
+
+        
+            
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2019/05/10/android O 实现通知并兼容低版本/">Android O 实现通知并兼容低版本</a>
         
       </h1>
@@ -324,7 +385,7 @@
     
     <section id="tags" class="widget-area widget_tags">
         <h3 class="widget-title">Tags</h3>
-        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/window/">window</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码分析/">源码分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线程/">线程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进度条/">进度条</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自定义view/">自定义view</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/adb/">adb</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚本/">脚本</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">2</span></li></ul>
+        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线程/">线程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/window/">window</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码分析/">源码分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进度条/">进度条</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自定义view/">自定义view</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jenkins/">Jenkins</a><span class="tag-list-count">3</span></li></ul>
     </section>
 
 

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="Jenkins配置SonarQube">
+
+
+
+
+  <meta name="keywords" content="Jenkins,SonarQube,">
+
+
+
+
+
+  <link rel="alternate" href="/default" title="lei's blog site">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1">
+
+
+
+<link rel="canonical" href="http://huang-ray.com/2020/12/15/Jenkins配置SonarQube/">
+
+
+<meta name="description" content="项目修改项目根目录build.gradle123456789101112buildscript &amp;#123;  repositories &amp;#123;    maven &amp;#123;      url &amp;quot;https://plugins.gradle.org/m2/&amp;quot;    &amp;#125;  &amp;#125;  dependencies &amp;#123;    classpath &amp;quo">
+<meta name="keywords" content="Jenkins,SonarQube">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jenkins配置SonarQube">
+<meta property="og:url" content="http://huang-ray.com/2020/12/15/Jenkins配置SonarQube/index.html">
+<meta property="og:site_name" content="lei&#39;s blog site">
+<meta property="og:description" content="项目修改项目根目录build.gradle123456789101112buildscript &amp;#123;  repositories &amp;#123;    maven &amp;#123;      url &amp;quot;https://plugins.gradle.org/m2/&amp;quot;    &amp;#125;  &amp;#125;  dependencies &amp;#123;    classpath &amp;quo">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-12-15T09:19:21.014Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jenkins配置SonarQube">
+<meta name="twitter:description" content="项目修改项目根目录build.gradle123456789101112buildscript &amp;#123;  repositories &amp;#123;    maven &amp;#123;      url &amp;quot;https://plugins.gradle.org/m2/&amp;quot;    &amp;#125;  &amp;#125;  dependencies &amp;#123;    classpath &amp;quo">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CBV5KZ7LRJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CBV5KZ7LRJ');
+</script>
+
+
+    <title> Jenkins配置SonarQube - lei's blog site </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">lei's blog site</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Jenkins配置SonarQube
+        
+      </h1>
+
+      <time class="post-time">
+          12月 15 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <h2 id="项目"><a href="#项目" class="headerlink" title="项目"></a>项目</h2><h4 id="修改项目根目录build-gradle"><a href="#修改项目根目录build-gradle" class="headerlink" title="修改项目根目录build.gradle"></a>修改项目根目录build.gradle</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">buildscript &#123;</span><br><span class="line">  repositories &#123;</span><br><span class="line">    maven &#123;</span><br><span class="line">      url &quot;https://plugins.gradle.org/m2/&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  dependencies &#123;</span><br><span class="line">    classpath &quot;org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:3.0&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">apply plugin: &quot;org.sonarqube&quot;</span><br></pre></td></tr></table></figure>
+<p>Kotlin写法见 plugins.gradle.org/plugin/org.sonarqube</p>
+<h2 id="SonarQube"><a href="#SonarQube" class="headerlink" title="SonarQube"></a>SonarQube</h2><h4 id="新建网络调用"><a href="#新建网络调用" class="headerlink" title="新建网络调用"></a>新建网络调用</h4><p>首页顶部 配置-&gt;配置-&gt;创建<br>URL填Jenkins地址加sonarqube-webhook/后缀<br>如 <a href="http://10.120.11.140:8080/sonarqube-webhook/" target="_blank" rel="noopener">http://10.120.11.140:8080/sonarqube-webhook/</a></p>
+<h4 id="在SonarQube首页右上角-手工创建一个项目-标识和令牌名可以填流水线名字"><a href="#在SonarQube首页右上角-手工创建一个项目-标识和令牌名可以填流水线名字" class="headerlink" title="在SonarQube首页右上角 手工创建一个项目 标识和令牌名可以填流水线名字"></a>在SonarQube首页右上角 手工创建一个项目 标识和令牌名可以填流水线名字</h4><p>复制令牌 如 8b6ce1ef84dd9d0f858e8849ba5165eb169e6539<br>然后选择编译方式</p>
+<h2 id="Jenkins"><a href="#Jenkins" class="headerlink" title="Jenkins"></a>Jenkins</h2><h4 id="安装sonarQube插件"><a href="#安装sonarQube插件" class="headerlink" title="安装sonarQube插件"></a>安装sonarQube插件</h4><p>jenkins-&gt;插件管理-&gt;SonarQube Scanner for Jenkins</p>
+<h4 id="Jenkins单个项目的SonarQube关联-方式一"><a href="#Jenkins单个项目的SonarQube关联-方式一" class="headerlink" title="Jenkins单个项目的SonarQube关联 方式一"></a>Jenkins单个项目的SonarQube关联 方式一</h4><p>jenkins&gt;Manage Jenkins&gt;global configuration<br>Name填 对应SonarQube项目的名字 如sonar<br>-&gt;添加<br>类型选择 Secret text<br>Secret填 对应SonarQube项目建立时的密钥 8b6ce1ef84dd9d0f858e8849ba5165eb169e6539</p>
+<p>然后修改jenkinsfile<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">withSonarQubeEnv(&apos;sonar&apos;) &#123;</span><br><span class="line">	./gradlew --no-daemon app:assembleRelease</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Jenkins单个项目的SonarQube关联-方式二"><a href="#Jenkins单个项目的SonarQube关联-方式二" class="headerlink" title="Jenkins单个项目的SonarQube关联 方式二"></a>Jenkins单个项目的SonarQube关联 方式二</h4><p>复制项目命令到jenkinsfile里 例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">./gradlew sonarqube \</span><br><span class="line">  -Dsonar.projectKey=App_Manual_PipleLine \</span><br><span class="line">  -Dsonar.host.url=http://10.120.11.140:9000 \</span><br><span class="line">  -Dsonar.login=8b6ce1ef84dd9d0f858e8849ba5165eb169e6539</span><br></pre></td></tr></table></figure></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/Jenkins/">Jenkins</a>
+		  
+			<a href="/tags/SonarQube/">SonarQube</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2020/12/16/broadcastReceiver-注册代码小记/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">broadcastReceiver 注册代码小记</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2020/12/10/SonarQube搭建流程/">
+        <span class="next-text nav-default">SonarQube搭建流程</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+    <div style="text-align:center;">
+        <button class="btn" id="load-disqus" onclick="disqus.load();">加载 Disqus 评论</button>
+    </div>
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2020
+    <span class="footer-author">lei.</span>
+    <span class="power-by">
+        Powered by Hexo and Polar Bear
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+<script type="text/javascript">
+  var disqus_shortname = 'www-huang-ray-com';
+  var disqus_identifier = '2020/12/15/Jenkins配置SonarQube/';
+
+  var disqus_title = "Jenkins配置SonarQube";
+
+
+  var disqus = {
+    load : function disqus(){
+        if(typeof DISQUS !== 'object') {
+          (function () {
+          var s = document.createElement('script'); s.async = true;
+          s.type = 'text/javascript';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+          }());
+          $('#load-disqus').remove(); ///加载后移除按钮
+        }
+    }
+  }
+
+  
+    var disqus_config = function () {
+        this.page.url = disqus_url;
+        this.page.identifier = disqus_identifier;
+        this.page.title = disqus_title;
+    };
+  
+
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>

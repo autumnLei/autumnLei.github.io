@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="broadcastReceiver 注册代码小记">
+
+
+
+
+  <meta name="keywords" content="Android,receiver,">
+
+
+
+
+
+  <link rel="alternate" href="/default" title="lei's blog site">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1">
+
+
+
+<link rel="canonical" href="http://huang-ray.com/2020/12/16/broadcastReceiver-注册代码小记/">
+
+
+<meta name="description" content="1，动态注册记得在manifest里面注册 四大组建都得在里面注册1234567public class MyBroadcastReceiver extends BroadcastReceiver&amp;#123;&amp;#125;    @Override    public void onReceive(Context context, Intent intetn)&amp;#123;         //do">
+<meta name="keywords" content="Android,receiver">
+<meta property="og:type" content="article">
+<meta property="og:title" content="broadcastReceiver 注册代码小记">
+<meta property="og:url" content="http://huang-ray.com/2020/12/16/broadcastReceiver-注册代码小记/index.html">
+<meta property="og:site_name" content="lei&#39;s blog site">
+<meta property="og:description" content="1，动态注册记得在manifest里面注册 四大组建都得在里面注册1234567public class MyBroadcastReceiver extends BroadcastReceiver&amp;#123;&amp;#125;    @Override    public void onReceive(Context context, Intent intetn)&amp;#123;         //do">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-12-16T02:25:04.286Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="broadcastReceiver 注册代码小记">
+<meta name="twitter:description" content="1，动态注册记得在manifest里面注册 四大组建都得在里面注册1234567public class MyBroadcastReceiver extends BroadcastReceiver&amp;#123;&amp;#125;    @Override    public void onReceive(Context context, Intent intetn)&amp;#123;         //do">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CBV5KZ7LRJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CBV5KZ7LRJ');
+</script>
+
+
+    <title> broadcastReceiver 注册代码小记 - lei's blog site </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">lei's blog site</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          broadcastReceiver 注册代码小记
+        
+      </h1>
+
+      <time class="post-time">
+          12月 16 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <h3 id="1，动态注册"><a href="#1，动态注册" class="headerlink" title="1，动态注册"></a>1，动态注册</h3><p>记得在manifest里面注册 四大组建都得在里面注册<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class MyBroadcastReceiver extends BroadcastReceiver&#123;&#125;</span><br><span class="line">    @Override</span><br><span class="line">    public void onReceive(Context context, Intent intetn)&#123;</span><br><span class="line">         //do something</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>调用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MyBroadcastReceiver receiver = new MyBoradcastReceiver();</span><br><span class="line">IntentFilter intentFilter = new IntentFilter();</span><br><span class="line">intentFilter.addAction(&quot;android.net.conn.CONNECTIVITY_CHANGE&quot;);</span><br><span class="line">registerReceiver(receiver, intetnFilter);</span><br></pre></td></tr></table></figure></p>
+<p>释放<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unregisterReceiver(receiver);</span><br></pre></td></tr></table></figure></p>
+<h3 id="2，静态注册"><a href="#2，静态注册" class="headerlink" title="2，静态注册"></a>2，静态注册</h3><p>接收器类同上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;receiver android:name=&quot;.MyBroadcastReceiver.&quot;&gt;</span><br><span class="line">    &lt;intent-filter&gt;</span><br><span class="line">        &lt;action android:name = &quot;android.intent.cation.BOOT_COMPLETED&quot;&gt;</span><br><span class="line">    &lt;/intent-filter&gt;</span><br><span class="line">&lt;/receiver&gt;</span><br></pre></td></tr></table></figure></p>
+<p>3，发送广播<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sendBroadcast(new Intent(&quot;特定得action&quot;);</span><br></pre></td></tr></table></figure></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/Android/">Android</a>
+		  
+			<a href="/tags/receiver/">receiver</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2020/12/15/Jenkins配置SonarQube/">
+        <span class="next-text nav-default">Jenkins配置SonarQube</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+    <div style="text-align:center;">
+        <button class="btn" id="load-disqus" onclick="disqus.load();">加载 Disqus 评论</button>
+    </div>
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2020
+    <span class="footer-author">lei.</span>
+    <span class="power-by">
+        Powered by Hexo and Polar Bear
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+<script type="text/javascript">
+  var disqus_shortname = 'www-huang-ray-com';
+  var disqus_identifier = '2020/12/16/broadcastReceiver-注册代码小记/';
+
+  var disqus_title = "broadcastReceiver 注册代码小记";
+
+
+  var disqus = {
+    load : function disqus(){
+        if(typeof DISQUS !== 'object') {
+          (function () {
+          var s = document.createElement('script'); s.async = true;
+          s.type = 'text/javascript';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+          }());
+          $('#load-disqus').remove(); ///加载后移除按钮
+        }
+    }
+  }
+
+  
+    var disqus_config = function () {
+        this.page.url = disqus_url;
+        this.page.identifier = disqus_identifier;
+        this.page.title = disqus_title;
+    };
+  
+
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
