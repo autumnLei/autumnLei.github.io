@@ -35,18 +35,18 @@
 <link rel="canonical" href="http://huang-ray.com/2020/11/15/jenkins脚本常用语句/">
 
 
-<meta name="description" content="1、打印时间1echo $(date &amp;quot;+%Y-%m-%d %H:%M:%S&amp;quot;) 2、cd回上个路径1cd - 3、改变全局变量12// 修改全局build number变量env.BUILD_NUMBER = &amp;quot;hi&amp;quot;">
+<meta name="description" content="1、打印时间1echo $(date &amp;quot;+%Y-%m-%d %H:%M:%S&amp;quot;) 2、cd回上个路径1cd - 3、改变全局变量12// 修改全局build number变量env.BUILD_NUMBER = &amp;quot;hi&amp;quot; 4、显示当前空间前20大目录1du --max-depth=1 -h -BG ./ | sort -nr | head -n 20">
 <meta name="keywords" content="Jenkins,shell,groovy">
 <meta property="og:type" content="article">
 <meta property="og:title" content="jenkinsfile常用语句">
 <meta property="og:url" content="http://huang-ray.com/2020/11/15/jenkins脚本常用语句/index.html">
 <meta property="og:site_name" content="lei&#39;s blog site">
-<meta property="og:description" content="1、打印时间1echo $(date &amp;quot;+%Y-%m-%d %H:%M:%S&amp;quot;) 2、cd回上个路径1cd - 3、改变全局变量12// 修改全局build number变量env.BUILD_NUMBER = &amp;quot;hi&amp;quot;">
+<meta property="og:description" content="1、打印时间1echo $(date &amp;quot;+%Y-%m-%d %H:%M:%S&amp;quot;) 2、cd回上个路径1cd - 3、改变全局变量12// 修改全局build number变量env.BUILD_NUMBER = &amp;quot;hi&amp;quot; 4、显示当前空间前20大目录1du --max-depth=1 -h -BG ./ | sort -nr | head -n 20">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-12-08T06:39:19.488Z">
+<meta property="og:updated_time" content="2021-03-17T11:19:52.537Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jenkinsfile常用语句">
-<meta name="twitter:description" content="1、打印时间1echo $(date &amp;quot;+%Y-%m-%d %H:%M:%S&amp;quot;) 2、cd回上个路径1cd - 3、改变全局变量12// 修改全局build number变量env.BUILD_NUMBER = &amp;quot;hi&amp;quot;">
+<meta name="twitter:description" content="1、打印时间1echo $(date &amp;quot;+%Y-%m-%d %H:%M:%S&amp;quot;) 2、cd回上个路径1cd - 3、改变全局变量12// 修改全局build number变量env.BUILD_NUMBER = &amp;quot;hi&amp;quot; 4、显示当前空间前20大目录1du --max-depth=1 -h -BG ./ | sort -nr | head -n 20">
 
 
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
@@ -141,6 +141,7 @@
             <p>1、打印时间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $(date &quot;+%Y-%m-%d %H:%M:%S&quot;)</span><br></pre></td></tr></table></figure></p>
 <p>2、cd回上个路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd -</span><br></pre></td></tr></table></figure></p>
 <p>3、改变全局变量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 修改全局build number变量</span><br><span class="line">env.BUILD_NUMBER = &quot;hi&quot;</span><br></pre></td></tr></table></figure></p>
+<p>4、显示当前空间前20大目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du --max-depth=1 -h -BG ./ | sort -nr | head -n 20</span><br></pre></td></tr></table></figure></p>
 <a id="more"></a>
             </div>
           
@@ -208,7 +209,7 @@
     
         2014 -
     
-    2020
+    2021
     <span class="footer-author">lei.</span>
     <span class="power-by">
         Powered by Hexo and Polar Bear

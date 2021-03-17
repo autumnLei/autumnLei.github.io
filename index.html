@@ -223,6 +223,7 @@
               <p>1、打印时间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $(date &quot;+%Y-%m-%d %H:%M:%S&quot;)</span><br></pre></td></tr></table></figure></p>
 <p>2、cd回上个路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd -</span><br></pre></td></tr></table></figure></p>
 <p>3、改变全局变量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 修改全局build number变量</span><br><span class="line">env.BUILD_NUMBER = &quot;hi&quot;</span><br></pre></td></tr></table></figure></p>
+<p>4、显示当前空间前20大目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du --max-depth=1 -h -BG ./ | sort -nr | head -n 20</span><br></pre></td></tr></table></figure></p>
         </div>
             
           
@@ -455,7 +456,7 @@
     
         2014 -
     
-    2020
+    2021
     <span class="footer-author">lei.</span>
     <span class="power-by">
         Powered by Hexo and Polar Bear
