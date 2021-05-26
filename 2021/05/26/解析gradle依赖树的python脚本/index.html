@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="解析gradle依赖树的python脚本">
+
+
+
+
+  <meta name="keywords" content="gradle,python,依赖树,">
+
+
+
+
+
+  <link rel="alternate" href="/default" title="lei's blog site">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1">
+
+
+
+<link rel="canonical" href="http://huang-ray.com/2021/05/26/解析gradle依赖树的python脚本/">
+
+
+<meta name="description" content="gradle打印依赖的两种方式12# 以树形结构打印依赖./gradlew app:dependencies 12# 打印拉平后的依赖./gradlew androidDependencies gradle官方文档 解析树形结构依赖123456789101112131415161718192021222324252627282930313233343536373839404142434445464">
+<meta name="keywords" content="gradle,python,依赖树">
+<meta property="og:type" content="article">
+<meta property="og:title" content="解析gradle依赖树的python脚本">
+<meta property="og:url" content="http://huang-ray.com/2021/05/26/解析gradle依赖树的python脚本/index.html">
+<meta property="og:site_name" content="lei&#39;s blog site">
+<meta property="og:description" content="gradle打印依赖的两种方式12# 以树形结构打印依赖./gradlew app:dependencies 12# 打印拉平后的依赖./gradlew androidDependencies gradle官方文档 解析树形结构依赖123456789101112131415161718192021222324252627282930313233343536373839404142434445464">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-05-26T03:04:37.116Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="解析gradle依赖树的python脚本">
+<meta name="twitter:description" content="gradle打印依赖的两种方式12# 以树形结构打印依赖./gradlew app:dependencies 12# 打印拉平后的依赖./gradlew androidDependencies gradle官方文档 解析树形结构依赖123456789101112131415161718192021222324252627282930313233343536373839404142434445464">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CBV5KZ7LRJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CBV5KZ7LRJ');
+</script>
+
+
+    <title> 解析gradle依赖树的python脚本 - lei's blog site </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">lei's blog site</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          解析gradle依赖树的python脚本
+        
+      </h1>
+
+      <time class="post-time">
+          5月 26 2021
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <h3 id="gradle打印依赖的两种方式"><a href="#gradle打印依赖的两种方式" class="headerlink" title="gradle打印依赖的两种方式"></a>gradle打印依赖的两种方式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 以树形结构打印依赖</span><br><span class="line">./gradlew app:dependencies</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 打印拉平后的依赖</span><br><span class="line">./gradlew androidDependencies</span><br></pre></td></tr></table></figure>
+<p><a href="https://docs.gradle.org/current/userguide/viewing_debugging_dependencies.html" target="_blank" rel="noopener">gradle官方文档</a></p>
+<h3 id="解析树形结构依赖"><a href="#解析树形结构依赖" class="headerlink" title="解析树形结构依赖"></a>解析树形结构依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"></span><br><span class="line">import re</span><br><span class="line">import sys</span><br><span class="line">import json</span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">stack = []</span><br><span class="line">data = []</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def format(str, index):</span><br><span class="line">    str = re.sub(r&quot;&#123;.*&#125; -&gt; &quot;, &quot;&quot;, str)</span><br><span class="line">    temp = str.replace(&quot;\n&quot;, &quot;&quot;).replace(&quot; (*)&quot;, &quot;&quot;).replace(&quot; (c)&quot;, &quot;&quot;)</span><br><span class="line">    if &quot;-&gt; androidx&quot; in str and index == 1:</span><br><span class="line">        return temp.split(&quot; -&gt;&quot;)[1]</span><br><span class="line">    elif &quot; -&gt;&quot; in str and index == 1:</span><br><span class="line">        return re.sub(&quot;:[0-9].* -&gt; &quot;, &quot;:&quot;, temp)</span><br><span class="line">    else:</span><br><span class="line">        return temp.split(&quot; -&gt;&quot;)[0]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def loop(stack):</span><br><span class="line">    branch = &quot;&quot;</span><br><span class="line">    projectUrl = &quot;&quot;</span><br><span class="line">    dependency = &quot;&quot;</span><br><span class="line">    while len(stack) &gt; 1 and len(stack[-1].split(&quot;--- &quot;)[0]) == len(stack[-2].split(&quot;--- &quot;)[0]):</span><br><span class="line">        dependency += format(stack.pop().split(&quot;--- &quot;)[1], 0) + &quot;,&quot;</span><br><span class="line">    dependency += format(stack.pop().split(&quot;--- &quot;)[1], 0)</span><br><span class="line">    componentName = format(stack[-1].split(&quot;--- &quot;)[1], 1)</span><br><span class="line">    if len(stack[-1].split(&quot;--- &quot;)[0]) == 1 or (len(stack) &gt; 1 and &quot;project :&quot; in stack[-2]):</span><br><span class="line">        # print(&quot;一级依赖&quot;, format(stack[-1].split(&quot;--- &quot;)[1], 1), format(dependency, 0))</span><br><span class="line">        branch = sys.argv[1]</span><br><span class="line">        projectUrl = sys.argv[2]</span><br><span class="line">    if &quot;project :&quot; not in componentName and &quot;project :&quot; not in dependency:</span><br><span class="line">        data.append(&#123;</span><br><span class="line">            &quot;branch&quot;: &quot;&quot; + branch + &quot;&quot;,</span><br><span class="line">            &quot;componentName&quot;: &quot;&quot; + componentName + &quot;&quot;,</span><br><span class="line">            &quot;dependency&quot;: &quot;&quot; + dependency + &quot;&quot;,</span><br><span class="line">            &quot;nagaReport&quot;: &quot;&quot;,</span><br><span class="line">            &quot;projectUrl&quot;: &quot;&quot; + projectUrl + &quot;&quot;</span><br><span class="line">        &#125;)</span><br><span class="line">    return</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">for line in open(&quot;dependency.log&quot;):</span><br><span class="line">    if re.search(&quot;--- &quot;, line):</span><br><span class="line">        # 不统计无效依赖</span><br><span class="line">        if &quot; FAILED&quot; in line or &quot;(n)&quot; in line:</span><br><span class="line">            continue</span><br><span class="line">        while stack and len(stack[-1].split(&quot;--- &quot;)[0]) &gt; len(line.split(&quot;--- &quot;)[0]):</span><br><span class="line">            loop(stack)</span><br><span class="line">        stack.append(line)</span><br><span class="line"></span><br><span class="line"># 去重</span><br><span class="line">temp = []</span><br><span class="line">[temp.append(i) for i in data if not i in temp]</span><br><span class="line"></span><br><span class="line"># 上传到服务器</span><br><span class="line">r = requests.post(</span><br><span class="line">    &apos;http://10.120.11.210:9090/ape/componentWhiteList/saveOrUpdateAppDirectDependency&apos;, json=temp)</span><br><span class="line">print(r.text)</span><br><span class="line"></span><br><span class="line"># 本地保存份上传的数据</span><br><span class="line">fo = open(&quot;dependency.json&quot;, &quot;w&quot;)</span><br><span class="line">fo.write(json.dumps(temp))</span><br></pre></td></tr></table></figure>
+<p><a href="https://docs.python-requests.org/zh_CN/latest/user/quickstart.html" target="_blank" rel="noopener">requests库官方文档</a></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/gradle/">gradle</a>
+		  
+			<a href="/tags/python/">python</a>
+		  
+			<a href="/tags/依赖树/">依赖树</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2020/12/16/broadcastReceiver-注册代码小记/">
+        <span class="next-text nav-default">broadcastReceiver 注册代码小记</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+    <div style="text-align:center;">
+        <button class="btn" id="load-disqus" onclick="disqus.load();">加载 Disqus 评论</button>
+    </div>
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2021
+    <span class="footer-author">lei.</span>
+    <span class="power-by">
+        Powered by Hexo and Polar Bear
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+<script type="text/javascript">
+  var disqus_shortname = 'www-huang-ray-com';
+  var disqus_identifier = '2021/05/26/解析gradle依赖树的python脚本/';
+
+  var disqus_title = "解析gradle依赖树的python脚本";
+
+
+  var disqus = {
+    load : function disqus(){
+        if(typeof DISQUS !== 'object') {
+          (function () {
+          var s = document.createElement('script'); s.async = true;
+          s.type = 'text/javascript';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+          }());
+          $('#load-disqus').remove(); ///加载后移除按钮
+        }
+    }
+  }
+
+  
+    var disqus_config = function () {
+        this.page.url = disqus_url;
+        this.page.identifier = disqus_identifier;
+        this.page.title = disqus_title;
+    };
+  
+
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
