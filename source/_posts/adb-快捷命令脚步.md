@@ -10,39 +10,44 @@ tags:
    不知道activity名字的情况下 可以尝试用这个打开应用
    adb shell monkey -p app.package.name -c android.intent.category.LAUNCHER 1
 ```
-#!/bin/sh 
-if [ $# == 0 ]; then
-   echo "ps       -> adb shell ps | grep $2"
-   echo "log 文件名    -> 拉取anr和logs日志"
-   echo "wifi     -> Wifi"
-	echo "mark      -> easimark"
-	exit
+#!/bin/sh
+if [[ $# == 0 ]]; then
+   echo "ps    -> adb shell ps | grep $2"
+   echo "log   -> 拉取anr和logs日志"
+   echo "wifi  -> Wifi"
+   exit
 fi
 
-case $1 in 
- 		   ps)
-			   adb shell ps | grep $2
-		    ;;
-         log)
-            DATE=$(date +%Y.%m.%d_%H.%m.%S)
-            echo $DATE
-            if [ ! "~/bug_log/$2$DATE/" ];then
-            mkdir -p ~/bug_log/$2$DATE/
-            fi
-            adb pull /data/system/dropbox/ ~/bug_log/$2$DATE/
-            adb pull /data/anr ~/bug_log/$2$DATE/
-            adb pull /data/logs ~/bug_log/$2$DATE/
-         ;;
-         wifi)
-         adb shell am start com.android.settings/com.android.settings.wifi.WifiSettings
-         ;;
-         mark)
-         adb shell am startservice -W com.seewo.easimark/.MarkService
-         ;;
-         *)
-         echo "No command"
-         ;;
- esac 
+case $1 in
+ps)
+   adb shell ps | grep $2
+   ;;
+log)
+   DATE=$(date +%Y.%m.%d_%H.%m.%S)
+   echo $DATE
+   if [ ! "~/bug_log/$2$DATE/" ]; then
+      mkdir -p ~/bug_log/$2$DATE/
+   fi
+   adb pull /data/system/dropbox/ ~/bug_log/$2$DATE/
+   adb pull /data/anr ~/bug_log/$2$DATE/
+   adb pull /data/logs ~/bug_log/$2$DATE/
+   ;;
+wifi)
+   adb shell am start com.android.settings/com.android.settings.wifi.WifiSettings
+   ;;
+mark)
+   adb shell am startservice -W com.seewo.easimark/.MarkService
+   ;;
+para)
+   sudo -b /Applications/Parallels\ Desktop.app/Contents/MacOS/prl_client_app
+   ;;
+jeb)
+   nohup sh /Applications/jeb-pro-3.19.1.202005071620/jeb_macos.sh &
+   ;;
+*)
+   echo "No command"
+   ;;
+esac
 ```
 
 
