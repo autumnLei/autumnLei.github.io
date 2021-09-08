@@ -35,18 +35,18 @@
 <link rel="canonical" href="http://huang-ray.com/2019/07/25/adb命令小记/">
 
 
-<meta name="description" content="adb命令小记1、打开adb调试？如何打开开发者模式？如何进入工厂菜单？进入工厂菜单的方式有什么途径？遥控器 debugmenu 进入Android set 全部打开 3、连接整机进行调试adb connect ip:5555 旋转屏的是1379 4、截图adb shell screencap -p /sdcard/sdkf.jpg 5、将整机系统的一个文件拉取到电脑adb pull /sdcar">
+<meta name="description" content="adb命令小记1、打开adb调试？如何打开开发者模式？如何进入工厂菜单？进入工厂菜单的方式有什么途径？遥控器 debugmenu 进入Android set 全部打开 tcl：setting-&amp;gt;系统信息-&amp;gt;遥控器按方向键上下左右-&amp;gt;ADB开启 3、连接整机进行调试adb connect ip:5555 旋转屏的是1379 4、截图adb shell screencap -p /s">
 <meta name="keywords" content="Android,adb">
 <meta property="og:type" content="article">
 <meta property="og:title" content="adb命令小记">
 <meta property="og:url" content="http://huang-ray.com/2019/07/25/adb命令小记/index.html">
 <meta property="og:site_name" content="lei&#39;s blog site">
-<meta property="og:description" content="adb命令小记1、打开adb调试？如何打开开发者模式？如何进入工厂菜单？进入工厂菜单的方式有什么途径？遥控器 debugmenu 进入Android set 全部打开 3、连接整机进行调试adb connect ip:5555 旋转屏的是1379 4、截图adb shell screencap -p /sdcard/sdkf.jpg 5、将整机系统的一个文件拉取到电脑adb pull /sdcar">
+<meta property="og:description" content="adb命令小记1、打开adb调试？如何打开开发者模式？如何进入工厂菜单？进入工厂菜单的方式有什么途径？遥控器 debugmenu 进入Android set 全部打开 tcl：setting-&amp;gt;系统信息-&amp;gt;遥控器按方向键上下左右-&amp;gt;ADB开启 3、连接整机进行调试adb connect ip:5555 旋转屏的是1379 4、截图adb shell screencap -p /s">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-12-10T17:25:34.188Z">
+<meta property="og:updated_time" content="2021-09-02T05:44:15.580Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="adb命令小记">
-<meta name="twitter:description" content="adb命令小记1、打开adb调试？如何打开开发者模式？如何进入工厂菜单？进入工厂菜单的方式有什么途径？遥控器 debugmenu 进入Android set 全部打开 3、连接整机进行调试adb connect ip:5555 旋转屏的是1379 4、截图adb shell screencap -p /sdcard/sdkf.jpg 5、将整机系统的一个文件拉取到电脑adb pull /sdcar">
+<meta name="twitter:description" content="adb命令小记1、打开adb调试？如何打开开发者模式？如何进入工厂菜单？进入工厂菜单的方式有什么途径？遥控器 debugmenu 进入Android set 全部打开 tcl：setting-&amp;gt;系统信息-&amp;gt;遥控器按方向键上下左右-&amp;gt;ADB开启 3、连接整机进行调试adb connect ip:5555 旋转屏的是1379 4、截图adb shell screencap -p /s">
 
 
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
@@ -139,6 +139,7 @@
     
             <div class="post-content">
             <h1 id="adb命令小记"><a href="#adb命令小记" class="headerlink" title="adb命令小记"></a>adb命令小记</h1><h4 id="1、打开adb调试？如何打开开发者模式？如何进入工厂菜单？进入工厂菜单的方式有什么途径？"><a href="#1、打开adb调试？如何打开开发者模式？如何进入工厂菜单？进入工厂菜单的方式有什么途径？" class="headerlink" title="1、打开adb调试？如何打开开发者模式？如何进入工厂菜单？进入工厂菜单的方式有什么途径？"></a>1、打开adb调试？如何打开开发者模式？如何进入工厂菜单？进入工厂菜单的方式有什么途径？</h4><pre><code>遥控器 debugmenu 进入Android set 全部打开
+tcl：setting-&gt;系统信息-&gt;遥控器按方向键上下左右-&gt;ADB开启
 </code></pre><h4 id="3、连接整机进行调试"><a href="#3、连接整机进行调试" class="headerlink" title="3、连接整机进行调试"></a>3、连接整机进行调试</h4><pre><code>adb connect ip:5555 旋转屏的是1379
 </code></pre><h4 id="4、截图"><a href="#4、截图" class="headerlink" title="4、截图"></a>4、截图</h4><pre><code>adb shell screencap -p /sdcard/sdkf.jpg
 </code></pre><h4 id="5、将整机系统的一个文件拉取到电脑"><a href="#5、将整机系统的一个文件拉取到电脑" class="headerlink" title="5、将整机系统的一个文件拉取到电脑"></a>5、将整机系统的一个文件拉取到电脑</h4><pre><code>adb pull /sdcard/sdkf.jpg /Users/lei/downloads
