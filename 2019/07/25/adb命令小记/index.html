@@ -43,7 +43,7 @@
 <meta property="og:site_name" content="lei&#39;s blog site">
 <meta property="og:description" content="adb命令小记1、打开adb调试？如何打开开发者模式？如何进入工厂菜单？进入工厂菜单的方式有什么途径？遥控器 debugmenu 进入Android set 全部打开 tcl：setting-&amp;gt;系统信息-&amp;gt;遥控器按方向键上下左右-&amp;gt;ADB开启 3、连接整机进行调试adb connect ip:5555 旋转屏的是1379 4、截图adb shell screencap -p /s">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-09-02T05:44:15.580Z">
+<meta property="og:updated_time" content="2021-09-08T08:36:07.266Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="adb命令小记">
 <meta name="twitter:description" content="adb命令小记1、打开adb调试？如何打开开发者模式？如何进入工厂菜单？进入工厂菜单的方式有什么途径？遥控器 debugmenu 进入Android set 全部打开 tcl：setting-&amp;gt;系统信息-&amp;gt;遥控器按方向键上下左右-&amp;gt;ADB开启 3、连接整机进行调试adb connect ip:5555 旋转屏的是1379 4、截图adb shell screencap -p /s">
@@ -179,7 +179,9 @@ adb remount
 adb shell
 cd /system/app/
 rm -rf PinyinIME/
-</code></pre><h4 id="21-重启adb"><a href="#21-重启adb" class="headerlink" title="21 重启adb"></a>21 重启adb</h4><pre><code>adb kill-server 再任意命令启动adb
+</code></pre><h4 id="21-重启adb"><a href="#21-重启adb" class="headerlink" title="21 重启adb"></a>21 重启adb</h4><pre><code>killall-adb 直接关掉 一般这样就行了
+
+adb kill-server 再任意命令启动adb
 或者
 mac下直接打开活动监视器 搜索adb强制关闭
 </code></pre><h4 id="22-对某一模拟器执行命令："><a href="#22-对某一模拟器执行命令：" class="headerlink" title="22 对某一模拟器执行命令："></a>22 对某一模拟器执行命令：</h4><pre><code>adb [-d|-e|-s ]
