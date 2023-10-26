@@ -12,12 +12,10 @@
 
 
 
-  <meta name="description" content="TV项目使用mavericks,epoxy">
+  <meta name="description" content="mac好用软件记录">
 
 
 
-
-  <meta name="keywords" content="android,mavericks,epoxy,">
 
 
 
@@ -32,21 +30,20 @@
 
 
 
-<link rel="canonical" href="https://autumnlei.github.io/2022/04/10/基于Mavericks-Epoxy组件的Android项目搭建流程/">
+<link rel="canonical" href="https://autumnlei.github.io/2023/10/27/mac好用软件记录/">
 
 
-<meta name="description" content="mavericks库特点12341、airbnb开源项目，目前最符合mvi设计的框架轮子2、纯kotlin项目，框架是用kotlin写的3、建议使用单activity多fragment设计，不然有些工具类 设计用不了4、需要手写代码特别少，框架会自动在build目录构造很多代码 epoxy库121、基于recycleview的组件，让你用写h5的体验写大部分界面2、可以与leanback组件共用">
-<meta name="keywords" content="android,mavericks,epoxy">
+<meta name="description" content="娱乐类 网易云音乐、QQ音乐 微信、QQ 宽立象棋 Dynamic Wallpaper Google Chrome  工具类 同花顺、东方财富 ClashX、Lantern、V2rayU、ShadowsocksX-NG 宽立象棋 Xmind Text Scanner Keka ImageOptim iMovie 剪辑 Parallels Desktop Mounty DaisyDisk  开发类">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TV项目使用mavericks,epoxy">
-<meta property="og:url" content="https://autumnlei.github.io/2022/04/10/基于Mavericks-Epoxy组件的Android项目搭建流程/index.html">
+<meta property="og:title" content="mac好用软件记录">
+<meta property="og:url" content="https://autumnlei.github.io/2023/10/27/mac好用软件记录/index.html">
 <meta property="og:site_name" content="lei&#39;s blog site">
-<meta property="og:description" content="mavericks库特点12341、airbnb开源项目，目前最符合mvi设计的框架轮子2、纯kotlin项目，框架是用kotlin写的3、建议使用单activity多fragment设计，不然有些工具类 设计用不了4、需要手写代码特别少，框架会自动在build目录构造很多代码 epoxy库121、基于recycleview的组件，让你用写h5的体验写大部分界面2、可以与leanback组件共用">
+<meta property="og:description" content="娱乐类 网易云音乐、QQ音乐 微信、QQ 宽立象棋 Dynamic Wallpaper Google Chrome  工具类 同花顺、东方财富 ClashX、Lantern、V2rayU、ShadowsocksX-NG 宽立象棋 Xmind Text Scanner Keka ImageOptim iMovie 剪辑 Parallels Desktop Mounty DaisyDisk  开发类">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-09-09T07:46:14.810Z">
+<meta property="og:updated_time" content="2023-10-26T19:10:09.946Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TV项目使用mavericks,epoxy">
-<meta name="twitter:description" content="mavericks库特点12341、airbnb开源项目，目前最符合mvi设计的框架轮子2、纯kotlin项目，框架是用kotlin写的3、建议使用单activity多fragment设计，不然有些工具类 设计用不了4、需要手写代码特别少，框架会自动在build目录构造很多代码 epoxy库121、基于recycleview的组件，让你用写h5的体验写大部分界面2、可以与leanback组件共用">
+<meta name="twitter:title" content="mac好用软件记录">
+<meta name="twitter:description" content="娱乐类 网易云音乐、QQ音乐 微信、QQ 宽立象棋 Dynamic Wallpaper Google Chrome  工具类 同花顺、东方财富 ClashX、Lantern、V2rayU、ShadowsocksX-NG 宽立象棋 Xmind Text Scanner Keka ImageOptim iMovie 剪辑 Parallels Desktop Mounty DaisyDisk  开发类">
 
 
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
@@ -79,7 +76,7 @@
 </script>
 
 
-    <title> TV项目使用mavericks,epoxy - lei's blog site </title>
+    <title> mac好用软件记录 - lei's blog site </title>
   </head>
 
   <body>
@@ -125,12 +122,12 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          TV项目使用mavericks,epoxy
+          mac好用软件记录
         
       </h1>
 
       <time class="post-time">
-          4月 10 2022
+          10月 27 2023
       </time>
     </header>
 
@@ -138,39 +135,53 @@
 
     
             <div class="post-content">
-            <h3 id="mavericks库特点"><a href="#mavericks库特点" class="headerlink" title="mavericks库特点"></a>mavericks库特点</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、airbnb开源项目，目前最符合mvi设计的框架轮子</span><br><span class="line">2、纯kotlin项目，框架是用kotlin写的</span><br><span class="line">3、建议使用单activity多fragment设计，不然有些工具类 设计用不了</span><br><span class="line">4、需要手写代码特别少，框架会自动在build目录构造很多代码</span><br></pre></td></tr></table></figure>
-<h3 id="epoxy库"><a href="#epoxy库" class="headerlink" title="epoxy库"></a>epoxy库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1、基于recycleview的组件，让你用写h5的体验写大部分界面</span><br><span class="line">2、可以与leanback组件共用</span><br></pre></td></tr></table></figure>
-<h3 id="新项目怎么导入mavericks和epoxy"><a href="#新项目怎么导入mavericks和epoxy" class="headerlink" title="新项目怎么导入mavericks和epoxy"></a>新项目怎么导入mavericks和epoxy</h3>
+            <h1 id="娱乐类"><a href="#娱乐类" class="headerlink" title="娱乐类"></a>娱乐类</h1><ol>
+<li>网易云音乐、QQ音乐</li>
+<li>微信、QQ</li>
+<li>宽立象棋</li>
+<li>Dynamic Wallpaper</li>
+<li>Google Chrome</li>
+</ol>
+<h1 id="工具类"><a href="#工具类" class="headerlink" title="工具类"></a>工具类</h1><ol>
+<li>同花顺、东方财富</li>
+<li>ClashX、Lantern、V2rayU、ShadowsocksX-NG</li>
+<li>宽立象棋</li>
+<li>Xmind</li>
+<li>Text Scanner</li>
+<li>Keka</li>
+<li>ImageOptim</li>
+<li>iMovie 剪辑</li>
+<li>Parallels Desktop</li>
+<li>Mounty</li>
+<li>DaisyDisk</li>
+</ol>
+<h1 id="开发类"><a href="#开发类" class="headerlink" title="开发类"></a>开发类</h1><ol>
+<li>Android Studio、IntelliJ IDEA CE</li>
+<li>Wireshark</li>
+<li>SwitchHosts!</li>
+<li>Sublime Text</li>
+<li>Sourcetrail</li>
+<li>Docker</li>
+<li>Postman</li>
+<li>Navicat Premium</li>
+<li>Jeb</li>
+<li>Iterm、on my zsh、go2shell</li>
+</ol>
+
             </div>
           
 
     
       <footer class="post-footer">
 		
-		<div class="post-tags">
-		  
-			<a href="/tags/android/">android</a>
-		  
-			<a href="/tags/mavericks/">mavericks</a>
-		  
-			<a href="/tags/epoxy/">epoxy</a>
-		  
-		</div>
-		
 
         
         
   <nav class="post-nav">
     
-      <a class="prev" href="/2023/10/26/Android开发我需要注意的一些规范/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">Android开发需要注意的一些规范</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
     
-    
-      <a class="next" href="/2021/09/13/mac安装sourcetrail/">
-        <span class="next-text nav-default">mac安装sourcetrail</span>
+      <a class="next" href="/2023/10/27/排序算法-快排、堆排/">
+        <span class="next-text nav-default">排序算法-快排、堆排</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
@@ -224,9 +235,9 @@
 
 <script type="text/javascript">
   var disqus_shortname = 'www-huang-ray-com';
-  var disqus_identifier = '2022/04/10/基于Mavericks-Epoxy组件的Android项目搭建流程/';
+  var disqus_identifier = '2023/10/27/mac好用软件记录/';
 
-  var disqus_title = "TV项目使用mavericks,epoxy";
+  var disqus_title = "mac好用软件记录";
 
 
   var disqus = {
