@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="动态代理简单示例">
+
+
+
+
+  <meta name="keywords" content="动态代理,Java,">
+
+
+
+
+
+  <link rel="alternate" href="/default" title="lei's blog site">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1">
+
+
+
+<link rel="canonical" href="http://yoursite.com/2023/10/26/动态代理简单示例/">
+
+
+<meta name="description" content="动态代理就是在不修改源码的情况下，运行时动态增强一些方法或者功能 以下是个demo123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869class DynamicProxy &amp;#123;    p">
+<meta name="keywords" content="动态代理,Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="动态代理简单示例">
+<meta property="og:url" content="http://yoursite.com/2023/10/26/动态代理简单示例/index.html">
+<meta property="og:site_name" content="lei&#39;s blog site">
+<meta property="og:description" content="动态代理就是在不修改源码的情况下，运行时动态增强一些方法或者功能 以下是个demo123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869class DynamicProxy &amp;#123;    p">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-10-26T14:59:50.652Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="动态代理简单示例">
+<meta name="twitter:description" content="动态代理就是在不修改源码的情况下，运行时动态增强一些方法或者功能 以下是个demo123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869class DynamicProxy &amp;#123;    p">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CBV5KZ7LRJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CBV5KZ7LRJ');
+</script>
+
+
+    <title> 动态代理简单示例 - lei's blog site </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">lei's blog site</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          动态代理简单示例
+        
+      </h1>
+
+      <time class="post-time">
+          10月 26 2023
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>动态代理就是在不修改源码的情况下，运行时动态增强一些方法或者功能</p>
+<p>以下是个demo<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">class DynamicProxy &#123;</span><br><span class="line">    public static void main(String[] args) &#123;        // 小韭菜学生类</span><br><span class="line">        Student ordinaryStudents = new OrdinaryStudents();</span><br><span class="line">        ordinaryStudents.eat();</span><br><span class="line">        ordinaryStudents.write();</span><br><span class="line">        // 现在有一位特殊的学生，他是区长的儿子，我们自然要对他额外照顾，要给他加一下功能。</span><br><span class="line">        // 一种思路是定义一个类：区长的儿子类，他继承自学生类，但世上儿子千千万，有区长的儿子，也有市长的儿子，更有省长的儿子，不能把他们挨个定义出来，</span><br><span class="line">        // 现在就可以使用动态代理机制，动态的给区长的儿子加上功能，以后碰到市长、省长的儿子也同样处理。</span><br><span class="line">        // InvocationHandler作用就是，当代理对象的原本方法被调用的时候，会重定向到一个方法，</span><br><span class="line">        // 这个方法就是InvocationHandler里面定义的内容，同时会替代原本方法的结果返回。</span><br><span class="line">        // InvocationHandler接收三个参数：proxy，代理后的实例对象。 method，对象被调用方法。args，调用时的参数。</span><br><span class="line">        InvocationHandler handler = (proxy, method, handlerArgs) -&gt; &#123;</span><br><span class="line">            // 从定义eat方法。</span><br><span class="line">            if (&quot;eat&quot;.equals(method.getName())) &#123;</span><br><span class="line">                System.out.println(&quot;我可以吃香喝辣！&quot;);</span><br><span class="line">                return null;</span><br><span class="line">            &#125;</span><br><span class="line">            // 从定义write方法。</span><br><span class="line">            if (&quot;write&quot;.equals(method.getName())) &#123;</span><br><span class="line">                System.out.println(&quot;我的作文题目是《我的区长父亲》。&quot;);</span><br><span class="line">                // 调用普通学生类的write方法，流程还是要走的，还是要交一篇作文上去，不能太明目张胆。</span><br><span class="line">                method.invoke(ordinaryStudents, handlerArgs);</span><br><span class="line">                System.out.println(&quot;我的作文拿了区作文竞赛一等奖！so easy!&quot;);</span><br><span class="line">                return null;</span><br><span class="line">            &#125;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;;</span><br><span class="line">        // 对这个实例对象代理生成一个代理对象。</span><br><span class="line">        // 被代理后生成的对象，是通过People接口的字节码增强方式创建的类而构造出来的。它是一个临时构造的实现类的对象。</span><br><span class="line">        // loder和interfaces基本就是决定了这个类到底是个怎么样的类。而h是InvocationHandler，决定了这个代理类到底是多了什么功能.</span><br><span class="line">        // 通过这些接口和类加载器，拿到这个代理类class。然后通过反射的技术复制拿到代理类的构造函数，</span><br><span class="line">        // 最后通过这个构造函数new个一对象出来，同时用InvocationHandler绑定这个对象。</span><br><span class="line">        // 最终实现可以在运行的时候才切入改变类的方法，而不需要预先定义它。</span><br><span class="line">        Student sonOfDistrict = (Student) Proxy.newProxyInstance(ordinaryStudents.getClass().getClassLoader(), ordinaryStudents.getClass().getInterfaces(), handler);</span><br><span class="line">        sonOfDistrict.eat();</span><br><span class="line">        sonOfDistrict.write();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 学生接口，能跑，能吃，能写作文。</span><br><span class="line"> */</span><br><span class="line">interface Student &#123;</span><br><span class="line">    void eat();</span><br><span class="line"></span><br><span class="line">    void run();</span><br><span class="line"></span><br><span class="line">    void write();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 小韭菜，能跑，能吃，能写作文。</span><br><span class="line"> */</span><br><span class="line">class OrdinaryStudents implements Student &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void eat() &#123;</span><br><span class="line">        System.out.println(&quot;我在吃饭！&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        System.out.println(&quot;我在跑步！&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void write() &#123;</span><br><span class="line">        System.out.println(&quot;我在写作文!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/动态代理/">动态代理</a>
+		  
+			<a href="/tags/Java/">Java</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2023/10/26/Android开发我需要注意的一些规范/">
+        <span class="next-text nav-default">Android开发我需要注意的一些规范</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+    <div style="text-align:center;">
+        <button class="btn" id="load-disqus" onclick="disqus.load();">加载 Disqus 评论</button>
+    </div>
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2023
+    <span class="footer-author">lei.</span>
+    <span class="power-by">
+        Powered by Hexo and Polar Bear
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+<script type="text/javascript">
+  var disqus_shortname = 'www-huang-ray-com';
+  var disqus_identifier = '2023/10/26/动态代理简单示例/';
+
+  var disqus_title = "动态代理简单示例";
+
+
+  var disqus = {
+    load : function disqus(){
+        if(typeof DISQUS !== 'object') {
+          (function () {
+          var s = document.createElement('script'); s.async = true;
+          s.type = 'text/javascript';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+          }());
+          $('#load-disqus').remove(); ///加载后移除按钮
+        }
+    }
+  }
+
+  
+    var disqus_config = function () {
+        this.page.url = disqus_url;
+        this.page.identifier = disqus_identifier;
+        this.page.title = disqus_title;
+    };
+  
+
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
