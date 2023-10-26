@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="Android开发我需要注意的一些规范">
+
+
+
+
+  <meta name="keywords" content="Android,开发规范,">
+
+
+
+
+
+  <link rel="alternate" href="/default" title="lei's blog site">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1">
+
+
+
+<link rel="canonical" href="http://huang-ray.com/2023/10/26/Android开发我需要注意的一些规范/">
+
+
+<meta name="description" content="【建议】在Activity中显示对话框或弹出浮层时，尽量使用DialogFragment，而非Dialog/AlertDialog，这样便于随Activity生命周期管理对话框/弹出浮层的生命周期。 【推荐】文本大小使用单位dp，view大小使用单位dp。对于Textview，如果在文字大小确定的情况下推荐使用wrap_content布局避免出现文字显示不全的适配问题。 说明：之所以文本大小也推荐">
+<meta name="keywords" content="Android,开发规范">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android开发我需要注意的一些规范">
+<meta property="og:url" content="http://huang-ray.com/2023/10/26/Android开发我需要注意的一些规范/index.html">
+<meta property="og:site_name" content="lei&#39;s blog site">
+<meta property="og:description" content="【建议】在Activity中显示对话框或弹出浮层时，尽量使用DialogFragment，而非Dialog/AlertDialog，这样便于随Activity生命周期管理对话框/弹出浮层的生命周期。 【推荐】文本大小使用单位dp，view大小使用单位dp。对于Textview，如果在文字大小确定的情况下推荐使用wrap_content布局避免出现文字显示不全的适配问题。 说明：之所以文本大小也推荐">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-10-26T14:19:19.580Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android开发我需要注意的一些规范">
+<meta name="twitter:description" content="【建议】在Activity中显示对话框或弹出浮层时，尽量使用DialogFragment，而非Dialog/AlertDialog，这样便于随Activity生命周期管理对话框/弹出浮层的生命周期。 【推荐】文本大小使用单位dp，view大小使用单位dp。对于Textview，如果在文字大小确定的情况下推荐使用wrap_content布局避免出现文字显示不全的适配问题。 说明：之所以文本大小也推荐">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CBV5KZ7LRJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CBV5KZ7LRJ');
+</script>
+
+
+    <title> Android开发我需要注意的一些规范 - lei's blog site </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">lei's blog site</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Android开发我需要注意的一些规范
+        
+      </h1>
+
+      <time class="post-time">
+          10月 26 2023
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>【建议】在Activity中显示对话框或弹出浮层时，尽量使用DialogFragment，而非Dialog/AlertDialog，这样便于随Activity生命周期管理对话框/弹出浮层的生命周期。</p>
+<p>【推荐】文本大小使用单位dp，view大小使用单位dp。对于Textview，如果在文字大小确定的情况下推荐使用wrap_content布局避免出现文字显示不全的适配问题。</p>
+<p>说明：之所以文本大小也推荐使用dp而非sp，因为sp是Android早期推荐使用的，但其实sp不仅和dp一样受屏幕密度的影响，还受到系统设置里字体大小的影响，所以使用dp对于应用开发会更加保证UI的一致性和还原度。</p>
+<p>【推荐】在需要时刻刷新某一区域的组件时，建议通过以下方式避免引发全局layout刷新:</p>
+<p>（1）设置固定的view大小的高宽，如倒计时组件等；</p>
+<p>（2）调用view的layout方式修改位置，如弹幕组件等;</p>
+<p>（3)通过修改canvas位置并且调用invalidate(int l, int t, int r, int b)等方式限定刷新区域；</p>
+<p>（4）通过设置一个是否允许requestLayout的变量，然后重写控件的requestlayout、onSizeChanged方法，判断控件的大小没有改变的情况下，当进入requestLayout的时候，直接返回而不调用super的requestLayout方法。</p>
+<p>【强制】在Application的业务初始化代码加入进程判断，确保只在自己需要的进程初始化。特别是后台进程减少不必要的业务初始化。</p>
+<p>【建议】新建线程时，定义能识别自己业务的线程名称，便于性能优化和问题排查。</p>
+<p>【强制】应用间共享文件时，不要通过放宽文件系统权限的方式去实现，而应使用FileProvider。</p>
+<p>【强制】执行SQL语句时，应使用SQLiteDatabase#insert()、update()、delete()，不要使用SQLiteDatabase#execSQL()，以免SQL注入风险。</p>
+<p>【参考】大图片资源不要直接打包到apk，可以考虑通过文件仓库远程下载，减小包体积。</p>
+<p>【强制】WebView 应设置 WebView#getSettings()#setAllowFileAccess(false)、WebView#getSettings()#setAllowFileAccessFromFileURLs(false)、WebView#getSettings()#setAllowUniversalAccessFromFileURLs(false)，阻止 file scheme URL 的访问。</p>
+<p>【强制】Android APP在HTTPS通信中，验证策略需要改成严格模式。<br>说明：Android APP在HTTPS通信中，使用ALLOW_ALL_HOSTNAME_VERIFIER，表示允许和所有的HOST建立SSL通信，这会存在中间人攻击的风险，最终导致敏感信息可能会被劫持，以及其他形式的攻击。</p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/Android/">Android</a>
+		  
+			<a href="/tags/开发规范/">开发规范</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2022/04/10/基于Mavericks-Epoxy组件的Android项目搭建流程/">
+        <span class="next-text nav-default">TV项目使用mavericks,epoxy</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+    <div style="text-align:center;">
+        <button class="btn" id="load-disqus" onclick="disqus.load();">加载 Disqus 评论</button>
+    </div>
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2023
+    <span class="footer-author">lei.</span>
+    <span class="power-by">
+        Powered by Hexo and Polar Bear
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+<script type="text/javascript">
+  var disqus_shortname = 'www-huang-ray-com';
+  var disqus_identifier = '2023/10/26/Android开发我需要注意的一些规范/';
+
+  var disqus_title = "Android开发我需要注意的一些规范";
+
+
+  var disqus = {
+    load : function disqus(){
+        if(typeof DISQUS !== 'object') {
+          (function () {
+          var s = document.createElement('script'); s.async = true;
+          s.type = 'text/javascript';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+          }());
+          $('#load-disqus').remove(); ///加载后移除按钮
+        }
+    }
+  }
+
+  
+    var disqus_config = function () {
+        this.page.url = disqus_url;
+        this.page.identifier = disqus_identifier;
+        this.page.title = disqus_title;
+    };
+  
+
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
