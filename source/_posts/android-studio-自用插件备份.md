@@ -42,6 +42,8 @@ tags:
 ### SourceTrail
 	代码可视化插件
 
+### Rainbow Brackets
+	括号彩色化 看着舒服
 
 
 

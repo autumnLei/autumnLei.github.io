@@ -13,7 +13,7 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://huang-ray.com
+url: https://autumnlei.github.io
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -79,7 +79,7 @@ theme: polarbear
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repository: https://github.com/autumnLei/autumnlei.github.io.git
+  repository: git@github.com:autumnLei/autumnlei.github.io.git
   branch: master
 
 # 字数统计

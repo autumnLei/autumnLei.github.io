@@ -9,6 +9,7 @@ tags:
 # adb命令小记
 #### 1、打开adb调试？如何打开开发者模式？如何进入工厂菜单？进入工厂菜单的方式有什么途径？
 	遥控器 debugmenu 进入Android set 全部打开
+	tcl：setting->系统信息->遥控器按方向键上下左右->ADB开启
 #### 3、连接整机进行调试
 	adb connect ip:5555 旋转屏的是1379
 #### 4、截图
@@ -65,6 +66,8 @@ adb shell setprop [key] [value]
 	cd /system/app/
 	rm -rf PinyinIME/
 #### 21 重启adb
+	killall-adb 直接关掉 一般这样就行了
+
 	adb kill-server 再任意命令启动adb
 	或者
 	mac下直接打开活动监视器 搜索adb强制关闭

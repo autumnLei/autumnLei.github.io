@@ -12,14 +12,14 @@ tags:
 
 - u 表示该文件的拥有者，g 表示与该文件的拥有者属于同一个群体(group)者，o 表示其他以外的人，a 表示这三者皆是。
 	把file.txt设置为所有人可读的两种写法
-	```
+	```shell
 	chmod ugo+r file.txt
 	chmod a+r file.txt
 	```
 
 - r 表示可读取，w 表示可写入，x 表示可执行，X 只有在文件是目录或对一些用户已经有执行权限的时候执行/搜索？
 	新建test.sh想执行时
-	```
+	```shell
 	chmod +x test.sh
 	```
 

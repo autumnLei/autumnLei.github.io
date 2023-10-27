@@ -3,7 +3,7 @@ title: 一次性操作所有git目录
 date: 2019-09-02 14:56:31
 tags:
 - git
-- Android
+- android
 ---
 
 ### 首先cd到根目录

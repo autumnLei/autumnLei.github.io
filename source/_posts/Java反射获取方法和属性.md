@@ -1,19 +1,21 @@
 ---
 title: Java反射获取方法和属性
 date: 2019-05-02 00:53:04
+toc: true
 tags:
 - java
 ---
-获取方法
-getMethod（String name, Class<?>... parameterTypes) 返回类中的某个公共方法-包括父类中的公共方法
-getMethods（）返回方法数组 下同
-getDeclaredMethod（String name, Class<?>... parameterTypes) 返回类中所有方法-包括私有方法<!-- more -->
+# 获取方法
+> getMethod（String name, Class<?>... parameterTypes) 返回类中的某个公共方法-包括父类中的公共方法
+> getMethods（）返回方法数组 下同
+> getDeclaredMethod（String name, Class<?>... parameterTypes) 返回类中所有方法-包括私有方法<!-- more -->
 
-获取属性
-getField(String name) 返回pubilc属性- 包括父类
-getFields() 返回属性数组 下同
-getDeclaredField（String name）返回所有属性-不包括父类
-```
+# 获取属性
+> getField(String name) 返回pubilc属性- 包括父类
+> getFields() 返回属性数组 下同
+> getDeclaredField（String name）返回所有属性-不包括父类
+
+```java
 //default包中的Test03类
 public class Test03 {
     
@@ -33,7 +35,7 @@ public class Test03 {
 }
 ```
 
-```
+```java
 package lei;
  
 import java.lang.reflect.Field;
