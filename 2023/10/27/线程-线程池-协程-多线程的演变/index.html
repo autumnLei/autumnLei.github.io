@@ -12,12 +12,12 @@
 
 
 
-  <meta name="description" content="java、jvm回收器、ART重要版本及特性">
+  <meta name="description" content="线程>线程池>协程 多线程的演变">
 
 
 
 
-  <meta name="keywords" content="java,jvm,ART,">
+  <meta name="keywords" content="线程,线程池,协程,">
 
 
 
@@ -32,26 +32,25 @@
 
 
 
-<link rel="canonical" href="https://autumnlei.github.io/2023/10/27/java、jvm回收器、ART重要版本及特性/">
+<link rel="canonical" href="https://autumnlei.github.io/2023/10/27/线程-线程池-协程-多线程的演变/">
 
 
-<meta name="description" content="java版本时间线    java版本特性    jvm及回收器版本    Android虚拟机版本    https://mp.weixin.qq.com/s/YPJ-sfx04-fOGt4WuPDwIQ">
-<meta name="keywords" content="java,jvm,ART">
+<meta name="description" content="线程简单使用   MyThread extends Thread 实现run方法 new MyThread().start();     MyRunnable implements Runnable 实现run方法 new Thread(new MyRunnable()).start();     通过Future   线程池-享元模式  通过池化技术重复利用线程！！！ 以上四种都不建议使用、建议">
+<meta name="keywords" content="线程,线程池,协程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java、jvm回收器、ART重要版本及特性">
-<meta property="og:url" content="https://autumnlei.github.io/2023/10/27/java、jvm回收器、ART重要版本及特性/index.html">
+<meta property="og:title" content="线程&gt;线程池&gt;协程 多线程的演变">
+<meta property="og:url" content="https://autumnlei.github.io/2023/10/27/线程-线程池-协程-多线程的演变/index.html">
 <meta property="og:site_name" content="lei&#39;s blog site">
-<meta property="og:description" content="java版本时间线    java版本特性    jvm及回收器版本    Android虚拟机版本    https://mp.weixin.qq.com/s/YPJ-sfx04-fOGt4WuPDwIQ">
+<meta property="og:description" content="线程简单使用   MyThread extends Thread 实现run方法 new MyThread().start();     MyRunnable implements Runnable 实现run方法 new Thread(new MyRunnable()).start();     通过Future   线程池-享元模式  通过池化技术重复利用线程！！！ 以上四种都不建议使用、建议">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://autumnlei.github.io/2023/10/27/java、jvm回收器、ART重要版本及特性/java_version.png">
-<meta property="og:image" content="https://autumnlei.github.io/2023/10/27/java、jvm回收器、ART重要版本及特性/java_特性.png">
-<meta property="og:image" content="https://autumnlei.github.io/2023/10/27/java、jvm回收器、ART重要版本及特性/gc.png">
-<meta property="og:image" content="https://autumnlei.github.io/2023/10/27/java、jvm回收器、ART重要版本及特性/安卓虚拟机.png">
-<meta property="og:updated_time" content="2023-10-27T12:41:43.649Z">
+<meta property="og:image" content="https://autumnlei.github.io/2023/10/27/线程-线程池-协程-多线程的演变/pool.png">
+<meta property="og:image" content="https://autumnlei.github.io/2023/10/27/线程-线程池-协程-多线程的演变/coroutines.png">
+<meta property="og:image" content="https://autumnlei.github.io/2023/10/27/线程-线程池-协程-多线程的演变/coroutine_.awebp">
+<meta property="og:updated_time" content="2023-10-27T15:33:15.612Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java、jvm回收器、ART重要版本及特性">
-<meta name="twitter:description" content="java版本时间线    java版本特性    jvm及回收器版本    Android虚拟机版本    https://mp.weixin.qq.com/s/YPJ-sfx04-fOGt4WuPDwIQ">
-<meta name="twitter:image" content="https://autumnlei.github.io/2023/10/27/java、jvm回收器、ART重要版本及特性/java_version.png">
+<meta name="twitter:title" content="线程&gt;线程池&gt;协程 多线程的演变">
+<meta name="twitter:description" content="线程简单使用   MyThread extends Thread 实现run方法 new MyThread().start();     MyRunnable implements Runnable 实现run方法 new Thread(new MyRunnable()).start();     通过Future   线程池-享元模式  通过池化技术重复利用线程！！！ 以上四种都不建议使用、建议">
+<meta name="twitter:image" content="https://autumnlei.github.io/2023/10/27/线程-线程池-协程-多线程的演变/pool.png">
 
 
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
@@ -84,7 +83,7 @@
 </script>
 
 
-    <title> java、jvm回收器、ART重要版本及特性 - lei's blog site </title>
+    <title> 线程>线程池>协程 多线程的演变 - lei's blog site </title>
   </head>
 
   <body>
@@ -130,7 +129,7 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          java、jvm回收器、ART重要版本及特性
+          线程>线程池>协程 多线程的演变
         
       </h1>
 
@@ -143,24 +142,43 @@
 
     
             <div class="post-content">
-            <blockquote>
-<p>java版本时间线</p>
-</blockquote>
-<p><img src="/2023/10/27/java、jvm回收器、ART重要版本及特性/java_version.png" alt></p>
+            <p>线程简单使用</p>
 <blockquote>
-<p>java版本特性</p>
+<ol>
+<li>MyThread extends Thread 实现run方法 new MyThread().start();</li>
+</ol>
 </blockquote>
-<p><img src="/2023/10/27/java、jvm回收器、ART重要版本及特性/java_特性.png" alt></p>
 <blockquote>
-<p>jvm及回收器版本</p>
+<ol start="2">
+<li>MyRunnable implements Runnable 实现run方法 new Thread(new MyRunnable()).start();</li>
+</ol>
 </blockquote>
-<p><img src="/2023/10/27/java、jvm回收器、ART重要版本及特性/gc.png" alt></p>
 <blockquote>
-<p>Android虚拟机版本</p>
+<ol start="3">
+<li>通过Future</li>
+</ol>
 </blockquote>
-<p><img src="/2023/10/27/java、jvm回收器、ART重要版本及特性/安卓虚拟机.png" alt></p>
+<p>线程池-享元模式</p>
+<blockquote>
+<p>通过池化技术重复利用线程<br><img src="/2023/10/27/线程-线程池-协程-多线程的演变/pool.png" alt><br>！！！ 以上四种都不建议使用、建议通过ThreadPoolExecutor()根据需求定制<br>定制时coreSize选择问题：</p>
+<ol>
+<li>cpu密集型 系统cpu内核数量加一 n+1 （+1是为了容错，在某线程异常时顶上）</li>
+<li>io型 2 * n （这里假设io耗时占总耗时一半，如果更高按比例提升系数）</li>
+</ol>
+</blockquote>
+<p>协程</p>
+<blockquote>
+<p>进程是系统资源分配的最小单位，线程是系统资源调度的最小单位<br>协程就是为了更充分调动资源，在线程池基础上对task进行调度管理<br><img src="/2023/10/27/线程-线程池-协程-多线程的演变/coroutines.png" alt><br><img src="/2023/10/27/线程-线程池-协程-多线程的演变/coroutine_.awebp" alt></p>
+</blockquote>
 <ul>
-<li><a href="https://mp.weixin.qq.com/s/YPJ-sfx04-fOGt4WuPDwIQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/YPJ-sfx04-fOGt4WuPDwIQ</a></li>
+<li><blockquote>
+<p>美团技术<a href="https://tech.meituan.com/2020/04/02/java-pooling-pratice-in-meituan.html" target="_blank" rel="noopener">https://tech.meituan.com/2020/04/02/java-pooling-pratice-in-meituan.html</a></p>
+</blockquote>
+</li>
+<li><blockquote>
+<p><a href="https://leo-wxy.github.io/2020/09/04/Kotlin%E5%8D%8F%E7%A8%8B%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener">https://leo-wxy.github.io/2020/09/04/Kotlin%E5%8D%8F%E7%A8%8B%E5%8E%9F%E7%90%86/</a></p>
+</blockquote>
+</li>
 </ul>
 
             </div>
@@ -171,11 +189,11 @@
 		
 		<div class="post-tags">
 		  
-			<a href="/tags/java/">java</a>
+			<a href="/tags/线程/">线程</a>
 		  
-			<a href="/tags/jvm/">jvm</a>
+			<a href="/tags/线程池/">线程池</a>
 		  
-			<a href="/tags/ART/">ART</a>
+			<a href="/tags/协程/">协程</a>
 		  
 		</div>
 		
@@ -184,15 +202,9 @@
         
   <nav class="post-nav">
     
-      <a class="prev" href="/2023/10/27/一种devops实现方案/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">一种devops实现方案</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
     
-    
-      <a class="next" href="/2023/10/26/动态代理简单示例/">
-        <span class="next-text nav-default">动态代理简单示例</span>
+      <a class="next" href="/2023/10/27/mac好用软件记录/">
+        <span class="next-text nav-default">mac好用软件记录</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
@@ -246,9 +258,9 @@
 
 <script type="text/javascript">
   var disqus_shortname = 'www-huang-ray-com';
-  var disqus_identifier = '2023/10/27/java、jvm回收器、ART重要版本及特性/';
+  var disqus_identifier = '2023/10/27/线程-线程池-协程-多线程的演变/';
 
-  var disqus_title = "java、jvm回收器、ART重要版本及特性";
+  var disqus_title = "线程>线程池>协程 多线程的演变";
 
 
   var disqus = {
