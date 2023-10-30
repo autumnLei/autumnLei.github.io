@@ -1,0 +1,76 @@
+【建议】新建线程时，定义能识别自己业务的线程名称，便于性能优化和问题排查。
+
+【强制】应用间共享文件时，不要通过放宽文件系统权限的方式去实现，而应使用FileProvider。
+
+【强制】执行SQL语句时，应使用SQLiteDatabase#insert()、update()、delete()，不要使用SQLiteDatabase#execSQL()，以免SQL注入风险。
+
+【参考】大图片资源不要直接打包到apk，可以考虑通过文件仓库远程下载，减小包体积。
+
+【强制】WebView 应设置 WebView#getSettings()#setAllowFileAccess(false)、WebView#getSettings()#setAllowFileAccessFromFileURLs(false)、WebView#getSettings()#setAllowUniversalAccessFromFileURLs(false)，阻止 file scheme URL 的访问。
+【强制】Android APP在HTTPS通信中，验证策略需要改成严格模式。
+说明：Android APP在HTTPS通信中，使用ALLOW_ALL_HOSTNAME_VERIFIER，表示允许和所有的HOST建立SSL通信，这会存在中间人攻击的风险，最终导致敏感信息可能会被劫持，以及其他形式的攻击。
+
+
+Rainbow Brackets AS插件
+
+第一天 10/24：
+	领取电脑、配置环境 安装AS插件 ADB命令等常用工具、看新人培训资料
+第二天：
+	拉取项目、试运行、做安全意识考试、了解Aone antCode ata等平台、看quinox框架大致原理
+第三天：
+	看Android开发规范文档、看quinox框架大致原理
+第三天：
+	看三个库的逻辑实现
+	● living-build 
+	● living-dynamic-build 
+	● content-support 
+
+
+
+S4同学 - 能够负责独立的基本研发，线上基本监控等工作，基于师兄系分进行独立完成产研工作；
+S5同学 - 能够负责独立的研发，并且部分参与大项目系分，独立完成小迭代系分和整体研发，自测工作；
+S6同学 - 有一定的小团队管理能力，具备大中项目系分的参与，优秀同学完成整体的系分，能够基于系分指导S4-S5同学的基本研发工作，有小PM协调管理能力；
+
+
+apkDownloadUrl=https://scmcenterclient.cn-hangzhou.alipay.aliyun-inc.com/prod/client/package/2023/08/12/23/64d7a629a91aa30001f5fcca/wallet_test_debug_lineCoverage_20230812233624.apk
+apkPath=/Users/huanglei/Downloads/wallet_test_debug_20231025153824.apk
+
+
+线程->线程池->协程 多线程的演变
+
+
+陈春焘(郑天寿- 内容技术风险 - keep moving)@15:571、后续周会的规定格式：
+
+1— 每人同步自己的本周工作内容，问题，需要的支持，抛风险等 1-3分钟；
+2— 业务的原有的 对应的 负责同学 快速同步业务板块的需求，风险和进展  每人 5分钟；
+3— 本周的一些分享，心得，需要和大家同步的 一些具体业务信息；
+4— 管理的一些信息同步，关键action进展；
+
+
+测试领导 葱珩
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
