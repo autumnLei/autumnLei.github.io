@@ -45,6 +45,8 @@ tags:
 ### Rainbow Brackets
 	括号彩色化 看着舒服
 
+### PlantUML Integration
+    uml类图必备 装完这个安装PlantUML Parser再brew install graphviz重启ide
 
 
 
