@@ -52,15 +52,44 @@ apkPath=/Users/huanglei/Downloads/wallet_test_debug_20231025153824.apk
 新文章 使用 Hierarchy Viewer 分析布局
 
 
+1、经典问题记录
+	怎么画一个浅变半圆
+		1、shape drawable rentangle 设置宽度一半为圆角
+		2、shape drawable oval 加clip drawable裁剪一半
+		3、自定义view
+
+1、超过阈值50%后 停留500ms后震动30ms打开主页 松手回弹不打开
+2、完成引导弹窗回弹动画300ms 根据拉出来比例减短
+ 
+
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:gravity="left">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android"
+            android:shape="oval">
+            <gradient
+                android:angle="0"
+                android:centerColor="#00ffffff"
+                android:startColor="#8cffffff"
+                android:type="linear" />
+        </shape>
+    </item>
+</layer-list>
+
+圆 左边渐变半圆
 
 
 
+1、重复打开主页 yjj
+
+2、直播也打开了主页。 不是问题
 
 
 
+明天写下播放器的流程图
 
-
-
+建议：长按短视频时倍速
 
 
 
