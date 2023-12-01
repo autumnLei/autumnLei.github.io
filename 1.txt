@@ -91,6 +91,141 @@ apkPath=/Users/huanglei/Downloads/wallet_test_debug_20231025153824.apk
 
 建议：长按短视频时倍速
 
+1、皇后九宫格问题
+2、播放器实现无限下滑
+3、播放器怎么缓存的
+4、写一段mediacodoc的简单调用代码
+
+   
+
+APP	业务线
+支付宝	电影票,基础线,network_core,扫码,O2O,当面付,sdk,双12口碑TAb,h5service,猎鹰ARandoird,猎鹰AR,口碑-定位引导,口碑定位,network,口碑SPM埋点,生活圈,社交动态,口碑首页,口碑dtLogMonitor配置,APMultiMedia,口碑业务埋点,客户端升级,社交基础,统一SDK,芝麻信用,付款码,农村金融,搜索,体验,首页动态,财富首页,安全线,十三五首页,到位,朋友,sync,新春红包2016-个人红包,ABTestSDK,登录,猎鹰,财富,android钱包首页,安全,基础SDK,基础SSDK,公益行走捐,跨境o2o,基础框架,客户端SDK,账户安全,猎鹰智能识别平台,beehive-beeviews,口碑,口碑首页导航栏卡券,非银数字证书,首页应用中心,基础业务线,口碑-支付即会员蒙层,口碑搜索,账单详情,余额宝,群直播,转账,钱包首页附近刷新间隔,国际,基础服务,生活应用,钱包首页和应用中心,春节红包配置-sync,h5service.plist,新年红包,businesscommon,无线,微博头像导入,微信头像导入,社交场景-转账,无线安全,商家TAB,网络,群基础,服务窗,globalSearch,MobilePhoneRecharging,全民免费wifi,财富线,BILL,网络通信服务,push,支付宝钱包红包8.3,电量流量熔断开关,红包引导页,publicplatform,commandCenter,统一ID,log,wp8-alipayclient,框架,PROFILE_S
+支付宝香港版	当面付,h5service,sync,基础,基础线,sdk,统一sdk,应用中心,升级
+蚂蚁聚宝	h5_service,安全线,基础,bundle,stock,首页,社区,余额宝
+口碑独立客户端	扫门头,AR街景,口碑直播
+
+
+
+
+下发图片-兼容暗黑模式 待办
+
+a2321.b30205.ca51289.da347702000206534770
+
+
+2023-11-20 06:01:20:676 D/LivingLogger_SharePanelButton:[17269:main] didAppear, position 0, mShouldShowVoiceView is true
+
+06:01:46:760 D/LivingLogger_SharePanelButton:[17269:main] show voice guide position = [0]
+
+2023-11-20 06:02:31:271 D/LivingLogger_SharePanelButton:[17269:main] refreshData###isVoiceOpen():true,position is 1
+2023-11-20 06:02:31:271 D/LivingLogger_SharePanelButton:[17269:main] changeVisible### isVoiceOpen == true, hasCloseTag() == false,mContentIsLive == false
+
+
+2023-11-20 06:02:31:775 D/LivingLogger_SharePanelButton:[17269:main] didAppear, position 1, mShouldShowVoiceView is true
+
+
+
+字号修改
+1、叠加玩法
+
+2、评论面板
+	1 :面板圆角改为32px  done
+    2: 评论对话框改成椭圆形 done
+    
+
+    @Override
+    public void onCollectClick(final boolean isCollected) {
+        if (isCallCollect) {
+            return;
+        }
+        isCallCollect = true;
+        boolean targetCollect = !isCollected;
+        mInputView.getInteractiveView().updateCollect(targetCollect);
+        if (outerInteractiveView != null) {
+            outerInteractiveView.updateCollect(targetCollect);
+        }
+
+        mCommentDataProcessor.onCollectAction(targetCollect, new RpcCallback() {
+            @Override
+            public void onSuccess(String currentContentId) {
+
+            }
+
+            @Override
+            public void onFail() {
+                mInputView.getInteractiveView().updateCollect(isCollected);
+                if (outerInteractiveView != null) {
+                    outerInteractiveView.updateCollect(isCollected);
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                isCallCollect = false;
+            }
+        });
+    }
+
+        @Override
+    public void onCollectClick(final boolean isCollected) {
+        if (isCollectCalling) {
+            return;
+        }
+        isCollectCalling = true;
+        final boolean targetCollect = !isCollected;
+
+        updateCollect2View(targetCollect);
+        // 点击收藏
+        mCommentDataProcessor.onCollectAction(targetCollect, new RpcCallback() {
+            @Override
+            public void onSuccess(String currentContentId) {
+                showCollectTips(currentContentId, targetCollect);
+            }
+
+            @Override
+            public void onFail() {
+                updateCollect2View(!targetCollect);
+            }
+
+            @Override
+            public void onFinish() {
+                isCollectCalling = false;
+            }
+        });
+    }
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
