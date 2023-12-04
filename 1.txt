@@ -194,6 +194,9 @@ a2321.b30205.ca51289.da347702000206534770
     }
 
   
+1、handle执行 loop（根据message.target）->handle#handleMessage
+2、okhttp怎么处理并发请求
+3、简述glide原理
 
 
 
