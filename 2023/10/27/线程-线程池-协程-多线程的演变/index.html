@@ -44,9 +44,10 @@
 <meta property="og:description" content="线程简单使用   MyThread extends Thread 实现run方法 new MyThread().start();     MyRunnable implements Runnable 实现run方法 new Thread(new MyRunnable()).start();     通过Future   线程池-享元模式  通过池化技术重复利用线程！！！ 以上四种都不建议使用、建议">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://autumnlei.github.io/2023/10/27/线程-线程池-协程-多线程的演变/pool.png">
+<meta property="og:image" content="https://autumnlei.github.io/2023/10/27/线程-线程池-协程-多线程的演变/zfb.awebp">
 <meta property="og:image" content="https://autumnlei.github.io/2023/10/27/线程-线程池-协程-多线程的演变/coroutines.png">
 <meta property="og:image" content="https://autumnlei.github.io/2023/10/27/线程-线程池-协程-多线程的演变/coroutine_.awebp">
-<meta property="og:updated_time" content="2023-10-27T15:33:15.612Z">
+<meta property="og:updated_time" content="2023-11-03T14:27:41.453Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="线程&gt;线程池&gt;协程 多线程的演变">
 <meta name="twitter:description" content="线程简单使用   MyThread extends Thread 实现run方法 new MyThread().start();     MyRunnable implements Runnable 实现run方法 new Thread(new MyRunnable()).start();     通过Future   线程池-享元模式  通过池化技术重复利用线程！！！ 以上四种都不建议使用、建议">
@@ -165,11 +166,18 @@
 <li>cpu密集型 系统cpu内核数量加一 n+1 （+1是为了容错，在某线程异常时顶上）</li>
 <li>io型 2 * n （这里假设io耗时占总耗时一半，如果更高按比例提升系数）</li>
 </ol>
+<p>进阶问题：</p>
+<ol start="0">
+<li>大型app有多个线程池场景 - 可按紧急度分类建立多个线程池由hashmap缓存</li>
+<li>大型app在不同场景需要倾斜资源保障流畅，比如打开扫一扫 应该优先执行相关任务</li>
+<li>线程池调度单位是线程，需要更细化的调度</li>
+</ol>
 </blockquote>
 <p>协程</p>
 <blockquote>
-<p>进程是系统资源分配的最小单位，线程是系统资源调度的最小单位<br>协程就是为了更充分调动资源，在线程池基础上对task进行调度管理<br><img src="/2023/10/27/线程-线程池-协程-多线程的演变/coroutines.png" alt><br><img src="/2023/10/27/线程-线程池-协程-多线程的演变/coroutine_.awebp" alt></p>
+<p>进程是系统资源分配的最小单位，线程是系统资源调度的最小单位<br>协程就是为了更充分调动资源，在线程池基础上对task进行调度管理<br>支付宝的协程实现<br><img src="/2023/10/27/线程-线程池-协程-多线程的演变/zfb.awebp" alt></p>
 </blockquote>
+<p>kotlin协程<br><img src="/2023/10/27/线程-线程池-协程-多线程的演变/coroutines.png" alt><br><img src="/2023/10/27/线程-线程池-协程-多线程的演变/coroutine_.awebp" alt></p>
 <ul>
 <li><blockquote>
 <p>美团技术<a href="https://tech.meituan.com/2020/04/02/java-pooling-pratice-in-meituan.html" target="_blank" rel="noopener">https://tech.meituan.com/2020/04/02/java-pooling-pratice-in-meituan.html</a></p>
@@ -177,6 +185,10 @@
 </li>
 <li><blockquote>
 <p><a href="https://leo-wxy.github.io/2020/09/04/Kotlin%E5%8D%8F%E7%A8%8B%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener">https://leo-wxy.github.io/2020/09/04/Kotlin%E5%8D%8F%E7%A8%8B%E5%8E%9F%E7%90%86/</a></p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>支付宝类协程<a href="https://juejin.cn/post/7134633543426113544" target="_blank" rel="noopener">https://juejin.cn/post/7134633543426113544</a></p>
 </blockquote>
 </li>
 </ul>
